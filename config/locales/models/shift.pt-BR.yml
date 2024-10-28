@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      shift: 'Turno'
+    attributes:
+      shift:
+        weekday: 'Dia da semana'
+        opening_time: "Horário de início"
+        closing_time: "Horário de encerramento"
+        restaurant: "Restaurante"
+        weekdays:
+          sunday: "Domingo"
+          monday: "Segunda-feira"
+          tuesday: "Terça-feira"
+          wednesday: "Quarta-feira"
+          thursday: "Quinta-feira"
+          friday: "Sexta-feira"
+          saturday: "Sábado"
+

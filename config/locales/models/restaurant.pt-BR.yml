@@ -1,0 +1,20 @@
+pt-BR:
+  activerecord:
+    models:
+      restaurant: 'Restaurante'
+    attributes:
+      restaurant:
+        registered_name: 'Razão social'
+        cnpj: "CNPJ"
+        trade_name: "Nome fantasia"
+        street_address: "Linha de endereço"
+        city: "Cidade"
+        state: "Estado"
+        zip_code: "CEP"
+        district: "Bairro"
+        code: "Código"
+        phone_number: 'Telefone'
+      restaurant/shifts:
+        closing_time: 'Horário de encerramento'
+
+

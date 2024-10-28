@@ -1,0 +1,59 @@
+<h1>Resultados da busca por: <%=@query%> </h1>
+<p><%=@dishes.length + @beverages.length%> iten(s) encontrado(s)</p>
+
+<div>
+    <h2>Bebidas</h2>
+    <% if @beverages.any? %>
+        <ul>
+            <% @beverages.each do |b| %>
+                <div>
+                    <li id=<%= b.name %>>
+                        <% if current_user == @restaurant.user %>
+                            <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, b) %>
+                        <% end %>
+                        <div><%= b.name %></div>
+                        <div><%= b.description %></div>
+                        <% if b.calories.present? %>
+                            <div><%= b.calories %> kcal</div>
+                        <% end %>
+                        <% if b.alcoholic == "yes" %>
+                            <div>Tipo: Alcoólica</div>
+                        <% else %>
+                            <div>Tipo: Não alcoólica</div>
+                        <% end %>
+                        <% if b.image.attached? %>
+                            <p><%= image_tag url_for(b.image), size: "100x100" %></p>
+                        <% end %>
+                   </li>
+                </div>
+            <% end %>
+        </ul>        
+    <% end %>
+</div>
+
+
+<div>
+    <h2>Pratos</h2>
+    <% if @dishes.any? %>
+        <ul>
+            <% @dishes.each do |d| %>
+                <div>
+                    <li id=<%= d.name%>>
+                        <% if current_user == @restaurant.user%>
+                            <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, d)%>
+                        <% end %>
+                        <div><%= d.name %></div>
+                        <div><%= d.description %></div>
+                        <% if d.calories.present? %>
+                            <div><%= d.calories %> kcal</div>
+                        <% end %>
+                        <% if d.image.attached? %>
+                            <p><%= image_tag url_for(d.image), size: "100x100"%></p>
+                        <% end %>
+                   </li>
+                </div>
+            <% end %>
+        </ul>
+    <% end %>
+</div>
+

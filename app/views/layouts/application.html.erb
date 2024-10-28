@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Paleva" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <%= link_to 'Paleva', root_path%>
+        <% if user_signed_in?%>
+          <%= button_to I18n.translate('devise.sessions.sign_out'), destroy_user_session_path, method: :delete%>
+          <% if current_user.restaurant.present? %>
+            <%= form_with(url: restaurant_search_path(current_user.restaurant.id), method: :get) do |f| %>
+              <%= f.label :query, 'Buscar itens' %>
+              <%= f.text_field :query, placeholder: "buscar em #{current_user.restaurant.trade_name}" %>
+              <%= f.submit "Buscar"%>
+            <% end %>
+          <% end %>
+        <% end %>
+      </nav>
+        <div>
+          <p><%= alert %></p>
+          <p><%= notice %></p>
+        </div>
+    </header>
+    <main class="container mx-auto mt-28 px-5 flex">
+      <%= yield %>
+    </main>
+  </body>
+</html>

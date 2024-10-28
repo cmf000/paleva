@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      user: 'Usuário'
+    attributes:
+      user:
+        user_type: 'Tipo de usuário'
+        cpf: "CPF"
+        name: "Nome"
+        password: "Senha"
+

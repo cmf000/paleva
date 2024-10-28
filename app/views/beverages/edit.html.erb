@@ -1,0 +1,37 @@
+<h1>Editar:</h1>
+
+<% if @beverage.errors.any? %>
+    <% @beverage.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+    <% end %>
+<% end %>
+
+<%= form_with(model: @beverage, url: restaurant_beverage_path(@restaurant, @beverage), method: :patch) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :description %>
+    <%= f.text_area :description %><br>
+
+    <%= f.label :calories %>
+    <%= f.number_field :calories %><br>
+
+    <%= f.label :alcoholic, "Alcoólica?" %><br>
+    <%= f.radio_button :alcoholic, :yes %>
+    <%= f.label :alcoholic_yes, "Sim" %><br>
+    <%= f.radio_button :alcoholic, :no %>
+    <%= f.label :alcoholic_no, "Não" %><br>
+
+    <%= f.label :image %>
+    <%= f.file_field :image %><br>
+
+    <% if @beverage.image.attached? %>
+        <p>Imagem atual:</p>
+        <%= image_tag @beverage.image, width: 100 %><br>
+        
+        <%= f.check_box :remove_image %>
+        <%= f.label :remove_image, "Remover imagem" %><br>
+    <% end %>
+    
+    <%= f.submit%>
+<% end %>

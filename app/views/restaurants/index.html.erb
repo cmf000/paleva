@@ -1,0 +1,18 @@
+<h1>Olá, <%=current_user.name%></h1>
+
+<div>
+    <h2>Seu restaurante</h2>
+    <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
+</div>
+
+<div>
+    <% restaurants = Restaurant.excluding(current_user.restaurant)%>
+    <% restaurants.any? do%>
+        <h2>Veja o que os outros restaurantes estão fazendo: </h2>
+        <ul>
+            <% restaurants.each do |r| %>
+                <li><%= link_to r.trade_name, restaurant_path(r.id) %></li>
+            <% end %>
+        </ul>
+    <% end %>
+</div>

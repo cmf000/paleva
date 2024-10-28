@@ -1,0 +1,92 @@
+<h1><%= @restaurant.trade_name %></h1>
+
+<div>
+    <ul>
+        <li><%= @restaurant.street_address %></li>
+        <li><%= @restaurant.city %> - <%= @restaurant.state %></li>
+    </ul>
+
+    <ul>
+        <h2>Horário de funcionamento:</h2>
+        <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
+            <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
+            <li id=<%=weekday%>>
+                <%= I18n.t("activerecord.attributes.shift.weekdays.#{weekday}") %>: 
+                <% if shift.present? %>
+                    <%= shift.opening_time.strftime("%H:%M") %> às <%= shift.closing_time.strftime("%H:%M") %>
+                <% else %>
+                    fechado
+                <% end %>
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+<div>
+    <h2>Bebidas 
+        <% if @restaurant == current_user.restaurant %>
+            <%= link_to 'Cadastrar nova bebida', new_restaurant_beverage_path(@restaurant.id) %>
+        <% end %>
+    </h2>
+    <% if @restaurant.beverages.empty? %>
+        <p>Não há bebidas cadastradas</p>
+    <% else %>
+        <ul>
+            <% @restaurant.beverages.each do |b| %>
+                <div>
+                    <li id=<%= b.name %>>
+                        <% if current_user == @restaurant.user %>
+                            <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, b) %>
+                        <% end %>
+                        <div><%= b.name %></div>
+                        <div><%= b.description %></div>
+                        <% if b.calories.present? %>
+                            <div><%= b.calories %> kcal</div>
+                        <% end %>
+                        <% if b.alcoholic == "yes" %>
+                            <div>Tipo: Alcoólica</div>
+                        <% else %>
+                            <div>Tipo: Não alcoólica</div>
+                        <% end %>
+                        <% if b.image.attached? %>
+                            <p><%= image_tag url_for(b.image), size: "100x100" %></p>
+                        <% end %>
+                   </li>
+                </div>
+            <% end %>
+        </ul>
+    <% end %>
+</div>
+
+
+<div>
+    <h2>Pratos 
+        <% if @restaurant == current_user.restaurant %>
+            <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id) %>
+        <% end %>
+    </h2>
+    <% if @restaurant.dishes.empty? %>
+        <p>Não há pratos cadastrados</p>
+    <% else %>
+        <ul>
+            <% @restaurant.dishes.each do |d| %>
+                <div>
+                    <li id=<%= d.name%>>
+                        <% if current_user == @restaurant.user%>
+                            <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, d)%>
+                        <% end %>
+                        <div><%= d.name %></div>
+                        <div><%= d.description %></div>
+                        <% if d.calories.present? %>
+                            <div><%= d.calories %> kcal</div>
+                        <% end %>
+                        <% if d.image.attached? %>
+                            <p><%= image_tag url_for(d.image), size: "100x100"%></p>
+                        <% end %>
+                   </li>
+                </div>
+            <% end %>
+        </ul>
+    <% end %>
+</div>
+
