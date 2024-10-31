@@ -3,11 +3,13 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :restaurants
-
   resources :restaurants do
-    resources :dishes, only: [:new, :create, :edit, :update]
-    resources :beverages, only: [:new, :create, :edit, :update]
+    resources :dishes, only: [:new, :create, :edit, :update, :show] do
+      post :toggle_status, on: :member
+    end
+    resources :beverages, only: [:new, :create, :edit, :update, :show] do
+      post :toggle_status, on: :member
+    end
     get :search, to: 'search#index'
   end
 end

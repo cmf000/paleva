@@ -14,6 +14,13 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    if current_user == @restaurant.user
+      @dishes = @restaurant.dishes
+      @beverages = @restaurant.beverages
+    else
+      @dishes = @restaurant.dishes.active
+      @beverages = @restaurant.beverages.active
+    end
   end
 
   def create

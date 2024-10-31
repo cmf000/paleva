@@ -1,0 +1,36 @@
+<h1><%=@beverage.name%></h1>
+<div>
+    <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%><br>
+</div>
+    <div>
+        <ul>
+            <li><%= @beverage.name %></li><br>
+            <li><%= @beverage.description %></li><br>
+            <li>
+                <% if @beverage.calories.present? %>
+                    <p><%= @beverage.calories %> kcal</p><br>
+                <% end %>
+            </li>
+            <li>
+                <% if @beverage.yes? %>
+                    <p>Tipo: Alcoólica</p>
+                <% else %>
+                    <p>Tipo: Não-alcoólica</p>
+                <% end %>
+            </li><br>
+            <li>
+                <% if @beverage.image.attached? %>
+                    <p><%= image_tag url_for(@beverage.image), size: "100x100" %></p><br>
+                <% end %>
+            </li>
+                <p>Status: <%=I18n.translate(@beverage.status)%></p><br>
+            <li>
+            <li>
+                <%if @beverage.active? %>
+                    <%=button_to "Desativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
+                <% else %>
+                    <%=button_to "Ativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
+                <% end %>
+            </li>
+        </ul>
+    </div>

@@ -1,0 +1,28 @@
+<h1><%= @dish.name %></h1>
+<div>
+    <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id) %><br>
+</div>
+<div>
+    <ul>
+        <li><%= @dish.name %></li><br>
+        <li><%= @dish.description %></li><br>
+        <li>
+            <% if @dish.calories.present? %>
+                <p><%= @dish.calories %> kcal</p><br>
+            <% end %>
+        </li>
+        <li>
+            <% if @dish.image.attached? %>
+                <p><%= image_tag url_for(@dish.image), size: "100x100" %></p><br>
+            <% end %>
+        </li>
+        <p>Status: <%= I18n.translate(@dish.status) %></p><br>
+        <li>
+            <% if @dish.active? %>
+                <%= button_to "Desativar", toggle_status_restaurant_dish_path(@restaurant, @dish) %>
+            <% else %>
+                <%= button_to "Ativar", toggle_status_restaurant_dish_path(@restaurant, @dish) %>
+            <% end %>
+        </li>
+    </ul>
+</div>

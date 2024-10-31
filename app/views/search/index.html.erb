@@ -2,8 +2,8 @@
 <p><%=@dishes.length + @beverages.length%> iten(s) encontrado(s)</p>
 
 <div>
-    <h2>Bebidas</h2>
     <% if @beverages.any? %>
+        <h2>Bebidas</h2>
         <ul>
             <% @beverages.each do |b| %>
                 <div>
@@ -33,8 +33,8 @@
 
 
 <div>
-    <h2>Pratos</h2>
     <% if @dishes.any? %>
+        <h2>Pratos</h2>
         <ul>
             <% @dishes.each do |d| %>
                 <div>

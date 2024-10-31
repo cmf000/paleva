@@ -6,4 +6,6 @@ class Beverage < ApplicationRecord
   validates :alcoholic, presence: {message: "deve ser sim/não"}
   validates :calories, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   enum alcoholic: { no: 0, yes: 1 }
+  enum :status, [:inactive, :active]
+
 end

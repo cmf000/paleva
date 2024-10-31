@@ -32,6 +32,22 @@ class DishesController < ApplicationController
     end
   end
 
+  def show
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @dish = Dish.find(params[:id])
+  end
+
+  def toggle_status
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @dish = Dish.find(params[:id])
+    if @dish.active?
+      @dish.update(status: :inactive)
+    else
+      @dish.update(status: :active)
+    end
+    redirect_to restaurant_path(@restaurant.id)
+  end
+
   private
   def redirect_user
     if current_user != Restaurant.find(params[:restaurant_id]).user

@@ -8,12 +8,12 @@ describe 'Usuário edita um prato' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within('#Hamburguer') do
+    within("##{dish.hash}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -29,12 +29,12 @@ describe 'Usuário edita um prato' do
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", user: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within('#Hamburguer') do
+    within("##{dish.hash}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -51,12 +51,12 @@ describe 'Usuário edita um prato' do
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", user: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within('#Hamburguer') do
+    within("##{dish.hash}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'

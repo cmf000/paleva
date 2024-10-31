@@ -31,6 +31,22 @@ class BeveragesController < ApplicationController
     end
   end
 
+  def show
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @beverage = Beverage.find(params[:id])
+  end
+
+  def toggle_status
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @beverage = Beverage.find(params[:id])
+    if @beverage.active?
+      @beverage.update(status: :inactive)
+    else
+      @beverage.update(status: :active)
+    end
+    redirect_to restaurant_path(@restaurant.id)
+  end
+
   private
   def redirect_user
     if current_user != Restaurant.find(params[:restaurant_id]).user
