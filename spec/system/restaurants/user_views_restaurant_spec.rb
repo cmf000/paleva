@@ -21,10 +21,10 @@ describe 'Usuário visita página do seu restaurante' do
     click_on 'Quitutes Picantes'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
-    within('#sunday') do
+    within('#weekday-sunday') do
       expect(page).to have_content('17:00 às 20:00')
     end
-    within('#monday') do
+    within('#weekday-monday') do
       expect(page).to have_content('fechado')
     end
     expect(page).to have_content 'Não há bebidas cadastradas'
@@ -65,21 +65,21 @@ describe 'Usuário visita página do seu restaurante' do
     login_as(user)
     visit restaurant_path(user.restaurant)
 
-    within ("##{dish_1.hash}") do
+    within("##{dom_id(dish_1)}") do
       expect(page).to have_content 'Hamburguer'
       expect(page).to have_content 'carne, queijo, mostarda'
       expect(page).to have_content '1200 kcal'
       expect(page).to have_content 'Ativo'
     end
 
-    within ("##{dish_2.hash}") do
+    within("##{dom_id(dish_2)}") do
       expect(page).to have_content 'Cachorro quente'
       expect(page).to have_content 'salsicha, pão, molhos'
       expect(page).to have_content '1200 kcal'
       expect(page).to have_content 'Inativo'
     end
 
-    within ("##{beverage_1.hash}") do
+    within("##{dom_id(beverage_1)}") do
       expect(page).to have_content 'Coca-cola'
       expect(page).to have_content 'Delicioso tônico'
       expect(page).to have_content '1200 kcal'
@@ -87,7 +87,7 @@ describe 'Usuário visita página do seu restaurante' do
       expect(page).to have_content 'Inativo'
     end
 
-    within ("##{beverage_2.hash}") do
+    within("##{dom_id(beverage_2)}") do
       expect(page).to have_content 'Fanta'
       expect(page).to have_content 'Bebida natural sabor laranja'
       expect(page).to have_content '1200 kcal'
@@ -95,7 +95,7 @@ describe 'Usuário visita página do seu restaurante' do
       expect(page).to have_content 'Ativo'
     end
 
-    within ("##{beverage_3.hash}") do
+    within("##{dom_id(beverage_3)}") do
       expect(page).to have_content 'Cerveja'
       expect(page).to have_content 'Bebida fermentada de cerais maltados'
       expect(page).to have_content '1200 kcal'
@@ -117,11 +117,11 @@ describe 'Usuário visita página do seu restaurante' do
     login_as(user)
     visit restaurant_path(user.restaurant)
 
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       expect(page).to have_content 'Editar'
     end
 
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       expect(page).to have_content 'Editar'
     end
   end
@@ -148,10 +148,10 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     click_on 'Sabores do Brasil'
 
     expect(current_path).to eq restaurant_path(other_restaurant.id)
-    within('#sunday') do
+    within('#weekday-sunday') do
       expect(page).to have_content('17:00 às 20:00')
     end
-    within('#monday') do
+    within('#weekday-monday') do
       expect(page).to have_content('fechado')
     end
     expect(page).to have_content 'Não há bebidas cadastradas'
@@ -220,7 +220,7 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     login_as(user)
     visit restaurant_path(other_user.restaurant.id)
 
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       expect(page).not_to have_content 'Editar'
     end
   end

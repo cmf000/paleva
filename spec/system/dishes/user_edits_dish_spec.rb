@@ -13,7 +13,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -34,7 +34,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -56,7 +56,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'

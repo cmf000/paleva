@@ -4,15 +4,7 @@
 <div>
     <% if @beverages.any? %>
         <h2>Bebidas</h2>
-        <ul>
-            <% @beverages.each do |beverage| %>
-                <div>
-                    <li id=<%= beverage.hash %>>
-                        <%= render 'shared/beverage', beverage: beverage%>
-                   </li>
-                </div>
-            <% end %>
-        </ul>        
+        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage %>
     <% end %>
 </div>
 
@@ -20,15 +12,7 @@
 <div>
     <% if @dishes.any? %>
         <h2>Pratos</h2>
-        <ul>
-            <% @dishes.each do |dish| %>
-                <div>
-                    <li id=<%= dish.hash%>>
-                        <%= render 'shared/dish', dish: dish%>
-                   </li>
-                </div>
-            <% end %>
-        </ul>
+        <%= render partial: 'shared/dish', collection: @dishes, as: :dish%>
     <% end %>
 </div>
 

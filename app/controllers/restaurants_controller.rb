@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :redirect_user, only: [:index, :show]
+  before_action :redirect_user, only: [:index, :show, :edit]
   def index
     @restaurant = current_user.restaurant
   end
@@ -32,11 +32,27 @@ class RestaurantsController < ApplicationController
       redirect_to root_path, notice: "Restaurante cadastrado com sucesso."
     else
       flash.now[:notice] = "Restaurante não cadastrado."
-      @restaurant.shifts.destroy_all
       build_shifts
       render :new, status: :unprocessable_entity
     end
   end
+
+  def edit
+    @restaurant = Restaurant.find(params[:id])
+    build_shifts
+  end
+
+  def update
+    @restaurant = Restaurant.find(params[:id])
+    if @restaurant.update(restaurant_params)
+      redirect_to restaurant_path(@restaurant), notice: 'Restaurante editado com sucesso'
+    else
+      flash.now[:alert] = 'Restaurante não editado'
+      build_shifts
+      render :edit, status: :unprocessable_entity
+    end
+  end
+  
 
   private
   def restaurant_params
@@ -53,7 +69,9 @@ class RestaurantsController < ApplicationController
   
   def build_shifts
     Shift.weekdays.each do |weekday|
-      @restaurant.shifts.build(weekday: weekday.first)
+      if !@restaurant.shifts.exists?(weekday: weekday)
+        @restaurant.shifts.build(weekday: weekday.first)
+      end
     end
   end
 

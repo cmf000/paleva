@@ -11,8 +11,9 @@ describe 'Usuário acessa a página de detalhes da bebida' do
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no, status: :inactive)
 
     login_as(user)
-    visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    visit root_path
+    click_on('Quitutes Picantes')
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
 
@@ -34,7 +35,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
     click_on 'Quitutes Picantes'
@@ -53,7 +54,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
     click_on 'Quitutes Picantes'
@@ -72,7 +73,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
 
@@ -90,7 +91,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
 
@@ -108,7 +109,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
 
@@ -126,7 +127,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Coca-cola'
     end
 

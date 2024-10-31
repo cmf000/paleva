@@ -12,7 +12,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Hamburguer'
     end
 
@@ -33,7 +33,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Hamburguer'
     end
     click_on 'Quitutes Picantes'
@@ -52,7 +52,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Hamburguer'
     end
     click_on 'Quitutes Picantes'
@@ -71,7 +71,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Hamburguer'
     end
 
@@ -89,7 +89,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Hamburguer'
     end
 
@@ -107,7 +107,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Coca-cola'
     end
 
@@ -125,7 +125,7 @@ describe 'Usuário acessa a página de detalhes do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}") do
       click_on 'Hamburguer'
     end
 

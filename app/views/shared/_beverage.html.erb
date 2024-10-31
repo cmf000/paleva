@@ -1,8 +1,8 @@
-<% if current_user == @restaurant.user %>
-    <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, beverage) %>
-<% end %>
+<div id=<%=dom_id beverage%>>
+    <% if current_user == @restaurant.user %>
+        <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, beverage) %>
+    <% end %>
 
-<div>
     <%= link_to restaurant_beverage_path(@restaurant.id, beverage.id) do %>
         <div><%= beverage.name %></div>
         <div><%= beverage.description %></div>

@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActionView::RecordIdentifier
 
 describe 'Usuário edita uma bebida' do
   it 'com sucesso' do
@@ -13,7 +14,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Editar'
     end
     choose 'beverage_alcoholic_no'
@@ -35,7 +36,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: ''
@@ -61,7 +62,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       click_on 'Editar'
     end
     fill_in 'Calorias', with: "-1000"

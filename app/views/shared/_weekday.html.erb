@@ -1,4 +1,4 @@
-<p>
+<p id="weekday-<%=weekday%>">
     <%= I18n.translate("activerecord.attributes.shift.weekdays.#{weekday}") %>: 
     <% if shift.present? %>
         <%= format_time_range(shift.opening_time, shift.closing_time) %>

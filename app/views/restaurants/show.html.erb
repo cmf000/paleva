@@ -1,6 +1,9 @@
 <h1><%= @restaurant.trade_name %></h1>
 
-<div>
+<div id="<%=dom_id @restaurant%>">
+    <% if current_user == @restaurant.user %>
+        <%= link_to 'Editar', edit_restaurant_path(@restaurant.id)%>
+    <% end %>
     <ul>
         <li><%= @restaurant.street_address %></li>
         <li><%= @restaurant.city %> - <%= @restaurant.state %></li>
@@ -10,7 +13,7 @@
         <h2>Horário de funcionamento:</h2>
         <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
             <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
-            <li id=<%=weekday%>>
+            <li>
                 <%= render 'shared/weekday', weekday: weekday, shift: shift%>
             </li>
         <% end %>
@@ -26,13 +29,7 @@
     <% if @beverages.empty? %>
         <p>Não há bebidas cadastradas</p>
     <% else %>
-        <ul>
-            <% @beverages.each do |beverage| %>
-                    <li id=<%=beverage.hash%>>
-                        <%= render 'shared/beverage', beverage: beverage%>
-                   </li>
-            <% end %>
-        </ul>
+        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage %>
     <% end %>
 </div>
 
@@ -48,12 +45,7 @@
         <p>Não há pratos cadastrados</p>
     <% else %>
         <ul>
-            <% @dishes.each do |dish| %>
-                <li id="<%= dish.hash %>">
-                    <%= render 'shared/dish', dish: dish %>
-                </li> 
-            <% end %>
-        </ul>
+            <%= render partial: 'shared/dish', collection: @dishes, as: :dish %>
     <% end %>
 </div>
 

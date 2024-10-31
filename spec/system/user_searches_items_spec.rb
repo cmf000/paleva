@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActionView::RecordIdentifier
 
 describe 'Usuário busca pratos e bebidas' do
   it 'a partir do menu' do
@@ -51,17 +52,16 @@ describe 'Usuário busca pratos e bebidas' do
     visit root_path
     fill_in 'Buscar itens', with: 'Hamburguer'
     click_on "Buscar"
-    save_page
 
     expect(page).to have_content 'Resultados da busca por: Hamburguer'
     expect(page).to have_content '2 iten(s) encontrado(s)'
-    within("##{dish.hash}") do
+    within("##{dom_id(dish)}")do
       expect(page).to have_content ('Hamburguer')
       expect(page).to have_content ('carne, queijo, mostarda')
       expect(page).to have_content ('1200 kcal')
     end
 
-    within("##{beverage.hash}") do
+    within("##{dom_id(beverage)}") do
       expect(page).to have_content ('Coca-cola')
       expect(page).to have_content ('2L')
       expect(page).to have_content ('1200 kcal')
@@ -70,7 +70,7 @@ describe 'Usuário busca pratos e bebidas' do
     expect(page).not_to have_content('Cachorro Quente')
   end
 
-  it 'e não encontrar pratos ou bebidas' do
+  it 'e não encontra pratos ou bebidas' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
