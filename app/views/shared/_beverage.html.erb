@@ -1,0 +1,22 @@
+<% if current_user == @restaurant.user %>
+    <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, beverage) %>
+<% end %>
+
+<div>
+    <%= link_to restaurant_beverage_path(@restaurant.id, beverage.id) do %>
+        <div><%= beverage.name %></div>
+        <div><%= beverage.description %></div>
+        
+        <% if beverage.calories.present? %>
+            <div><%= beverage.calories %> kcal</div>
+        <% end %>
+        
+        <div>Tipo: <%= beverage.yes? ? 'Alcoólica' : 'Não-alcoólica' %></div>
+
+        <% if beverage.image.attached? %>
+            <p><%= image_tag url_for(beverage.image), size: "100x100" %></p>
+        <% end %>
+        
+        <div>Status: <%= I18n.translate(beverage.status) %></div>
+    <% end %>
+</div>

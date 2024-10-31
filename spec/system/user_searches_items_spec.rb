@@ -41,8 +41,8 @@ describe 'Usuário busca pratos e bebidas' do
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", user: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L, excelente para acompanhar um Hamburguer', calories: 1200, alcoholic: :no)
-    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L, excelente para acompanhar um Hamburguer', calories: 1200, alcoholic: :no)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
     Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: '350ml', calories: 500, alcoholic: :no)
     Dish.create!(restaurant: restaurant, name: 'Cachorro Quente', description: 'pao, salsicha, molhos', calories: 1200)
 
@@ -55,13 +55,13 @@ describe 'Usuário busca pratos e bebidas' do
 
     expect(page).to have_content 'Resultados da busca por: Hamburguer'
     expect(page).to have_content '2 iten(s) encontrado(s)'
-    within('#Hamburguer') do
+    within("##{dish.hash}") do
       expect(page).to have_content ('Hamburguer')
       expect(page).to have_content ('carne, queijo, mostarda')
       expect(page).to have_content ('1200 kcal')
     end
 
-    within('#Coca-cola') do
+    within("##{beverage.hash}") do
       expect(page).to have_content ('Coca-cola')
       expect(page).to have_content ('2L')
       expect(page).to have_content ('1200 kcal')

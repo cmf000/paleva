@@ -5,25 +5,10 @@
     <% if @beverages.any? %>
         <h2>Bebidas</h2>
         <ul>
-            <% @beverages.each do |b| %>
+            <% @beverages.each do |beverage| %>
                 <div>
-                    <li id=<%= b.name %>>
-                        <% if current_user == @restaurant.user %>
-                            <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, b) %>
-                        <% end %>
-                        <div><%= b.name %></div>
-                        <div><%= b.description %></div>
-                        <% if b.calories.present? %>
-                            <div><%= b.calories %> kcal</div>
-                        <% end %>
-                        <% if b.alcoholic == "yes" %>
-                            <div>Tipo: Alcoólica</div>
-                        <% else %>
-                            <div>Tipo: Não alcoólica</div>
-                        <% end %>
-                        <% if b.image.attached? %>
-                            <p><%= image_tag url_for(b.image), size: "100x100" %></p>
-                        <% end %>
+                    <li id=<%= beverage.hash %>>
+                        <%= render 'shared/beverage', beverage: beverage%>
                    </li>
                 </div>
             <% end %>
@@ -36,20 +21,10 @@
     <% if @dishes.any? %>
         <h2>Pratos</h2>
         <ul>
-            <% @dishes.each do |d| %>
+            <% @dishes.each do |dish| %>
                 <div>
-                    <li id=<%= d.name%>>
-                        <% if current_user == @restaurant.user%>
-                            <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, d)%>
-                        <% end %>
-                        <div><%= d.name %></div>
-                        <div><%= d.description %></div>
-                        <% if d.calories.present? %>
-                            <div><%= d.calories %> kcal</div>
-                        <% end %>
-                        <% if d.image.attached? %>
-                            <p><%= image_tag url_for(d.image), size: "100x100"%></p>
-                        <% end %>
+                    <li id=<%= dish.hash%>>
+                        <%= render 'shared/dish', dish: dish%>
                    </li>
                 </div>
             <% end %>

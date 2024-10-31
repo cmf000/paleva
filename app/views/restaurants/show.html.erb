@@ -11,12 +11,7 @@
         <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
             <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
             <li id=<%=weekday%>>
-                <%= I18n.t("activerecord.attributes.shift.weekdays.#{weekday}") %>: 
-                <% if shift.present? %>
-                    <%= shift.opening_time.strftime("%H:%M") %> às <%= shift.closing_time.strftime("%H:%M") %>
-                <% else %>
-                    fechado
-                <% end %>
+                <%= render 'shared/weekday', weekday: weekday, shift: shift%>
             </li>
         <% end %>
     </ul>
@@ -32,29 +27,9 @@
         <p>Não há bebidas cadastradas</p>
     <% else %>
         <ul>
-            <% @beverages.each do |b| %>
-                    <li id=<%=b.hash%>>
-                        <% if current_user == @restaurant.user %>
-                            <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, b) %>
-                        <% end %>
-                        <div>
-                            <%=link_to restaurant_beverage_path(@restaurant.id, b.id) do%>
-                                <div><%= b.name %></div>
-                                <div><%= b.description %></div>
-                                <% if b.calories.present? %>
-                                    <div><%= b.calories %> kcal</div>
-                                <% end %>
-                                <% if b.yes? %>
-                                    <div>Tipo: Alcoólica</div>
-                                <% else %>
-                                    <div>Tipo: Não-alcoólica</div>
-                                <% end %>
-                                <% if b.image.attached? %>
-                                    <p><%= image_tag url_for(b.image), size: "100x100" %></p>
-                                <% end %>
-                                <div>Status: <%=I18n.translate(b.status)%></div>
-                            <% end %>
-                        </div>
+            <% @beverages.each do |beverage| %>
+                    <li id=<%=beverage.hash%>>
+                        <%= render 'shared/beverage', beverage: beverage%>
                    </li>
             <% end %>
         </ul>
@@ -68,31 +43,18 @@
             <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id) %>
         <% end %>
     </h2>
+    
     <% if @dishes.empty? %>
         <p>Não há pratos cadastrados</p>
     <% else %>
         <ul>
-            <% @dishes.each do |d| %>
-                    <li id=<%=d.hash%>>
-                        <% if current_user == @restaurant.user%>
-                            <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, d)%>
-                        <% end %>
-                    <%= link_to restaurant_dish_path(@restaurant.id, d.id) do%>
-                        <div>
-                            <div><%= d.name %></div>
-                            <div><%= d.description %></div>
-                            <% if d.calories.present? %>
-                                <div><%= d.calories %> kcal</div>
-                            <% end %>
-                            <% if d.image.attached? %>
-                                <p><%= image_tag url_for(d.image), size: "100x100"%></p>
-                            <% end %>
-                            <div>Status: <%=I18n.translate(d.status)%></div>
-                        </div>
-                    <% end %>
-                   </li>
+            <% @dishes.each do |dish| %>
+                <li id="<%= dish.hash %>">
+                    <%= render 'shared/dish', dish: dish %>
+                </li> 
             <% end %>
         </ul>
     <% end %>
 </div>
+
 

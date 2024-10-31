@@ -1,0 +1,22 @@
+<div>
+    <% if current_user == @restaurant.user %>
+        <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, dish) %>
+    <% end %>
+    
+    <%= link_to restaurant_dish_path(@restaurant.id, dish.id) do %>
+        <div>
+            <div><%= dish.name %></div>
+            <div><%= dish.description %></div>
+            
+            <% if dish.calories.present? %>
+                <p><%= dish.calories %> kcal</p>
+            <% end %>
+            
+            <% if dish.image.attached? %>
+                <p><%= image_tag url_for(dish.image), size: "100x100" %></p>
+            <% end %>
+            
+            <p>Status: <%= I18n.translate(dish.status) %></p>
+        </div>
+    <% end %>
+</div>
