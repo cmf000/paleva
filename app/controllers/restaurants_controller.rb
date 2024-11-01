@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :redirect_user, only: [:index, :show, :edit]
+  before_action :set_restaurant_and_check_user_is_owner, only: [:update]
   def index
     @restaurant = current_user.restaurant
   end
@@ -64,6 +65,13 @@ class RestaurantsController < ApplicationController
   def redirect_user
     if !current_user.restaurant.present?
       redirect_to new_restaurant_path
+    end
+  end
+
+  def set_restaurant_and_check_user_is_owner
+    @restaurant = Restaurant.find(params[:id])
+    if current_user != @restaurant.user
+      redirect_to root_path
     end
   end
   

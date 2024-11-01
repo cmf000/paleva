@@ -1,5 +1,5 @@
 class DishesController < ApplicationController
-  before_action :redirect_user, only: [:new, :edit]
+  before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status]
   before_action :set_restaurant, only: [:new, :create, :edit, :update]
 
   def new

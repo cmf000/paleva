@@ -17,11 +17,12 @@ describe 'Usuário edita uma bebida' do
     within("##{dom_id(beverage)}") do
       click_on 'Editar'
     end
-    choose 'beverage_alcoholic_no'
+    choose 'beverage_alcoholic_yes'
     click_on 'Atualizar Bebida'
-
+    beverage.reload
+    
     expect(page).to have_content 'Bebida editada com sucesso'
-    expect(beverage.alcoholic).to eq "no"
+    expect(beverage.alcoholic).to eq "yes"
   end
 
   it 'com dados incompletos' do

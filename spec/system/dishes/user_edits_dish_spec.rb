@@ -18,8 +18,10 @@ describe 'Usuário edita um prato' do
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
     click_on 'Atualizar Prato'
+    dish.reload
 
     expect(page).to have_content 'Prato editado com sucesso'
+    expect(dish.name).to eq 'Hamburguer Grande' 
   end
 
   it 'com dados incompletos' do

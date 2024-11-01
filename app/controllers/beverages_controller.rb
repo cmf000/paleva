@@ -1,6 +1,6 @@
 class BeveragesController < ApplicationController
-  before_action :redirect_user, only: [:new, :edit]
-  before_action :set_restaurant, only: [:new, :create, :edit, :update]
+  before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status]
+  before_action :set_restaurant, only: [:new, :create, :edit, :update, :toggle_status]
 
   def new
     @beverage = @restaurant.beverages.build
@@ -37,7 +37,6 @@ class BeveragesController < ApplicationController
   end
 
   def toggle_status
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @beverage = Beverage.find(params[:id])
     if @beverage.active?
       @beverage.update(status: :inactive)
@@ -55,7 +54,7 @@ class BeveragesController < ApplicationController
   end
 
   def beverage_params 
-    params.require(:beverage).permit(:name, :description, :calories, :alcoholic, :image)
+    params.require(:beverage).permit(:name, :description, :calories, :alcoholic, :remove_image)
   end
 
   def set_restaurant
