@@ -1,0 +1,12 @@
+pt-BR:
+  active: 'Ativo'
+  inactive: 'Inativo'
+  activerecord:
+    models:
+      offering: 'Porção'
+    attributes:
+      offering:
+        description: 'Descrição'
+        price_history: 'Preço'
+        offerable: 'Item'
+

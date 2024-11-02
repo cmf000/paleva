@@ -1,5 +1,7 @@
 class Beverage < ApplicationRecord
   belongs_to :restaurant
+  has_many :offerings, as: :offerable,
+                       dependent: :destroy
   has_one_attached :image
   attr_accessor :remove_image
   validates :name, :description, presence: true

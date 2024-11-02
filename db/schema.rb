@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_31_005450) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_01_175745) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -62,6 +62,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_31_005450) do
     t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
   end
 
+  create_table "offerings", force: :cascade do |t|
+    t.string "description", null: false
+    t.string "offerable_type", null: false
+    t.integer "offerable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offerable_type", "offerable_id"], name: "index_offerings_on_offerable"
+  end
+
+  create_table "price_histories", force: :cascade do |t|
+    t.decimal "price", null: false
+    t.datetime "effective_date", null: false
+    t.integer "offering_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offering_id"], name: "index_price_histories_on_offering_id"
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string "registered_name", null: false
     t.string "trade_name", null: false
@@ -109,6 +127,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_31_005450) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "beverages", "restaurants"
   add_foreign_key "dishes", "restaurants"
+  add_foreign_key "price_histories", "offerings"
   add_foreign_key "restaurants", "users"
   add_foreign_key "shifts", "restaurants"
 end

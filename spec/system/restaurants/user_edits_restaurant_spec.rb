@@ -118,4 +118,24 @@ describe "Usuário edita um restaurante" do
     expect(page).to have_content 'Horário de encerramento deve ser depois do horário de início do turno'
 
   end
+
+  it 'e restorna à página de seu restaurante' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                city: "Ferraz de Vasconcelos", state: "SP",
+                                zip_code: "11111-111", user: user,
+                                district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+
+    login_as(user)
+    visit root_path
+    click_on('Quitutes Picantes')
+    within("##{dom_id restaurant}") do 
+      click_on 'Editar'
+    end
+    click_on 'Quitutes Picantes'
+
+    expect(current_path).to eq restaurant_path(restaurant.id)
+    
+  end
 end

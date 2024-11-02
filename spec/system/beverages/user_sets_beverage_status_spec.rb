@@ -22,6 +22,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
     expect(page).to have_content 'Tipo: Não-alcoólica'
     expect(page).to have_content 'Status: Inativo'
     expect(page).to have_button 'Ativar'
+
   end
 
   it 'e retorna à página de seu restaurante' do

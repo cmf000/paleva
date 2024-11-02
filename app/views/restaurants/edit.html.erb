@@ -1,4 +1,5 @@
 <h1>Editar restaurante</h1>
+<%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
 
 <% if @restaurant.errors.any? %>
     <p>Verifique os erros abaixo:</p>
@@ -9,69 +10,4 @@
     </ul>
 <% end %>
 
-<%= form_with(model: @restaurant) do |r|%>
-    <div>
-        <%= r.label :registered_name %>
-        <%= r.text_field :registered_name %>
-    </div>
-    <div>
-        <%= r.label :trade_name %>
-        <%= r.text_field :trade_name %>
-    </div>
-    <div>
-        <%= r.label :cnpj %>
-        <%= r.text_field :cnpj %>
-    </div>
-    <div>
-        <%= r.label :email %>
-        <%= r.email_field :email %>
-    </div>
-    <div>
-        <%= r.label :phone_number %>
-        <%= r.text_field :phone_number %>
-    </div>
-    <div>
-        <%= r.label :street_address %>
-        <%= r.text_field :street_address %>
-    </div>
-    <div>
-        <%= r.label :district %>
-        <%= r.text_field :district %>
-    </div>
-     <div>
-        <%= r.label :zip_code %>
-        <%= r.text_field :zip_code %>
-    </div>
-    <div>
-        <%= r.label :city %>
-        <%= r.text_field :city %>
-    </div>
-    <div>
-        <%= r.label :state %>
-        <%= r.text_field :state %>
-    </div>
-    <div>
-        <h2>Horário de funcionamento</h2>
-        <ul>
-            <%= r.fields_for :shifts do |s| %>
-                <li id=<%= s.object.weekday%> >
-                    <%= I18n.translate("activerecord.attributes.shift.weekdays.#{s.object.weekday}") %>
-                    <%= s.hidden_field :weekday %>
-                    <div>
-                        <%= s.label :opening_time %>
-                        <%= s.time_select :opening_time, include_blank: true %>
-                    </div>
-                    <div>
-                        <%= s.label :closing_time %>
-                        <%= s.time_select :closing_time, include_blank: true %>
-                    </div>
-                    <div>
-                        <%= s.label :_destroy, 'Fechado' %>
-                        <%= s.check_box :_destroy %>
-                    </div>
-                </li>
-            <% end %>
-        </ul>
-    </div>
-    <%= r.submit %>
-<% end %>
+<%= render 'form', restaurant: @restaurant%>

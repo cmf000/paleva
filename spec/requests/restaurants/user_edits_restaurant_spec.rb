@@ -21,4 +21,5 @@ describe 'Usuário edita um restaurante' do
     expect(restaurant.trade_name).not_to eq 'Quitutes Mortais'
     expect(response).to redirect_to root_path
   end
+  
 end
