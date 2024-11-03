@@ -33,14 +33,14 @@ class RestaurantsController < ApplicationController
       redirect_to root_path, notice: "Restaurante cadastrado com sucesso."
     else
       flash.now[:notice] = "Restaurante não cadastrado."
-      build_shifts
+      build_remaining_shifts
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
-    build_shifts
+    build_remaining_shifts
   end
 
   def update
@@ -49,7 +49,7 @@ class RestaurantsController < ApplicationController
       redirect_to restaurant_path(@restaurant), notice: 'Restaurante editado com sucesso'
     else
       flash.now[:alert] = 'Restaurante não editado'
-      build_shifts
+      build_remaining_shifts
       render :edit, status: :unprocessable_entity
     end
   end
@@ -76,6 +76,12 @@ class RestaurantsController < ApplicationController
   end
   
   def build_shifts
+    Shift.weekdays.each do |weekday|
+      @restaurant.shifts.build(weekday: weekday.first)
+    end
+  end
+
+  def build_remaining_shifts
     Shift.weekdays.each do |weekday|
       if !@restaurant.shifts.exists?(weekday: weekday)
         @restaurant.shifts.build(weekday: weekday.first)

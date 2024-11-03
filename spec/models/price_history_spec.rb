@@ -11,8 +11,8 @@ RSpec.describe PriceHistory, type: :model do
                                         zip_code: "11111-111", user: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         beverage = Beverage.create!(name: 'Coca-cola', restaurant: restaurant, description: 'delicioso tônico de Atlanta', alcoholic: :no)
-        offering = Offering.new(offerable: beverage, description: '2 L')
-        price_history = PriceHistory.new(offering: offering, effective_date: DateTime.now)
+        offering = Offering.new(offerable: beverage, description: '2 L', effective_at: DateTime.now)
+        price_history = PriceHistory.new(offering: offering, effective_at: DateTime.now)
         
         expect(price_history).not_to be_valid
       end
@@ -32,7 +32,7 @@ RSpec.describe PriceHistory, type: :model do
       end
       
       it 'data deve ser obrigatória' do 
-        price_history = PriceHistory.new(price: 8.5, effective_date: DateTime.now)
+        price_history = PriceHistory.new(price: 8.5, effective_at: DateTime.now)
         expect(price_history.save).not_to be true 
       end 
     end

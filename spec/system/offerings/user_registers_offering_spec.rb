@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visita a página de uma bebida' do 
+describe 'Usuário cadastra uma nova porção' do
   it 'a partir da página inicial' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
@@ -9,77 +9,41 @@ describe 'Usuário visita a página de uma bebida' do
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
-    offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
-    offering_2 = Offering.create!(offerable: beverage, description: '500 ml', current_price: 10.00)
-    offering_3 = Offering.create!(offerable: beverage, description: '2 L', current_price: 18.00)
+    offering = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
     click_on 'Coca-cola'
-    
-    expect(page).to have_content 'Coca-cola'
-    expect(page).to have_content 'Delicioso tônico'
-    expect(page).to have_content '1200 kcal'
-    expect(page).to have_content 'Não-alcoólica'
-    expect(page).to have_content 'Porções'
-    expect(page).to have_content '350 ml'
-    expect(page).to have_content '500 ml'
-    expect(page).to have_content '2 L'
-    expect(page).to have_content 'R$ 8,00'
-    expect(page).to have_content 'R$ 10,00'
-    expect(page).to have_content 'R$ 18,00'
+    click_on 'Nova Porção'
+
+    expect(page).to have_field 'Descrição'
+    expect(page).to have_field 'Preço'
+    expect(page).to have_button 'Criar Porção'
   end
 
-  it 'e volta à página do restaurante' do
+  it 'e volta à página inicial' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
-    offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
-
-    offering_2 = Offering.create!(offerable: beverage, description: '500 ml', current_price: 10.00)
-
-    offering_3 = Offering.create!(offerable: beverage, description: '2 L', current_price: 18.00)
-
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
+    offering = Offering.create!(offerable: dish, description: '350 ml', current_price: 8.00)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
-    click_on 'Quitutes Picantes'
-
-    expect(current_path).to eq restaurant_path(restaurant.id)
-  end
-
-  it 'e volta à página inicial' do
-    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
-    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
-                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
-                                    city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
-                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
-    offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
-
-    offering_2 = Offering.create!(offerable: beverage, description: '500 ml', current_price: 10.00)
-
-    offering_3 = Offering.create!(offerable: beverage, description: '2 L', current_price: 18.00)
-
-
-    login_as(user)
-    visit root_path
-    click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on 'Hamburguer'
+    click_on 'Nova Porção'
     click_on 'Paleva'
 
     expect(current_path).to eq restaurants_path
+    
   end
 
-  it 'e não há porções cadastradas' do 
+  it 'e volta à página do restaurante' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
@@ -92,30 +56,100 @@ describe 'Usuário visita a página de uma bebida' do
     visit root_path
     click_on 'Quitutes Picantes'
     click_on 'Coca-cola'
+    click_on 'Nova Porção'
+    click_on 'Quitutes Picantes'
+
+    expect(current_path).to eq restaurant_path(restaurant.id)
     
-    expect(page).to have_content 'Não há porções cadastradas'
   end
 
-  it 'e não é o dono do restaurante' do 
+  it 'de uma bebida com sucesso' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
-    other_restaurant = Restaurant.create!(registered_name: "Churros LTDA", trade_name: "Churros",
-                                    cnpj: CNPJ.generate, street_address: "Avenida Doce, 456",
-                                    city: "Guarulhos", state: "SP",
-                                    zip_code: "33333-333", user: other_user,
-                                    district: "Doces", email: 'churros@email.com', phone_number: '11933301040')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
 
-    login_as(other_user)
+    login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
     click_on 'Coca-cola'
+    click_on 'Nova Porção'
+    fill_in 'Descrição', with: '500 ml'
+    fill_in 'Preço', with: 8.50
+    click_on 'Criar Porção'
 
-    expect(page).not_to have_content('Nova Porção')
+    expect(page).to have_content 'Porção cadastrada com sucesso'
+    expect(page).to have_content '500 ml'
+    expect(page).to have_content 'R$ 8,50'
+  end
+
+  it 'de um prato com sucesso' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Hamburguer'
+    click_on 'Nova Porção'
+    fill_in 'Descrição', with: 'Médio'
+    fill_in 'Preço', with: 20
+    click_on 'Criar Porção'
+
+    expect(page).to have_content 'Porção cadastrada com sucesso'
+    expect(page).to have_content 'Médio'
+    expect(page).to have_content 'R$ 20,00'
+  end
+
+  it 'de uma bebida com dados incompletos' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Coca-cola'
+    click_on 'Nova Porção'
+    click_on 'Criar Porção'
+
+    expect(page).to have_content 'Porção não cadastrada'
+    expect(page).to have_content 'Descrição não pode ficar em branco'
+    expect(page).to have_content 'Preço não pode ficar em branco'
+    expect(page).to have_content 'Preço não é um número'
+  end
+
+  it 'de um prato com dados incompletos' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Hamburguer'
+    click_on 'Nova Porção'
+    click_on 'Criar Porção'
+
+    expect(page).to have_content 'Porção não cadastrada'
+    expect(page).to have_content 'Descrição não pode ficar em branco'
+    expect(page).to have_content 'Preço não pode ficar em branco'
+    expect(page).to have_content 'Preço não é um número'
   end
 end

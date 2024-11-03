@@ -1,0 +1,16 @@
+<h1><%= link_to @offerable.name, [@restaurant, @offerable]%> - <%= link_to @restaurant.trade_name, restaurant_path(@restaurant) %></h1>
+
+<% if @offering.errors.any? %>
+    <% @offering.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+    <% end %>
+<% end %>
+
+<div>
+    <h2>Editar preço:</h2>
+    <%= form_with(model:[@restaurant, @offerable, @offering]) do |f| %>
+        <%= f.label :current_price %>
+        <%= f.number_field :current_price %>
+        <%=f.submit 'Alterar Preço' %>
+    <% end %>
+</div>

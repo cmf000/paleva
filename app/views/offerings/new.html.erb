@@ -1,0 +1,26 @@
+<h1>Nova porção para <%= link_to @offerable.name, [@restaurant, @offerable]%> de <%= link_to @restaurant.trade_name, restaurant_path(@restaurant) %></h1>
+
+<div>
+    <% if (@offering.errors.any?)%>
+        <h2>Verifique os error abaixo</h2>
+        <% @offering.errors.full_messages.each do |msg|%>
+               <% unless msg.include?("Data") %>
+                    <p><%= msg %></p>
+                <% end %>
+        <% end %>
+    <% end %>
+</div>
+
+<%= form_with(model: [@restaurant, @offerable, @offering]) do |f| %>
+    <ul>
+        <li>
+            <%= f.label :description %>
+            <%= f.text_field :description%>
+        </li>
+        <li>
+            <%= f.label :current_price %>
+            <%= f.number_field :current_price, step: 0.01 %>
+        </li>
+        <li> <%= f.submit %></li>
+    </ul>
+<% end %>

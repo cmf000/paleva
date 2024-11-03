@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visita a página de uma bebida' do 
+describe 'Usuário visita a página de um prato' do 
   it 'a partir da página inicial' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
@@ -8,27 +8,27 @@ describe 'Usuário visita a página de uma bebida' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
-    offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
-    offering_2 = Offering.create!(offerable: beverage, description: '500 ml', current_price: 10.00)
-    offering_3 = Offering.create!(offerable: beverage, description: '2 L', current_price: 18.00)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
+    offering_1 = Offering.create!(offerable: dish, description: 'pequeno', current_price: 20)
+    offering_2 = Offering.create!(offerable: dish, description: 'grande', current_price: 30)
+    offering_3 = Offering.create!(offerable: dish, description: 'extra-grande', current_price: 40)
+
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on 'Hamburguer'
     
-    expect(page).to have_content 'Coca-cola'
-    expect(page).to have_content 'Delicioso tônico'
+    expect(page).to have_content 'Hamburguer'
+    expect(page).to have_content 'pão, carne, queijo'
     expect(page).to have_content '1200 kcal'
-    expect(page).to have_content 'Não-alcoólica'
     expect(page).to have_content 'Porções'
-    expect(page).to have_content '350 ml'
-    expect(page).to have_content '500 ml'
-    expect(page).to have_content '2 L'
-    expect(page).to have_content 'R$ 8,00'
-    expect(page).to have_content 'R$ 10,00'
-    expect(page).to have_content 'R$ 18,00'
+    expect(page).to have_content 'pequeno'
+    expect(page).to have_content 'grande'
+    expect(page).to have_content 'extra-grande'
+    expect(page).to have_content 'R$ 20,00'
+    expect(page).to have_content 'R$ 30,00'
+    expect(page).to have_content 'R$ 40,00'
   end
 
   it 'e volta à página do restaurante' do
@@ -38,18 +38,12 @@ describe 'Usuário visita a página de uma bebida' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
-    offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
-
-    offering_2 = Offering.create!(offerable: beverage, description: '500 ml', current_price: 10.00)
-
-    offering_3 = Offering.create!(offerable: beverage, description: '2 L', current_price: 18.00)
-
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on 'Hamburguer'
     click_on 'Quitutes Picantes'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
@@ -62,18 +56,12 @@ describe 'Usuário visita a página de uma bebida' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
-    offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
-
-    offering_2 = Offering.create!(offerable: beverage, description: '500 ml', current_price: 10.00)
-
-    offering_3 = Offering.create!(offerable: beverage, description: '2 L', current_price: 18.00)
-
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on 'Hamburguer'
     click_on 'Paleva'
 
     expect(current_path).to eq restaurants_path
@@ -86,13 +74,13 @@ describe 'Usuário visita a página de uma bebida' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", user: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
-    
+    click_on 'Hamburguer'
+
     expect(page).to have_content 'Não há porções cadastradas'
   end
 
@@ -109,12 +97,12 @@ describe 'Usuário visita a página de uma bebida' do
                                     city: "Guarulhos", state: "SP",
                                     zip_code: "33333-333", user: other_user,
                                     district: "Doces", email: 'churros@email.com', phone_number: '11933301040')
-    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
 
     login_as(other_user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on 'Hamburguer'
 
     expect(page).not_to have_content('Nova Porção')
   end

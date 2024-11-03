@@ -1,11 +1,29 @@
 class Offering < ApplicationRecord
   belongs_to :offerable, polymorphic: true
   has_many :price_histories, dependent: :destroy
-  validates :offerable_id, :description, presence: true
-  validate :has_at_least_one_price_history
+  validates :offerable_id, :description, :current_price, :effective_at, presence: true
+  validates :current_price, numericality: { greater_than: 0 }
+  before_validation :set_effective_at
+  after_update :update_price_history
+  validate :new_price_must_be_different
 
   private
-  def has_at_least_one_price_history
-    errors.add(:price_history, "não pode ficar em branco") if self.price_histories.empty?
+
+  def new_price_must_be_different
+    if current_price == current_price_was
+      errors.add(:current_price, "só pode ser alterado para um valor diferente")
+    end
+  end
+
+  def set_effective_at
+    if will_save_change_to_current_price?
+      self.effective_at = DateTime.now
+    end
+  end
+
+  def update_price_history
+    if self.previous_changes[:current_price].present?
+      self.price_histories.create!(price: self.previous_changes[:current_price][0], effective_at: self.previous_changes[:effective_at][0])
+    end
   end
 end

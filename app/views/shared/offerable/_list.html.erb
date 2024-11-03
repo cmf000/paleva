@@ -1,0 +1,16 @@
+<% if restaurant.user == current_user %>
+  <%= link_to 'Nova Porção', new_polymorphic_path([restaurant, offerable, :offering])%>
+<% end %>
+
+<% if offerable.offerings.present? %>
+  <% offerable.offerings.each do |offering| %>
+    <div id="<%= dom_id(offering) %>">
+      <%= link_to [restaurant, offerable, offering] do %>
+        <p><%= offering.description %></p>
+        <p><%= number_to_currency(offering.current_price) %></p>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Não há porções cadastradas</p>
+<% end %>

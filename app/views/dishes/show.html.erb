@@ -24,5 +24,12 @@
                 <%= button_to "Ativar", toggle_status_restaurant_dish_path(@restaurant, @dish) %>
             <% end %>
         </li>
+        <li>
+            <div>
+                <h1><%= @dish.name %></h1>
+                <h2>Porções</h2>
+                <%= render 'shared/offerable/list', offerable: @dish, restaurant: @restaurant %>
+            </div>
+        </li>
     </ul>
 </div>

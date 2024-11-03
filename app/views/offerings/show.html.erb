@@ -1,0 +1,17 @@
+<h1><%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id) %> <br> 
+<%= link_to @offerable.name, [@restaurant, @offerable]%></h1>
+
+<div class='price_history'>
+    <h2>Histórico de preços</h2>
+    <% @price_histories.each do |price_history| %>
+    <p><%= I18n.localize(price_history.effective_at)%> - <%= number_to_currency(price_history.price)%></p>
+    <% end %>
+</div>
+
+<div>
+    <h1>Porçao</h1>
+    <p><%= @offering.description %></p>
+    <p><%= @offering.current_price %> </p>
+    <p><%= I18n.localize(@offering.effective_at)%></p>
+    <p><%= link_to 'Alterar Preço', edit_polymorphic_path([@restaurant, @offerable, @offering])%></p>
+</div>

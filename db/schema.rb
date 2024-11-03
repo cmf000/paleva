@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_01_175745) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_02_015250) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -68,12 +68,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_175745) do
     t.integer "offerable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "current_price", precision: 10, scale: 2, null: false
+    t.datetime "effective_at", null: false
     t.index ["offerable_type", "offerable_id"], name: "index_offerings_on_offerable"
   end
 
   create_table "price_histories", force: :cascade do |t|
     t.decimal "price", null: false
-    t.datetime "effective_date", null: false
+    t.datetime "effective_at", null: false
     t.integer "offering_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
