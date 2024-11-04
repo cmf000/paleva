@@ -138,19 +138,62 @@ describe 'Usuário edita uma bebida' do
     expect(current_path).to eq restaurants_path
   end
 
-  it 'e retorna à página de seu restaurante' do 
+  it 'e escolhe marcações' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
-                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
-                       city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
-                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: 1200, alcoholic: :no)
+    tag = Tag.create!(name: :vegan)
+    other_tag = Tag.create!(name: :gluten_free)
 
     login_as(user)
-    visit edit_restaurant_beverage_path(restaurant.id, beverage.id)
-    click_on 'Quitutes Picantes'
+    visit root_path
+    click_on "Quitutes Picantes"
+    within("##{dom_id(beverage)}") do
+      click_on 'Editar'
+    end
+    check "#{dom_id(tag)}"
+    check "#{dom_id(other_tag)}"
+    choose 'beverage_alcoholic_yes'
+    click_on 'Atualizar Bebida'
+    beverage.reload
 
-    expect(current_path).to eq restaurant_path(restaurant.id)
+    expect(page).to have_content 'Bebida editada com sucesso'
+    expect(beverage.alcoholic).to eq "yes"
+    expect(beverage.tags.first.name).to eq 'vegan'
+    expect(beverage.tags.last.name).to eq 'gluten_free'
   end
+
+  it 'e remove marcações' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: 1200, alcoholic: :no)
+    tag = Tag.create!(name: :vegan)
+    beverage.tags << tag
+    other_tag = Tag.create!(name: :gluten_free)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    within("##{dom_id(beverage)}") do
+      click_on 'Editar'
+    end
+    uncheck "#{dom_id(tag)}"
+    check "#{dom_id(other_tag)}"
+    choose 'beverage_alcoholic_yes'
+    click_on 'Atualizar Bebida'
+    beverage.reload
+
+    expect(page).to have_content 'Bebida editada com sucesso'
+    expect(beverage.alcoholic).to eq "yes"
+    expect(beverage.tags.first.name).to eq 'gluten_free'
+  end
+  
 end

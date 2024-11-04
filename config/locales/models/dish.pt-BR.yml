@@ -10,5 +10,6 @@ pt-BR:
         description: 'Descrição'
         calories: 'Calorias'
         status: 'Status'
+        image: 'Imagem'
 
 

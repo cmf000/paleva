@@ -1,14 +1,75 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra um novo prato' do
-  it 'com sucesso' do
+  it 'a partir da página inicial' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", user: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Tag.create!(name: :vegan)
 
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    click_on 'Cadastrar novo prato'
+
+    expect(page).to have_content 'Nome'
+    expect(page).to have_content 'Calorias'
+    expect(page).to have_content 'Descrição'
+    expect(page).to have_content 'Imagem'
+    expect(page).to have_content 'Vegano'
+    expect(page).to have_button 'Criar Prato'
+
+  end
+
+  it 'e volta à página inicial' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                       city: "Ferraz de Vasconcelos", state: "SP",
+                       zip_code: "11111-111", user: user,
+                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Tag.create!(name: :vegan)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    click_on 'Cadastrar novo prato'
+    click_on 'Paleva'
+
+    expect(current_path).to eq restaurants_path
+  end
+
+  it 'e retorna à página do restaurante' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                       city: "Ferraz de Vasconcelos", state: "SP",
+                       zip_code: "11111-111", user: user,
+                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Tag.create!(name: :vegan)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    click_on 'Cadastrar novo prato'
+    click_on 'Quitutes Picantes'
+
+    expect(current_path).to eq restaurant_path(restaurant.id)
+  end
+
+  it 'com sucesso' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    tag = Tag.create!(name: :vegan)
+    tag_2 = Tag.create!(name: :gluten_free)
+                      
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
@@ -16,9 +77,11 @@ describe 'Usuário cadastra um novo prato' do
     fill_in 'Nome', with: 'Hamburguer'
     fill_in 'Descrição', with: 'carne, queijo, mostarda'
     fill_in 'Calorias', with: '1200'
+    check "#{dom_id(tag)}"
     click_on 'Criar Prato'
 
     expect(page).to have_content 'Prato criado com sucesso'
+    expect(restaurant.dishes.last.tags.length).to eq 1
   end
 
   it 'com dados incompletos' do

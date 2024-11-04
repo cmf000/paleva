@@ -16,6 +16,12 @@
         <% if beverage.image.attached? %>
             <p><%= image_tag url_for(beverage.image), size: "100x100" %></p>
         <% end %>
+
+        <div>
+            <% beverage.tags.each do |tag| %>
+                <p><%= I18n.t(tag.name) %></p>
+            <% end %>
+        </div>
         
         <div>Status: <%= I18n.translate(beverage.status) %></div>
     <% end %>

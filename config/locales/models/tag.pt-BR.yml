@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      tag:
+        one: 'Marcação'
+        other: 'Marcações'
+    attributes:
+      tag:
+        name: 'Nome'

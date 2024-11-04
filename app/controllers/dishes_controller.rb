@@ -1,10 +1,10 @@
 class DishesController < ApplicationController
-  before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status]
+  before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status, :show]
   before_action :set_restaurant, only: [:new, :create, :edit, :update]
 
   def new
     @dish = @restaurant.dishes.build
-    
+    @tags = Tag.all
   end
 
   def create
@@ -13,12 +13,14 @@ class DishesController < ApplicationController
       redirect_to restaurant_path(@restaurant), notice: 'Prato criado com sucesso'
     else
       flash.now[:notice] = 'Prato não cadastrado'
+      @tags = Tag.all
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit 
     @dish = @restaurant.dishes.find(params[:id])
+    @tags = Tag.all
   end
 
   def update
@@ -28,6 +30,7 @@ class DishesController < ApplicationController
       redirect_to restaurant_path(@restaurant), notice: "Prato editado com sucesso"
     else
       flash.now[:notice] = "Prato não editado"
+      @tags = Tag.all
       render :edit, status: :unprocessable_entity
     end
   end
@@ -56,7 +59,7 @@ class DishesController < ApplicationController
   end
 
   def dish_params 
-    params.require(:dish).permit(:name, :description, :calories, :image)
+    params.require(:dish).permit(:name, :description, :calories, :image, tag_ids: [])
   end
 
   def set_restaurant

@@ -26,10 +26,12 @@
                 <p>Status: <%=I18n.translate(@beverage.status)%></p><br>
             <li>
             <li>
-                <%if @beverage.active? %>
-                    <%=button_to "Desativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
-                <% else %>
-                    <%=button_to "Ativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
+                <% if current_user == @restaurant.user %>
+                    <%if @beverage.active? %>
+                        <%=button_to "Desativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
+                    <% else %>
+                        <%=button_to "Ativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
+                    <% end %>
                 <% end %>
             </li>
             <li>

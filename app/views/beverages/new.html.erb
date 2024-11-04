@@ -1,4 +1,5 @@
-<h1>Novo Bebida:</h1>
+<h2><%=link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%></h2>
+<h1>Nova Bebida:</h1>
 
 <% if @beverage.errors.any? %>
     <% @beverage.errors.full_messages.each do |msg| %>
@@ -6,24 +7,4 @@
     <% end %>
 <% end %>
 
-<%= form_with(model: @beverage, url: restaurant_beverages_path(@restaurant)) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
-
-    <%= f.label :description %>
-    <%= f.text_area :description %><br>
-
-    <%= f.label :calories %>
-    <%= f.number_field :calories %><br>
-
-    <%= f.label :alcoholic, "Alcoholic?" %><br>
-    <%= f.radio_button :alcoholic, :yes %>
-    <%= f.label :alcoholic_yes, "Sim" %><br>
-    <%= f.radio_button :alcoholic, :no %>
-    <%= f.label :alcoholic_no, "Não" %><br>
-
-    <%= f.label :image %>
-    <%= f.file_field :image %><br>
-    
-    <%= f.submit %>
-<% end %>
+<%= render 'form', beverage: @beverage, restaurant: @restaurant, tags: @tags, url: restaurant_beverages_path(@restaurant)%>

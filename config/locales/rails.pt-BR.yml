@@ -1,5 +1,7 @@
 ---
 pt-BR:
+  vegan: 'Vegano'
+  gluten_free: 'Sem glútem'
   activerecord:
     errors:
       messages:

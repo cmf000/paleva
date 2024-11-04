@@ -4,6 +4,7 @@ class BeveragesController < ApplicationController
 
   def new
     @beverage = @restaurant.beverages.build
+    @tags = Tag.all
   end
 
   def create
@@ -12,12 +13,14 @@ class BeveragesController < ApplicationController
       redirect_to restaurant_path(@restaurant), notice: 'Bebida criada com sucesso'
     else
       flash.now[:notice] = 'Bebida não cadastrada'
+      @tags = Tag.all
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit 
     @beverage = @restaurant.beverages.find(params[:id])
+    @tags = Tag.all
   end
 
   def update
@@ -27,6 +30,7 @@ class BeveragesController < ApplicationController
       redirect_to restaurant_path(@restaurant), notice: "Bebida editada com sucesso"
     else
       flash.now[:notice] = "Bebida não editada"
+      @tags = Tag.all
       render :edit, status: :unprocessable_entity
     end
   end
@@ -54,7 +58,7 @@ class BeveragesController < ApplicationController
   end
 
   def beverage_params 
-    params.require(:beverage).permit(:name, :description, :calories, :alcoholic, :remove_image)
+    params.require(:beverage).permit(:name, :description, :calories, :alcoholic, :remove_image, tag_ids: [])
   end
 
   def set_restaurant

@@ -168,4 +168,63 @@ describe 'Usuário edita um prato' do
 
     expect(current_path).to eq restaurant_path(restaurant.id)
   end
+
+  it 'e seleciona marcações para um prato' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    tag = Tag.create!(name: :vegan)
+    other_tag = Tag.create!(name: :gluten_free)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    within("##{dom_id(dish)}") do
+      click_on 'Editar'
+    end
+    fill_in 'Nome', with: 'Hamburguer Grande'
+    check "#{dom_id(tag)}"
+    check "#{dom_id(other_tag)}"
+    click_on 'Atualizar Prato'
+    dish.reload
+
+    expect(page).to have_content 'Prato editado com sucesso'
+    expect(dish.name).to eq 'Hamburguer Grande'
+    expect(dish.tags.first.name).to eq 'vegan'
+    expect(dish.tags.last.name).to eq 'gluten_free'
+  end
+
+  it 'e remove marcações para um prato' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", user: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    tag = Tag.create!(name: :vegan)
+    other_tag = Tag.create!(name: :gluten_free)
+    dish.tags << tag
+    dish.tags << other_tag
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    within("##{dom_id(dish)}") do
+      click_on 'Editar'
+    end
+    fill_in 'Nome', with: 'Hamburguer Grande'
+    uncheck "#{dom_id(tag)}"
+    uncheck "#{dom_id(other_tag)}"
+    click_on 'Atualizar Prato'
+    dish.reload
+
+    expect(page).to have_content 'Prato editado com sucesso'
+    expect(dish.name).to eq 'Hamburguer Grande'
+    expect(dish.tags).to be_empty
+  end
 end

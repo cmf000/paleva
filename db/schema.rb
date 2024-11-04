@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_02_015250) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_03_163836) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -62,6 +62,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_02_015250) do
     t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
   end
 
+  create_table "offerable_tags", force: :cascade do |t|
+    t.string "offerable_type", null: false
+    t.integer "offerable_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offerable_type", "offerable_id"], name: "index_offerable_tags_on_offerable"
+    t.index ["tag_id"], name: "index_offerable_tags_on_tag_id"
+  end
+
   create_table "offerings", force: :cascade do |t|
     t.string "description", null: false
     t.string "offerable_type", null: false
@@ -110,6 +120,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_02_015250) do
     t.index ["restaurant_id"], name: "index_shifts_on_restaurant_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -129,6 +145,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_02_015250) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "beverages", "restaurants"
   add_foreign_key "dishes", "restaurants"
+  add_foreign_key "offerable_tags", "tags"
   add_foreign_key "price_histories", "offerings"
   add_foreign_key "restaurants", "users"
   add_foreign_key "shifts", "restaurants"

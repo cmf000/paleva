@@ -1,9 +1,51 @@
 require 'rails_helper'
 
-describe 'Usuário cadastra um novo prato' do
-  it 'com sucesso' do
+describe 'Usuário cadastra uma nova bebida' do
+  it 'a partir da página inicial' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                       city: "Ferraz de Vasconcelos", state: "SP",
+                       zip_code: "11111-111", user: user,
+                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Tag.create!(name: :vegan)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    click_on 'Cadastrar nova bebida'
+
+    expect(page).to have_content 'Nome'
+    expect(page).to have_content 'Descrição'
+    expect(page).to have_content 'Calorias'
+    expect(page).to have_content 'Descrição'
+    expect(page).to have_content 'Alcoólica'
+    expect(page).to have_content 'Imagem'
+    expect(page).to have_content 'Vegano'
+    expect(page).to have_button 'Criar Bebida'
+  end
+
+  it 'e volta à página inicial' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                       city: "Ferraz de Vasconcelos", state: "SP",
+                       zip_code: "11111-111", user: user,
+                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    Tag.create!(name: :vegan)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    click_on 'Cadastrar nova bebida'
+    click_on 'Paleva'
+
+    expect(current_path).to eq restaurants_path
+  end
+
+  it 'e volta à página do restaurante' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", user: user,
@@ -13,13 +55,36 @@ describe 'Usuário cadastra um novo prato' do
     visit root_path
     click_on "Quitutes Picantes"
     click_on 'Cadastrar nova bebida'
+    click_on 'Quitutes Picantes'
+
+    expect(current_path).to eq restaurant_path(restaurant.id)
+  end
+
+  it 'com sucesso' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                       city: "Ferraz de Vasconcelos", state: "SP",
+                       zip_code: "11111-111", user: user,
+                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    tag = Tag.create!(name: :vegan)
+
+    login_as(user)
+    visit root_path
+    click_on "Quitutes Picantes"
+    click_on 'Cadastrar nova bebida'
     fill_in 'Nome', with: 'Coca-cola'
     fill_in 'Descrição', with: '2L'
     fill_in 'Calorias', with: '1200'
-    choose 'beverage_alcoholic_yes'
+    choose 'beverage_alcoholic_no'
+    check "#{dom_id(tag)}"
     click_on 'Criar Bebida'
 
     expect(page).to have_content 'Bebida criada com sucesso'
+    expect(restaurant.beverages.last.tags.last.name).to eq "vegan"
+    expect(restaurant.beverages.last.name).to eq "Coca-cola"
+    expect(restaurant.beverages.last.description).to eq "2L"
+    expect(restaurant.beverages.last).to be_no
   end
 
   it 'com dados incompletos' do
@@ -79,7 +144,8 @@ describe 'Usuário cadastra um novo prato' do
                                           cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
                                           city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
                                           email: 'saboresdobrasil@email.com', phone_number: '11933301020')
-  
+    
+                                        
     login_as(other_user)
     visit new_restaurant_beverage_path(restaurant.id, beverage.id)
 

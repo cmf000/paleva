@@ -17,4 +17,5 @@ Rails.application.routes.draw do
     end
     get :search, to: 'search#index'
   end
+  resources :tags, only: [:new, :create]
 end

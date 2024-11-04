@@ -6,17 +6,6 @@
     <% end %>
 <% end %>
 
-<%= form_with(model: @dish, url: restaurant_dishes_path(@restaurant)) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
+<%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
 
-    <%= f.label :description %>
-    <%= f.text_area :description %><br>
-
-    <%= f.label :calories %>
-    <%= f.number_field :calories %><br>
-
-    <%= f.label :image %>
-    <%= f.file_field :image %><br>
-    <%= f.submit %>
-<% end %>
+<%= render 'form', restaurant: @restaurant, dish: @dish, tags: @tags, url: restaurant_dishes_path(@restaurant) %>

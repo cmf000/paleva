@@ -56,10 +56,16 @@ describe 'Usuário visita página do seu restaurante' do
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", user: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    tag = Tag.create!(name: :vegan)
+    other_tag = Tag.create!(name: :gluten_free)
     dish_1 = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    dish_1.tags << tag
     dish_2 = Dish.create!(restaurant: restaurant, name: 'Cachorro quente', description: 'salsicha, pão, molhos', calories: 1200, status: :inactive)
     beverage_1 = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no, status: :inactive)
+    beverage_1.tags << tag
+    beverage_1.tags << other_tag
     beverage_2 = Beverage.create!(restaurant: restaurant, name: 'Fanta', description: 'Bebida natural sabor laranja', calories: 1200, alcoholic: :no)
+    beverage_2.tags << tag
     beverage_3 = Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: 'Bebida fermentada de cerais maltados', calories: 1200, alcoholic: :yes, status: :inactive)
 
     login_as(user)
@@ -70,6 +76,7 @@ describe 'Usuário visita página do seu restaurante' do
       expect(page).to have_content 'carne, queijo, mostarda'
       expect(page).to have_content '1200 kcal'
       expect(page).to have_content 'Ativo'
+      expect(page).to have_content 'Vegano'
     end
 
     within("##{dom_id(dish_2)}") do
@@ -85,6 +92,8 @@ describe 'Usuário visita página do seu restaurante' do
       expect(page).to have_content '1200 kcal'
       expect(page).to have_content 'Tipo: Não-alcoólica'
       expect(page).to have_content 'Inativo'
+      expect(page).to have_content 'Vegano'
+      expect(page).to have_content 'Sem glútem'
     end
 
     within("##{dom_id(beverage_2)}") do
