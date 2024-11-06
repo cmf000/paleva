@@ -1,5 +1,5 @@
 class OfferingsController < ApplicationController
-  before_action :set_offering_and_check_user_is_owner
+  before_action :set_offerable_and_check_user_is_owner
   before_action :offering_permitted_params, only: [:create]
 
   def show
@@ -41,7 +41,7 @@ class OfferingsController < ApplicationController
   end
 
   private
-  def set_offering_and_check_user_is_owner
+  def set_offerable_and_check_user_is_owner
     if current_user != Restaurant.find(params[:restaurant_id]).user
       redirect_to root_path
     else

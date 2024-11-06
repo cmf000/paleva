@@ -1,0 +1,25 @@
+<%= I18n.translate('activerecord.models.new_employee', default: :new_employee) %> para <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
+<p><%= link_to 'Gestão de funcionários', manage_employees_restaurant_path(@restaurant.id)%></p>
+
+<% if @new_employee.errors.any? %>
+    <% @new_employee.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+    <%end %>
+<% end %>
+
+<%= form_with(model: [@restaurant, @new_employee], data: { turbo: false }) do |f| %>
+
+  <div class="field">
+    <%= f.label :cpf %>
+    <%= f.text_field :cpf %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Criar Novo Funcionário' %>
+  </div>
+<% end %>

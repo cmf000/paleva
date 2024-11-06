@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 describe 'Usuário registra uma conta' do
+  it 'com sucesso' do 
+    visit root_path
+    click_on 'Inscrever-se'
+    fill_in 'Nome', with: 'Carlos Gomes'
+    fill_in 'CPF', with: CPF.generate
+    fill_in 'E-mail', with: 'zoroastro@email.com'
+    fill_in 'Senha', with: 'alskdjfbh9873245%@24alsk'
+    fill_in 'Confirme sua senha', with: 'alskdjfbh9873245%@24alsk'
+    click_on 'Inscrever-se'
+
+    expect(current_path).to eq new_restaurant_path
+    expect(User.last.email).to eq 'zoroastro@email.com'
+  end
+
   it 'e todos os dados devem ser preenchidos' do
     visit root_path
     click_on 'Login'

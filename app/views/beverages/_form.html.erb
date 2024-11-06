@@ -29,7 +29,7 @@
         <%= link_to "Nova Marcação", new_tag_path(return_to: request.fullpath)%>
         <%= hidden_field_tag 'beverage[tag_ids][]', nil%>
         <% tags.each do |tag| %>
-            <%= f.label tag.id, I18n.t(tag.name, default: tag.name) %>   
+            <%= f.label tag.id, I18n.t(tag.name, default: tag.name).capitalize %>   
             <%= check_box_tag "beverage[tag_ids][]", tag.id, beverage.tag_ids.include?(tag.id), id: "#{dom_id(tag)}" %><br>
         <% end %>
     </div>

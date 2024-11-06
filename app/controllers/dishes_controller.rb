@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status, :show]
-  before_action :set_restaurant, only: [:new, :create, :edit, :update]
+  before_action :set_restaurant, only: [:new, :create, :edit, :update, :toggle_status]
 
   def new
     @dish = @restaurant.dishes.build
@@ -41,7 +41,6 @@ class DishesController < ApplicationController
   end
 
   def toggle_status
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @dish = Dish.find(params[:id])
     if @dish.active?
       @dish.update(status: :inactive)
@@ -58,7 +57,7 @@ class DishesController < ApplicationController
     end
   end
 
-  def dish_params 
+  def dish_params
     params.require(:dish).permit(:name, :description, :calories, :image, tag_ids: [])
   end
 

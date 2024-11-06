@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_03_163836) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_05_201241) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +60,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_163836) do
     t.integer "restaurant_id", null: false
     t.integer "status", default: 1
     t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
+  end
+
+  create_table "new_employees", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "cpf", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "restaurant_id", null: false
+    t.index ["restaurant_id"], name: "index_new_employees_on_restaurant_id"
   end
 
   create_table "offerable_tags", force: :cascade do |t|
@@ -145,6 +154,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_163836) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "beverages", "restaurants"
   add_foreign_key "dishes", "restaurants"
+  add_foreign_key "new_employees", "restaurants"
   add_foreign_key "offerable_tags", "tags"
   add_foreign_key "price_histories", "offerings"
   add_foreign_key "restaurants", "users"

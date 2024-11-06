@@ -1,6 +1,9 @@
 <h1><%= @restaurant.trade_name %></h1>
 
 <div id="<%=dom_id @restaurant%>">
+    <div>
+        <%= link_to 'Gestão de Funcionários', manage_employees_restaurant_path(@restaurant.id)%>
+    </div>
     <% if current_user == @restaurant.user %>
         <%= link_to 'Editar', edit_restaurant_path(@restaurant.id)%>
     <% end %>

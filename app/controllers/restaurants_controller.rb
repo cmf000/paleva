@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
-  before_action :redirect_user, only: [:index, :show, :edit]
-  before_action :set_restaurant_and_check_user_is_owner, only: [:update]
+  before_action :redirect_user, only: [:index, :show]
+  before_action :set_restaurant_and_check_user_is_owner, only: [:edit, :update, :manage_employees]
   def index
     @restaurant = current_user.restaurant
   end
@@ -52,6 +52,10 @@ class RestaurantsController < ApplicationController
       build_remaining_shifts
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def manage_employees
+    @new_employees = @restaurant.new_employees
   end
   
 

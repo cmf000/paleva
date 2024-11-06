@@ -5,6 +5,7 @@ pt-BR:
   activerecord:
     errors:
       messages:
+        exists: 'já existe'
         record_invalid: 'A validação falhou: %{errors}'
         restrict_dependent_destroy:
           has_one: Não é possível excluir o registro pois existe um %{record} dependente

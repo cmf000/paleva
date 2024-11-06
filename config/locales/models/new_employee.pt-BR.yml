@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      new_employee: 'Novo Funcionário'
+    attributes:
+      new_employee:
+        cpf: 'CPF'
+        email: 'E-mail'
+
+

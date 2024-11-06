@@ -104,6 +104,6 @@ describe 'Usuário visita a página de um prato' do
     click_on 'Quitutes Picantes'
     click_on 'Hamburguer'
 
-    expect(page).not_to have_content('Nova Porção')
+    expect(current_path).to eq restaurants_path
   end
 end

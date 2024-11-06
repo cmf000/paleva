@@ -1,5 +1,5 @@
 class BeveragesController < ApplicationController
-  before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status]
+  before_action :redirect_user, only: [:new, :create, :edit, :update, :toggle_status, :show]
   before_action :set_restaurant, only: [:new, :create, :edit, :update, :toggle_status]
 
   def new
