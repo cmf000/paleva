@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       end
       resources :offerings, only: [:new, :create, :edit, :update, :show]
     end
-    get :search, to: 'search#index'
+    get :search, on: :member
     member do
       get :manage_employees
     end

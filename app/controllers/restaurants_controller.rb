@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :redirect_user_from_index, only: [:index]
   before_action :redirect_user_from_show, only: [:show]
-  before_action :set_restaurant_and_check_user_is_owner, only: [:edit, :update, :manage_employees]
+  before_action :set_restaurant_and_check_user_is_owner, only: [:edit, :update, :manage_employees, :search]
   def index
     @restaurant = current_user.owned_restaurant
   end
@@ -53,6 +53,12 @@ class RestaurantsController < ApplicationController
       build_remaining_shifts
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def search
+    @query = params[:query]
+    @dishes = @restaurant.dishes.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")
+    @beverages = @restaurant.beverages.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")
   end
 
   def manage_employees

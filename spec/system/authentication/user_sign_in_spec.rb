@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'usuário realiza login' do
-
   it 'e faz logout' do
     User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'asdfqewrasdf', cpf: CPF.generate)
 
@@ -9,7 +8,6 @@ describe 'usuário realiza login' do
     fill_in 'E-mail', with: 'amarildo@email.com'
     fill_in 'Senha', with: 'asdfqewrasdf'
     click_on 'Login'
-    save_page
     click_on 'Sair'
 
     expect(current_path).to eq new_user_session_path

@@ -50,7 +50,7 @@ describe 'Usuário busca pratos e bebidas' do
 
     login_as(user)
     visit root_path
-    fill_in 'Buscar itens', with: 'Hamburguer'
+    fill_in 'query', with: 'Hamburguer'
     click_on "Buscar"
 
     expect(page).to have_content 'Resultados da busca por: Hamburguer'
@@ -84,7 +84,7 @@ describe 'Usuário busca pratos e bebidas' do
 
     login_as(user)
     visit root_path
-    fill_in 'Buscar itens', with: 'asdf'
+    fill_in 'query', with: 'asdf'
     click_on "Buscar"
 
     expect(page).to have_content 'Resultados da busca por: asdf'
