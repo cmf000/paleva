@@ -2,7 +2,7 @@
 <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
 <%= link_to 'Voltar', @return_to%>
 
-<%= form_with(model: @tag) do |f| %>
+<%= form_with(model: @tag, url: [@restaurant, @tag]) do |f| %>
     <%= hidden_field_tag :return_to, @return_to%>
     <%=f.label :name %>
     <%=f.text_field :name%>

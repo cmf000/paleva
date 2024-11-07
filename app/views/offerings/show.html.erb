@@ -1,17 +1,72 @@
-<h1><%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id) %> <br> 
-<%= link_to @offerable.name, [@restaurant, @offerable]%></h1>
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="mb-8">
+        <nav class="text-sm mb-4">
+            <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %> /
+            <%= link_to @offerable.name, [@restaurant, @offerable], class: "text-blue-600 hover:text-blue-800" %>
+        </nav>
+    </div>
 
-<div class='price_history'>
-    <h2>Histórico de preços</h2>
-    <% @price_histories.each do |price_history| %>
-    <p><%= I18n.localize(price_history.effective_at)%> - <%= number_to_currency(price_history.price)%></p>
-    <% end %>
-</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Porção</h2>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-sm text-gray-500">Descrição</p>
+                    <p class="text-gray-900"><%= @offering.description %></p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Preço Atual</p>
+                    <p class="text-lg font-semibold text-gray-900"><%= @offering.current_price %></p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Data de vigência</p>
+                    <p class="text-gray-900"><%= I18n.localize(@offering.effective_at) %></p>
+                </div>
+                <div class="pt-4">
+                    <%= link_to 'Alterar Preço', 
+                        edit_polymorphic_path([@restaurant, @offerable, @offering]),
+                        class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200" %>
+                </div>
+            </div>
+        </div>
+         <div class="price_history mt-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Histórico de preços</h2>
+        <div class="font-[sans-serif] overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 whitespace-nowrap">
+                    <tr>
+                        <th class="p-4 text-left text-sm font-medium text-white">
+                            Data de alteração
+                        </th>
+                        <th class="p-4 text-left text-sm font-medium text-white">
+                            Valor
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if @price_histories.any? %>
+                        <% @price_histories.each do |price_history| %>
+                            <tr class="even:bg-blue-50">
+                                <td class="p-4 text-sm text-black">
+                                    <%= I18n.localize(price_history.effective_at) %>
+                                </td>
+                                <td class="p-4 text-sm text-black">
+                                    <%= number_to_currency(price_history.price) %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    <% else %>
+                        <tr>
+                            <td colspan="2" class="p-4 text-sm text-gray-500 text-center">
+                                Nenhum histórico de preço disponível
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
 
-<div>
-    <h1>Porçao</h1>
-    <p><%= @offering.description %></p>
-    <p><%= @offering.current_price %> </p>
-    <p><%= I18n.localize(@offering.effective_at)%></p>
-    <p><%= link_to 'Alterar Preço', edit_polymorphic_path([@restaurant, @offerable, @offering])%></p>
+   
 </div>

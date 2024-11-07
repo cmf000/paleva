@@ -56,8 +56,8 @@ describe 'Usuário dono visita página do seu restaurante' do
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    tag = Tag.create!(name: :vegan)
-    other_tag = Tag.create!(name: :gluten_free)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
+    other_tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
     dish_1 = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
     dish_1.tags << tag
     dish_2 = Dish.create!(restaurant: restaurant, name: 'Cachorro quente', description: 'salsicha, pão, molhos', calories: 1200, status: :inactive)
@@ -314,8 +314,8 @@ describe 'Usuário funcionário visita página de restaurante' do
     cpf = CPF.generate
     new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
     employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
-    tag = Tag.create!(name: :vegan)
-    other_tag = Tag.create!(name: :gluten_free)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
+    other_tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
     dish_1 = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
     dish_1.tags << tag
     dish_2 = Dish.create!(restaurant: restaurant, name: 'Cachorro quente', description: 'salsicha, pão, molhos', calories: 1200, status: :inactive)

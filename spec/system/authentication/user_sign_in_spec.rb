@@ -9,6 +9,7 @@ describe 'usuário realiza login' do
     fill_in 'E-mail', with: 'amarildo@email.com'
     fill_in 'Senha', with: 'asdfqewrasdf'
     click_on 'Login'
+    save_page
     click_on 'Sair'
 
     expect(current_path).to eq new_user_session_path

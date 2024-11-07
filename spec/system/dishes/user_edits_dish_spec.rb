@@ -177,8 +177,8 @@ describe 'Usuário edita um prato' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
-    tag = Tag.create!(name: :vegan)
-    other_tag = Tag.create!(name: :gluten_free)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
+    other_tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
 
     login_as(user)
     visit root_path
@@ -206,8 +206,8 @@ describe 'Usuário edita um prato' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
-    tag = Tag.create!(name: :vegan)
-    other_tag = Tag.create!(name: :gluten_free)
+    tag = Tag.create!(restaurant:restaurant, name: :vegan)
+    other_tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
     dish.tags << tag
     dish.tags << other_tag
 

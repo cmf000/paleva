@@ -19,19 +19,23 @@
   </head>
 
   <body>
-    <header>
-      <nav>
-        <%= link_to 'Paleva', root_path%>
-        <% if user_signed_in?%>
-          <%= button_to I18n.translate('devise.sessions.sign_out'), destroy_user_session_path, method: :delete%>
-          <% if current_user.owned_restaurant.present? %>
-            <%= form_with(url: restaurant_search_path(current_user.owned_restaurant), method: :get) do |f| %>
-              <%= f.label :query, 'Buscar itens' %>
-              <%= f.text_field :query, placeholder: "buscar em #{current_user.owned_restaurant.trade_name}" %>
-              <%= f.submit "Buscar"%>
+    <header class="fixed w-full top-0 bg-white shadow-md" >
+      <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <%= link_to 'Paleva', root_path, class: "text-xl font-bold text-blue-600" %>
+        <div class="flex items-center space-x-4">
+          <% if user_signed_in?%>
+            <% if current_user.owned_restaurant.present? %>
+              <%= form_with(url: restaurant_search_path(current_user.owned_restaurant), method: :get, class: "flex items-center gap-2") do |f| %>
+                <div class="flex">
+                  <%= f.label :query, 'Buscar itens', class: "sr-only" %>
+                  <%= f.text_field :query, placeholder: "buscar em #{current_user.owned_restaurant.trade_name}", class: "px-3 py-2 border rounded-md text-sm" %>
+                  <%= f.submit "Buscar", class: "px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 whitespace-nowrap" %>
+                </div>
+              <% end %>
             <% end %>
+           <%= button_to I18n.translate('devise.sessions.sign_out'), destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap"%>
           <% end %>
-        <% end %>
+        </div>
       </nav>
         <div>
           <p><%= alert %></p>

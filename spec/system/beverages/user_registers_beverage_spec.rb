@@ -3,12 +3,12 @@ require 'rails_helper'
 describe 'Usuário cadastra uma nova bebida' do
   it 'a partir da página inicial' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
-    Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
 
     login_as(user)
     visit root_path
@@ -27,12 +27,12 @@ describe 'Usuário cadastra uma nova bebida' do
 
   it 'e volta à página inicial' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
-    Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
 
     login_as(user)
     visit root_path
@@ -67,7 +67,7 @@ describe 'Usuário cadastra uma nova bebida' do
                        city: "Ferraz de Vasconcelos", state: "SP",
                        zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    tag = Tag.create!(name: :vegan)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
 
     login_as(user)
     visit root_path

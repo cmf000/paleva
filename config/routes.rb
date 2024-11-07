@@ -20,6 +20,6 @@ Rails.application.routes.draw do
       get :manage_employees
     end
     resources :new_employees, only: [:new, :create]
+    resources :tags, only: [:new, :create]
   end
-  resources :tags, only: [:new, :create]
 end

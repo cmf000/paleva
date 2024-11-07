@@ -146,8 +146,8 @@ describe 'Usuário edita uma bebida' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: 1200, alcoholic: :no)
-    tag = Tag.create!(name: :vegan)
-    other_tag = Tag.create!(name: :gluten_free)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
+    other_tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
 
     login_as(user)
     visit root_path
@@ -175,9 +175,9 @@ describe 'Usuário edita uma bebida' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: 1200, alcoholic: :no)
-    tag = Tag.create!(name: :vegan)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
     beverage.tags << tag
-    other_tag = Tag.create!(name: :gluten_free)
+    other_tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
 
     login_as(user)
     visit root_path

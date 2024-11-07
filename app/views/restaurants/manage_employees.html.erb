@@ -1,13 +1,15 @@
-<div class="container mx-auto px-4 py-8 max-w-6xl">
-    <div class="mb-8">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-3xl font-bold text-gray-900">Gestão de funcionários</h1>
+<nav class="text-sm mb-4">
             <%= link_to restaurant_path(@restaurant), 
                 class: "text-blue-600 hover:text-blue-800 flex items-center" do %>
                 <span><%= @restaurant.trade_name %></span>
             <% end %>
-        </div>
+        </nav>
         
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="mb-8">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-3xl font-bold text-gray-900">Gestão de funcionários</h1>
+        </div>
         <div class="mb-6">
             <%= link_to 'Pré-cadastrar funcionário', 
                 new_restaurant_new_employee_path(@restaurant),

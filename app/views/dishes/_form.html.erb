@@ -20,7 +20,7 @@
 
         <div>
             <h2><%= I18n.translate('activerecord.models.tag.other') %>:</h2>
-            <%= link_to "Nova Marcação", new_tag_path(return_to: request.fullpath)%>
+            <%= link_to "Nova Marcação", new_restaurant_tag_path(return_to: request.fullpath)%>
             <%= hidden_field_tag "dish[tag_ids][]", nil %>
             <% tags.each do |tag| %>
                 <%= f.label tag.id, I18n.t(tag.name, default: tag.name).capitalize %>   

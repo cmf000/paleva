@@ -8,7 +8,7 @@ describe 'Usuário cria uma nova tag' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
                                   
     login_as(user)
     visit root_path
@@ -31,7 +31,7 @@ describe 'Usuário cria uma nova tag' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', alcoholic: :no)
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
                                   
     login_as(user)
     visit root_path
@@ -55,7 +55,7 @@ describe 'Usuário cria uma nova tag' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
                                   
     login_as(user)
     visit root_path
@@ -78,7 +78,7 @@ describe 'Usuário cria uma nova tag' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
                                   
     login_as(user)
     visit root_path
@@ -103,7 +103,7 @@ describe 'Usuário cria uma nova tag' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
                                   
     login_as(user)
     visit root_path
@@ -125,7 +125,7 @@ describe 'Usuário cria uma nova tag' do
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo')
-    Tag.create!(name: :vegan)
+    Tag.create!(restaurant: restaurant, name: :vegan)
                                   
     login_as(user)
     visit root_path
