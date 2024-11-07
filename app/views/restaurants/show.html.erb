@@ -4,7 +4,7 @@
     <div>
         <%= link_to 'Gestão de Funcionários', manage_employees_restaurant_path(@restaurant.id)%>
     </div>
-    <% if current_user == @restaurant.user %>
+    <% if current_user == @restaurant.owner %>
         <%= link_to 'Editar', edit_restaurant_path(@restaurant.id)%>
     <% end %>
     <ul>
@@ -24,31 +24,35 @@
 </div>
 
 <div>
-    <h2>Bebidas 
-        <% if @restaurant == current_user.restaurant %>
-            <%= link_to 'Cadastrar nova bebida', new_restaurant_beverage_path(@restaurant.id) %>
+    <% if !current_user.employee? %>
+        <h2>Bebidas 
+            <% if @restaurant == current_user.owned_restaurant %>
+                <%= link_to 'Cadastrar nova bebida', new_restaurant_beverage_path(@restaurant.id) %>
+            <% end %>
+        </h2>
+        <% if @beverages.empty? %>
+            <p>Não há bebidas cadastradas</p>
+        <% else %>
+            <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage %>
         <% end %>
-    </h2>
-    <% if @beverages.empty? %>
-        <p>Não há bebidas cadastradas</p>
-    <% else %>
-        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage %>
     <% end %>
 </div>
 
 
 <div>
-    <h2>Pratos 
-        <% if @restaurant == current_user.restaurant %>
-            <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id) %>
+    <% if !current_user.employee? %>
+        <h2>Pratos 
+            <% if @restaurant == current_user.owned_restaurant %>
+                <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id) %>
+            <% end %>
+        </h2>
+        
+        <% if @dishes.empty? %>
+            <p>Não há pratos cadastrados</p>
+        <% else %>
+            <ul>
+                <%= render partial: 'shared/dish', collection: @dishes, as: :dish %>
         <% end %>
-    </h2>
-    
-    <% if @dishes.empty? %>
-        <p>Não há pratos cadastrados</p>
-    <% else %>
-        <ul>
-            <%= render partial: 'shared/dish', collection: @dishes, as: :dish %>
     <% end %>
 </div>
 

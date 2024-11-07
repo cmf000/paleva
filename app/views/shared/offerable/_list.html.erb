@@ -1,4 +1,4 @@
-<% if restaurant.user == current_user %>
+<% if current_user == restaurant.owner %>
   <%= link_to 'Nova Porção', new_polymorphic_path([restaurant, offerable, :offering])%>
 <% end %>
 

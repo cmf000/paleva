@@ -6,7 +6,7 @@ describe 'Usuário visita a página de uma bebida' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
     offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
@@ -36,7 +36,7 @@ describe 'Usuário visita a página de uma bebida' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
     offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
@@ -60,7 +60,7 @@ describe 'Usuário visita a página de uma bebida' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
     offering_1 = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
@@ -84,7 +84,7 @@ describe 'Usuário visita a página de uma bebida' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
 
@@ -101,13 +101,13 @@ describe 'Usuário visita a página de uma bebida' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     other_restaurant = Restaurant.create!(registered_name: "Churros LTDA", trade_name: "Churros",
                                     cnpj: CNPJ.generate, street_address: "Avenida Doce, 456",
                                     city: "Guarulhos", state: "SP",
-                                    zip_code: "33333-333", user: other_user,
+                                    zip_code: "33333-333", owner: other_user,
                                     district: "Doces", email: 'churros@email.com', phone_number: '11933301040')
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
 

@@ -8,7 +8,7 @@ RSpec.describe Offering, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         dish = Dish.create!(name: 'Hamburguer', restaurant: restaurant, description: 'carne, mostarda, queijo')
         offering = Offering.new(offerable: dish, current_price: 15.00, effective_at: DateTime.now)
@@ -24,7 +24,7 @@ RSpec.describe Offering, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         offering = Offering.new(description: '2 Hamburgueres')
         offering.price_histories.build(price: 30.0, effective_at: DateTime.now)
@@ -40,7 +40,7 @@ RSpec.describe Offering, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         dish = Dish.create!(name: 'Hamburguer', restaurant: restaurant, description: 'carne, mostarda, queijo')
         offering = Offering.new(offerable: dish, description: '2 Hamburgueres', current_price: 15.00, effective_at: DateTime.now)
@@ -55,7 +55,7 @@ RSpec.describe Offering, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         beverage = Beverage.create!(name: 'Coca-cola', restaurant: restaurant, description: 'delicioso tônico de Atlanta', alcoholic: :no)
         offering = Offering.new(offerable: beverage, description: '2 L', current_price: 10.00, effective_at: DateTime.now)
@@ -69,7 +69,7 @@ RSpec.describe Offering, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         beverage = Beverage.create!(name: 'Coca-cola', restaurant: restaurant, description: 'delicioso tônico de Atlanta', alcoholic: :no)
         offering = Offering.new(offerable: beverage, description: '2 L', effective_at: DateTime.now)
@@ -83,7 +83,7 @@ RSpec.describe Offering, type: :model do
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                       city: "Ferraz de Vasconcelos", state: "SP",
-                                      zip_code: "11111-111", user: user,
+                                      zip_code: "11111-111", owner: user,
                                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
       beverage = Beverage.create!(name: 'Coca-cola', restaurant: restaurant, description: 'delicioso tônico de Atlanta', alcoholic: :no)
       offering = Offering.create!(offerable: beverage, current_price: 10,  description: '2 L')
@@ -96,7 +96,7 @@ RSpec.describe Offering, type: :model do
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                       city: "Ferraz de Vasconcelos", state: "SP",
-                                      zip_code: "11111-111", user: user,
+                                      zip_code: "11111-111", owner: user,
                                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
       beverage = Beverage.create!(name: 'Coca-cola', restaurant: restaurant, description: 'delicioso tônico de Atlanta', alcoholic: :no)
       offering = Offering.create!(offerable: beverage, current_price: 10,  description: '2 L')
@@ -110,7 +110,7 @@ RSpec.describe Offering, type: :model do
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                       city: "Ferraz de Vasconcelos", state: "SP",
-                                      zip_code: "11111-111", user: user,
+                                      zip_code: "11111-111", owner: user,
                                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
       beverage = Beverage.create!(name: 'Coca-cola', restaurant: restaurant, description: 'delicioso tônico de Atlanta', alcoholic: :no)
       offering = Offering.new(offerable: beverage, current_price: -10.0,  description: '2 L')

@@ -42,7 +42,7 @@ class OfferingsController < ApplicationController
 
   private
   def set_offerable_and_check_user_is_owner
-    if current_user != Restaurant.find(params[:restaurant_id]).user
+    if current_user != Restaurant.find(params[:restaurant_id]).owner
       redirect_to root_path
     else
       if params[:dish_id]

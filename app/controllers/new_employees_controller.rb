@@ -1,7 +1,7 @@
 class NewEmployeesController < ApplicationController
   def new 
     @restaurant = Restaurant.find(params[:restaurant_id])
-    if current_user != @restaurant.user
+    if current_user != @restaurant.owner
       redirect_to root_path
     end
     @new_employee = NewEmployee.new

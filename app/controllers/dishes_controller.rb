@@ -52,7 +52,7 @@ class DishesController < ApplicationController
 
   private
   def redirect_user
-    if current_user != Restaurant.find(params[:restaurant_id]).user
+    if current_user != Restaurant.find(params[:restaurant_id]).owner
       redirect_to root_path
     end
   end

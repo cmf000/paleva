@@ -8,7 +8,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -21,7 +21,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -34,7 +34,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: "", street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -47,7 +47,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -60,7 +60,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -73,7 +73,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -86,7 +86,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "", user: user,
+                                    zip_code: "", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -111,7 +111,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -124,7 +124,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: '', phone_number: '11933301020')
         
         restaurant.valid?
@@ -137,7 +137,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
         restaurant.valid?
@@ -150,7 +150,7 @@ RSpec.describe Restaurant, type: :model do
         restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com')
         
         restaurant.valid?
@@ -166,13 +166,13 @@ RSpec.describe Restaurant, type: :model do
         Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
         other_restaurant = Restaurant.new(registered_name: "Doces Delicias LTDA", trade_name: "Doces Delicias",
                                     cnpj: CNPJ.generate, street_address: "Avenida das Sobremesas, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "22222-222", user: other_user,
+                                    zip_code: "22222-222", owner: other_user,
                                     district: "Caldas", email: 'doces@email.com', phone_number: '11933301020')
         
         other_restaurant.valid?
@@ -185,13 +185,13 @@ RSpec.describe Restaurant, type: :model do
         Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
         other_restaurant = Restaurant.new(registered_name: "Doces Delicias LTDA", trade_name: "Doces Delicias",
                                     cnpj: CNPJ.generate, street_address: "Avenida das Sobremesas, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "22222-222", user: other_user,
+                                    zip_code: "22222-222", owner: other_user,
                                     district: "Caldas", email: 'picante@email.com', phone_number: '11933301020')
         
         other_restaurant.valid?
@@ -205,7 +205,7 @@ RSpec.describe Restaurant, type: :model do
       restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                      cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                      city: "Ferraz de Vasconcelos", state: "SP",
-                     zip_code: "11111-111", user: user,
+                     zip_code: "11111-111", owner: user,
                      district: "Pimentas", email: 'email.com', phone_number: '11933301020')
 
       restaurant.valid?
@@ -218,7 +218,7 @@ RSpec.describe Restaurant, type: :model do
       restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                      cnpj: "12.345.678/0001-90", street_address: "Avenida Quente, 456",
                      city: "Ferraz de Vasconcelos", state: "SP",
-                     zip_code: "11111-111", user: user,
+                     zip_code: "11111-111", owner: user,
                      district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
 
       restaurant.valid?
@@ -231,7 +231,7 @@ RSpec.describe Restaurant, type: :model do
       restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                   cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                   city: "Ferraz de Vasconcelos", state: "SP",
-                                  zip_code: "11111-111", user: user,
+                                  zip_code: "11111-111", owner: user,
                                   district: "Pimentas", email: 'picante@email.com', phone_number: '119333020')
       
       restaurant.valid?
@@ -244,7 +244,7 @@ RSpec.describe Restaurant, type: :model do
       restaurant = Restaurant.new(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                   cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                   city: "Ferraz de Vasconcelos", state: "SP",
-                                  zip_code: "11111-111", user: user,
+                                  zip_code: "11111-111", owner: user,
                                   district: "Pimentas", email: 'picante@email.com', phone_number: 'abcdfghijlm')
       
       expect(restaurant).not_to be_valid
@@ -258,7 +258,7 @@ RSpec.describe Restaurant, type: :model do
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                   cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                   city: "Ferraz de Vasconcelos", state: "SP",
-                                  zip_code: "11111-111", user: user,
+                                  zip_code: "11111-111", owner: user,
                                   district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         
       expect(restaurant.code.length).to eq 6

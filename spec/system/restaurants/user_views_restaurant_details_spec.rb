@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-describe 'Usuário visita página do seu restaurante' do 
+describe 'Usuário dono visita página do seu restaurante' do 
   it 'e vê os horários de funcionamento' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                 cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                 city: "Ferraz de Vasconcelos", state: "SP",
-                                zip_code: "11111-111", user: user,
+                                zip_code: "11111-111", owner: user,
                                 district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     time = Time.zone.local(1000, 1, 1, 17, 0, 0)
     Shift.create!(weekday: :sunday, restaurant: restaurant, opening_time: time, closing_time: time + 3.hours)
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                        cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                       city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                       city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                        email: 'saboresdobrasil@email.com', phone_number: '11933301020')
     
     login_as(user)
@@ -36,7 +36,7 @@ describe 'Usuário visita página do seu restaurante' do
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     
     login_as(user)
@@ -54,7 +54,7 @@ describe 'Usuário visita página do seu restaurante' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     tag = Tag.create!(name: :vegan)
     other_tag = Tag.create!(name: :gluten_free)
@@ -69,7 +69,7 @@ describe 'Usuário visita página do seu restaurante' do
     beverage_3 = Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: 'Bebida fermentada de cerais maltados', calories: 1200, alcoholic: :yes, status: :inactive)
 
     login_as(user)
-    visit restaurant_path(user.restaurant)
+    visit restaurant_path(user.owned_restaurant)
 
     within("##{dom_id(dish_1)}") do
       expect(page).to have_content 'Hamburguer'
@@ -118,13 +118,13 @@ describe 'Usuário visita página do seu restaurante' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
     beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
 
     login_as(user)
-    visit restaurant_path(user.restaurant)
+    visit restaurant_path(user.owned_restaurant)
 
     within("##{dom_id(dish)}") do
       expect(page).to have_content 'Editar'
@@ -142,12 +142,12 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                 cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                 city: "Ferraz de Vasconcelos", state: "SP",
-                                zip_code: "11111-111", user: user,
+                                zip_code: "11111-111", owner: user,
                                 district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                        cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                       city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                       city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                        email: 'saboresdobrasil@email.com', phone_number: '11933301020')
     time = Time.zone.local(1000, 1, 1, 17, 0, 0)
     Shift.create!(weekday: :sunday, restaurant: other_restaurant, opening_time: time, closing_time: time + 3.hours)
@@ -172,12 +172,12 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                        cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                       city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                       city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                        email: 'saboresdobrasil@email.com', phone_number: '11933301020')
     
     login_as(user)
@@ -195,17 +195,17 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                                           cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                                          city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                                          city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                                           email: 'saboresdobrasil@email.com', phone_number: '11933301020')
     Dish.create!(restaurant: other_restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
 
     login_as(user)
-    visit restaurant_path(other_user.restaurant)
+    visit restaurant_path(other_user.owned_restaurant)
 
     expect(page).to have_content 'Hamburguer'
     expect(page).to have_content 'carne, queijo, mostarda'
@@ -217,17 +217,17 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                                           cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                                          city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                                          city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                                           email: 'saboresdobrasil@email.com', phone_number: '11933301020')
     dish = Dish.create!(restaurant: other_restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
 
     login_as(user)
-    visit restaurant_path(other_user.restaurant.id)
+    visit restaurant_path(other_user.owned_restaurant)
 
     within("##{dom_id(dish)}") do
       expect(page).not_to have_content 'Editar'
@@ -239,17 +239,17 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                                           cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                                          city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                                          city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                                           email: 'saboresdobrasil@email.com', phone_number: '11933301020')
     Dish.create!(restaurant: other_restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
 
     login_as(user)
-    visit restaurant_path(other_user.restaurant.id)
+    visit restaurant_path(other_user.owned_restaurant)
 
     expect(page).not_to have_content 'Cadastrar novo prato'
     end
@@ -259,7 +259,7 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                        cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                        city: "Ferraz de Vasconcelos", state: "SP",
-                       zip_code: "11111-111", user: user,
+                       zip_code: "11111-111", owner: user,
                        district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no, status: :inactive)
     Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200, status: :inactive)
@@ -267,13 +267,93 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                                           cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                                          city: "São Paulo", state: "SP", zip_code: "01000-000", user: other_user,
+                                          city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
                                           email: 'saboresdobrasil@email.com', phone_number: '11933301020')
 
     login_as(other_user)
-    visit restaurant_path(user.restaurant.id)
+    visit restaurant_path(user.owned_restaurant)
 
     expect(page).not_to have_content 'Coca-cola'
     expect(page).not_to have_content 'Hamburguer'
+  end
+end
+
+describe 'Usuário funcionário visita página de restaurante' do
+  it 'e vê os horários de funcionamento' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    cpf = CPF.generate
+    new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+    employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
+    time = Time.zone.local(1000, 1, 1, 17, 0, 0)
+    Shift.create!(weekday: :sunday, restaurant: restaurant, opening_time: time, closing_time: time + 3.hours)
+    
+    login_as(employee)
+    visit root_path
+
+    expect(current_path).to eq restaurant_path(restaurant.id)
+    within('#weekday-sunday') do
+      expect(page).to have_content('17:00 às 20:00')
+    end
+    within('#weekday-monday') do
+      expect(page).to have_content('fechado')
+    end
+  end
+
+  it 'e não vê pratos e bebidas avulsos' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                       city: "Ferraz de Vasconcelos", state: "SP",
+                       zip_code: "11111-111", owner: user,
+                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    cpf = CPF.generate
+    new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+    employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
+    tag = Tag.create!(name: :vegan)
+    other_tag = Tag.create!(name: :gluten_free)
+    dish_1 = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    dish_1.tags << tag
+    dish_2 = Dish.create!(restaurant: restaurant, name: 'Cachorro quente', description: 'salsicha, pão, molhos', calories: 1200, status: :inactive)
+    beverage_1 = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no, status: :inactive)
+    beverage_1.tags << tag
+    beverage_1.tags << other_tag
+    beverage_2 = Beverage.create!(restaurant: restaurant, name: 'Fanta', description: 'Bebida natural sabor laranja', calories: 1200, alcoholic: :no)
+    beverage_2.tags << tag
+    beverage_3 = Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: 'Bebida fermentada de cerais maltados', calories: 1200, alcoholic: :yes, status: :inactive)
+
+
+    login_as(employee)
+    visit root_path
+
+    expect(page).not_to have_content 'Hamburguer'
+    expect(page).not_to have_content 'Cachorro quente'
+    expect(page).not_to have_content 'Coca-cola'
+    expect(page).not_to have_content 'Cerveja'
+    expect(page).not_to have_content 'Fanta'
+  end
+
+  it 'e não consegue cadastrar pratos e bebidas' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    cpf = CPF.generate
+    new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+    employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
+    time = Time.zone.local(1000, 1, 1, 17, 0, 0)
+    
+    login_as(employee)
+    visit root_path
+
+    expect(current_path).to eq restaurant_path(restaurant.id)
+    expect(page).not_to have_content 'Cadastrar nova bebida'
+    expect(page).not_to have_content 'Cadastrar novo prato'
   end
 end

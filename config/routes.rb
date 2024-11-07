@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users/registrations'}
+  devise_for :users
   root to: 'home#index'
   resources :restaurants do 
     resources :dishes, only: [:new, :create, :edit, :update, :show] do

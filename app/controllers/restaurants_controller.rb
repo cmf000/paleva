@@ -1,12 +1,13 @@
 class RestaurantsController < ApplicationController
-  before_action :redirect_user, only: [:index, :show]
+  before_action :redirect_user_from_index, only: [:index]
+  before_action :redirect_user_from_show, only: [:show]
   before_action :set_restaurant_and_check_user_is_owner, only: [:edit, :update, :manage_employees]
   def index
-    @restaurant = current_user.restaurant
+    @restaurant = current_user.owned_restaurant
   end
 
   def new
-    if current_user.restaurant.present?
+    if current_user.owned_restaurant.present? || current_user.employee?
       redirect_to root_path
     end
     @restaurant = Restaurant.new
@@ -15,7 +16,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    if current_user == @restaurant.user
+    if current_user == @restaurant.owner
       @dishes = @restaurant.dishes
       @beverages = @restaurant.beverages
     else
@@ -66,15 +67,32 @@ class RestaurantsController < ApplicationController
                                        shifts_attributes: [:id, :weekday, :opening_time, :closing_time, :_destroy])
   end
 
-  def redirect_user
-    if !current_user.restaurant.present?
-      redirect_to new_restaurant_path
+  def redirect_user_from_index
+    if current_user.owner?
+      if !current_user.owned_restaurant.present?
+        redirect_to new_restaurant_path
+      end
+    else
+      redirect_to restaurant_path(current_user.works_at_restaurant)
+    end
+  end
+
+  def redirect_user_from_show
+    if current_user.owner?
+      if !current_user.owned_restaurant.present?
+        redirect_to new_restaurant_path
+      end
+    else
+      @restaurant = Restaurant.find(params[:id])
+      if current_user.works_at_restaurant != @restaurant
+        redirect_to restaurant_path(current_user.works_at_restaurant)
+      end
     end
   end
 
   def set_restaurant_and_check_user_is_owner
     @restaurant = Restaurant.find(params[:id])
-    if current_user != @restaurant.user
+    if current_user != @restaurant.owner
       redirect_to root_path
     end
   end

@@ -8,7 +8,7 @@ RSpec.describe Shift, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         time = Time.now.change(year: 1000, month: 1, day: 1, hour: 9, min: 0, sec: 0)
         shift = Shift.new(opening_time: time, closing_time: time + 1.hour, restaurant: restaurant)
@@ -21,7 +21,7 @@ RSpec.describe Shift, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         time = Time.now.change(year: 1000, month: 1, day: 1, hour: 9, min: 0, sec: 0)
         shift = Shift.new(weekday: :monday, closing_time: time + 1.hour, restaurant: restaurant)
@@ -34,7 +34,7 @@ RSpec.describe Shift, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
         time = Time.now.change(year: 1000, month: 1, day: 1, hour: 9, min: 0, sec: 0)
         shift = Shift.new(weekday: :monday, opening_time: time, restaurant: restaurant)
@@ -55,7 +55,7 @@ RSpec.describe Shift, type: :model do
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301020')
       time = Time.now.change(year: 1000, month: 1, day: 1, hour: 18, min: 0, sec: 0)
       shift = Shift.new(weekday: :monday, opening_time: time, closing_time: time - 1.hour, restaurant: restaurant)

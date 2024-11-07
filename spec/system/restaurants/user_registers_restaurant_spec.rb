@@ -118,12 +118,29 @@ describe 'Usuário acessa a página de cadastrar restaurante' do
       Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                          cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                          city: "Ferraz de Vasconcelos", state: "SP",
-                         zip_code: "11111-111", user: user,
+                         zip_code: "11111-111", owner: user,
                          district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
       
       login_as(user)
       visit new_restaurant_path
 
       expect(current_path).to eq restaurants_path
+    end
+
+    it 'e é funcionário' do 
+      user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+      restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+      cpf = CPF.generate
+      new_employee = NewEmployee.create(restaurant: restaurant, email: 'gertrudes@email.com', cpf: cpf)
+      employee = User.create!(name: 'Gertrudes', email: 'gertrudes@email.com', cpf: cpf, password: 'asdfasdfasdfasdfqwer')
+
+      login_as(employee)
+      visit new_restaurant_path
+
+      expect(current_path).to eq restaurant_path(employee.works_at_restaurant)
     end
 end 

@@ -1,5 +1,5 @@
 <div id=<%=dom_id dish%>>
-    <% if current_user == @restaurant.user %>
+    <% if current_user == @restaurant.owner %>
         <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, dish) %>
     <% end %>
     

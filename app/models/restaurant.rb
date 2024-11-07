@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
-  belongs_to :user
+  belongs_to :owner, -> { where(user_type: :owner) }, class_name: 'User', foreign_key: 'user_id'
+  has_many :employees, -> { where(user_type: :employee) }, class_name: 'User'
   has_many :shifts, dependent: :destroy
   has_many :beverages, dependent: :destroy
   has_many :dishes, dependent: :destroy

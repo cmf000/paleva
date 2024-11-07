@@ -8,7 +8,7 @@ RSpec.describe Beverage, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         beverage = Beverage.new(restaurant: restaurant, description: '2L')
         beverage.valid?
@@ -22,7 +22,7 @@ RSpec.describe Beverage, type: :model do
         restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                         cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                         city: "Ferraz de Vasconcelos", state: "SP",
-                                        zip_code: "11111-111", user: user,
+                                        zip_code: "11111-111", owner: user,
                                         district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
         beverage = Beverage.new(restaurant: restaurant, name: 'Coca-cola')
         beverage.valid?
@@ -37,7 +37,7 @@ RSpec.describe Beverage, type: :model do
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                       cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                       city: "Ferraz de Vasconcelos", state: "SP",
-                                      zip_code: "11111-111", user: user,
+                                      zip_code: "11111-111", owner: user,
                                       district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
       beverage = Beverage.new(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: -1000)
       beverage.valid?
@@ -52,7 +52,7 @@ RSpec.describe Beverage, type: :model do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     beverage = Beverage.new(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: 1000)
     

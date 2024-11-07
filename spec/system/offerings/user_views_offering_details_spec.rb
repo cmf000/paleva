@@ -6,7 +6,7 @@ describe 'Usuário vê detalhes de uma porção' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
     offering_1 = Offering.create!(offerable: dish, description: 'pequeno', current_price: 20)
@@ -36,7 +36,7 @@ describe 'Usuário vê detalhes de uma porção' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
     offering = Offering.create!(offerable: dish, description: 'extra-grande', current_price: 40)
@@ -56,7 +56,7 @@ describe 'Usuário vê detalhes de uma porção' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
     offering = Offering.create!(offerable: dish, description: 'extra-grande', current_price: 40)
@@ -76,7 +76,7 @@ describe 'Usuário vê detalhes de uma porção' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
     offering = Offering.create!(offerable: dish, description: 'extra-grande', current_price: 40)
@@ -96,7 +96,7 @@ describe 'Usuário vê detalhes de uma porção' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
     offering = Offering.create!(offerable: dish, description: 'extra-grande', current_price: 40)
@@ -104,7 +104,7 @@ describe 'Usuário vê detalhes de uma porção' do
     Restaurant.create!(registered_name: "Churros LTDA", trade_name: "Churros",
                                     cnpj: CNPJ.generate, street_address: "Avenida dos Churros, 456",
                                     city: "Guarulhos", state: "SP",
-                                    zip_code: "22222-222", user: other_user,
+                                    zip_code: "22222-222", owner: other_user,
                                     district: "Bairro dos Churros", email: 'churros@email.com', phone_number: '11933301050')
     
     login_as(other_user)

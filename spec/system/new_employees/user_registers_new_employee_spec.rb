@@ -6,7 +6,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
   
     login_as(user)
@@ -26,7 +26,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
   
     login_as(user)
@@ -44,7 +44,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
   
     login_as(user)
@@ -62,7 +62,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
   
     login_as(user)
@@ -80,7 +80,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     cpf = CPF.generate(strict: true)
 
@@ -101,7 +101,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
 
     login_as(user)
@@ -121,7 +121,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
 
     login_as(user)
@@ -143,7 +143,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     cpf = CPF.generate
     employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'domestaquio@email.com')
@@ -166,7 +166,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     employee = NewEmployee.create!(restaurant: restaurant, cpf: CPF.generate, email: 'domestaquio@email.com')
 
@@ -188,7 +188,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     cpf = CPF.generate
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'asdfn1234çlknv3', cpf: cpf)
@@ -211,7 +211,7 @@ describe 'Usuário cadastra um novo funcionário' do
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
                                     city: "Ferraz de Vasconcelos", state: "SP",
-                                    zip_code: "11111-111", user: user,
+                                    zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
     other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'asdfn1234çlknv3', cpf: CPF.generate)
 
@@ -226,38 +226,5 @@ describe 'Usuário cadastra um novo funcionário' do
 
     expect(page).to have_content 'Pré-cadastro não realizado'
     expect(page).to have_content 'E-mail já existe'
-  end
-
-  it 'e um funcionário não vê o menu de funcionários' do 
-
-
-  end
-
-  it 'e um funcionário não vê pratos e bebidas avulsos' do
-    
-  end
-
-  it 'e funcionário não acessa detalhes de um prato' do 
-    
-  end
-
-  it 'e funcionário não acessa detalhes de uma bebida' do 
-    
-  end
-
-  it 'e funcionário não cria pratos e bebidas novas' do 
-        
-  end 
-
-  it 'e funcionário não edita pratos e bebidas' do 
-    
-  end
-
-  it 'e funcionários não editam cardápio' do
-    
-  end
-
-  it 'e funcionáros não vêem outros restarantes' do
-    
   end
 end

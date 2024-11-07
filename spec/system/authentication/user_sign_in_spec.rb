@@ -29,7 +29,7 @@ describe 'usuário realiza login' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'asdfqewrasdf', cpf: CPF.generate)
     Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
                        cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
-                       city: "São Paulo", state: "SP", zip_code: "01000-000", user: user,
+                       city: "São Paulo", state: "SP", zip_code: "01000-000", owner: user,
                        email: 'saboresdobrasil@email.com', phone_number: '11933301020')
 
     visit root_path

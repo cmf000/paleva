@@ -18,7 +18,7 @@
         </li>
         <p>Status: <%= I18n.translate(@dish.status) %></p><br>
         <li>
-            <% if current_user == @restaurant.user %>
+            <% if current_user == @restaurant.owner %>
                 <% if @dish.active?%>
                     <%= button_to "Desativar", toggle_status_restaurant_dish_path(@restaurant, @dish) %>
                 <% else %>

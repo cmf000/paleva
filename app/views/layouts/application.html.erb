@@ -24,10 +24,10 @@
         <%= link_to 'Paleva', root_path%>
         <% if user_signed_in?%>
           <%= button_to I18n.translate('devise.sessions.sign_out'), destroy_user_session_path, method: :delete%>
-          <% if current_user.restaurant.present? %>
-            <%= form_with(url: restaurant_search_path(current_user.restaurant.id), method: :get) do |f| %>
+          <% if current_user.owned_restaurant.present? %>
+            <%= form_with(url: restaurant_search_path(current_user.owned_restaurant), method: :get) do |f| %>
               <%= f.label :query, 'Buscar itens' %>
-              <%= f.text_field :query, placeholder: "buscar em #{current_user.restaurant.trade_name}" %>
+              <%= f.text_field :query, placeholder: "buscar em #{current_user.owned_restaurant.trade_name}" %>
               <%= f.submit "Buscar"%>
             <% end %>
           <% end %>

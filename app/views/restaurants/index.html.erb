@@ -6,7 +6,7 @@
 </div>
 
 <div>
-    <% restaurants = Restaurant.excluding(current_user.restaurant)%>
+    <% restaurants = Restaurant.excluding(current_user.owned_restaurant)%>
     <% restaurants.any? do%>
         <h2>Veja o que os outros restaurantes estão fazendo: </h2>
         <ul>
