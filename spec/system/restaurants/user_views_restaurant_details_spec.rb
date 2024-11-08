@@ -71,7 +71,7 @@ describe 'Usuário dono visita página do seu restaurante' do
     login_as(user)
     visit restaurant_path(user.owned_restaurant)
 
-    within("##{dom_id(dish_1)}") do
+    within("##{dom_id(dish_1)}-card") do
       expect(page).to have_content 'Hamburguer'
       expect(page).to have_content 'carne, queijo, mostarda'
       expect(page).to have_content '1200 kcal'
@@ -79,36 +79,36 @@ describe 'Usuário dono visita página do seu restaurante' do
       expect(page).to have_content 'Vegano'
     end
 
-    within("##{dom_id(dish_2)}") do
+    within("##{dom_id(dish_2)}-card") do
       expect(page).to have_content 'Cachorro quente'
       expect(page).to have_content 'salsicha, pão, molhos'
       expect(page).to have_content '1200 kcal'
       expect(page).to have_content 'Inativo'
     end
 
-    within("##{dom_id(beverage_1)}") do
+    within("##{dom_id(beverage_1)}-card") do
       expect(page).to have_content 'Coca-cola'
       expect(page).to have_content 'Delicioso tônico'
       expect(page).to have_content '1200 kcal'
-      expect(page).to have_content 'Tipo: Não-alcoólica'
+      expect(page).to have_content 'Não-alcoólica'
       expect(page).to have_content 'Inativo'
       expect(page).to have_content 'Vegano'
       expect(page).to have_content 'Sem glútem'
     end
 
-    within("##{dom_id(beverage_2)}") do
+    within("##{dom_id(beverage_2)}-card") do
       expect(page).to have_content 'Fanta'
       expect(page).to have_content 'Bebida natural sabor laranja'
       expect(page).to have_content '1200 kcal'
-      expect(page).to have_content 'Tipo: Não-alcoólica'
+      expect(page).to have_content 'Não-alcoólica'
       expect(page).to have_content 'Ativo'
     end
 
-    within("##{dom_id(beverage_3)}") do
+    within("##{dom_id(beverage_3)}-card") do
       expect(page).to have_content 'Cerveja'
       expect(page).to have_content 'Bebida fermentada de cerais maltados'
       expect(page).to have_content '1200 kcal'
-      expect(page).to have_content 'Tipo: Alcoólica'
+      expect(page).to have_content 'Alcoólica'
       expect(page).to have_content 'Inativo'
     end
   end
@@ -126,11 +126,11 @@ describe 'Usuário dono visita página do seu restaurante' do
     login_as(user)
     visit restaurant_path(user.owned_restaurant)
 
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       expect(page).to have_content 'Editar'
     end
 
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       expect(page).to have_content 'Editar'
     end
   end
@@ -229,7 +229,7 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     login_as(user)
     visit restaurant_path(other_user.owned_restaurant)
 
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       expect(page).not_to have_content 'Editar'
     end
   end

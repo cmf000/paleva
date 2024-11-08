@@ -12,9 +12,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
 
     expect(page).to have_content "Hamburguer"
     expect(page).to have_content '1200 kcal'
@@ -33,9 +31,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
     click_on 'Quitutes Picantes'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
@@ -52,9 +48,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
     click_on 'Quitutes Picantes'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
@@ -71,9 +65,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
 
     expect(page).to have_button 'Ativar'
   end
@@ -89,9 +81,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
 
     expect(page).not_to have_button 'Desativar'
   end
@@ -107,9 +97,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
 
     expect(page).to have_button 'Desativar'
   end
@@ -125,9 +113,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
 
     expect(page).not_to have_button 'Ativar'
   end
@@ -143,9 +129,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
     click_on 'Ativar'
     dish.reload
 
@@ -163,9 +147,7 @@ describe 'Usuário muda o status do prato' do
 
     login_as(user)
     visit restaurant_path(restaurant.id)
-    within("##{dom_id(dish)}") do
-      click_on 'Hamburguer'
-    end
+    click_on "#{dom_id(dish)}-details"
     click_on 'Desativar'
     dish.reload
 

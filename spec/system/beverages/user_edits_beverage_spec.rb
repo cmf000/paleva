@@ -13,7 +13,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
 
@@ -37,7 +37,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     click_on 'Quitutes Picantes'
@@ -58,7 +58,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     choose 'beverage_alcoholic_yes'
@@ -81,7 +81,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: ''
@@ -107,7 +107,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     fill_in 'Calorias', with: "-1000"
@@ -152,7 +152,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     check "#{dom_id(tag)}"
@@ -182,7 +182,7 @@ describe 'Usuário edita uma bebida' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     uncheck "#{dom_id(tag)}"

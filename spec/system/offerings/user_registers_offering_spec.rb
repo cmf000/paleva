@@ -14,7 +14,7 @@ describe 'Usuário cadastra uma nova porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on "#{dom_id(beverage)}-details"
     click_on 'Nova Porção'
 
     expect(page).to have_field 'Descrição'
@@ -35,7 +35,7 @@ describe 'Usuário cadastra uma nova porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'Nova Porção'
     click_on 'Paleva'
 
@@ -55,7 +55,7 @@ describe 'Usuário cadastra uma nova porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on "#{dom_id(beverage)}-details"
     click_on 'Nova Porção'
     click_on 'Quitutes Picantes'
 
@@ -75,7 +75,7 @@ describe 'Usuário cadastra uma nova porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on "#{dom_id(beverage)}-details"
     click_on 'Nova Porção'
     fill_in 'Descrição', with: '500 ml'
     fill_in 'Preço', with: 8.50
@@ -93,12 +93,12 @@ describe 'Usuário cadastra uma nova porção' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'Nova Porção'
     fill_in 'Descrição', with: 'Médio'
     fill_in 'Preço', with: 20
@@ -121,7 +121,7 @@ describe 'Usuário cadastra uma nova porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Coca-cola'
+    click_on "#{dom_id(beverage)}-details"
     click_on 'Nova Porção'
     click_on 'Criar Porção'
 
@@ -138,12 +138,12 @@ describe 'Usuário cadastra uma nova porção' do
                                     city: "Ferraz de Vasconcelos", state: "SP",
                                     zip_code: "11111-111", owner: user,
                                     district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
-    Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'pão, carne, queijo', calories: 1200)
 
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'Nova Porção'
     click_on 'Criar Porção'
 

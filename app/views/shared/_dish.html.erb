@@ -1,28 +1,43 @@
-<div id=<%=dom_id dish%>>
-    <% if current_user == @restaurant.owner %>
-        <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, dish) %>
-    <% end %>
-    
-    <%= link_to restaurant_dish_path(@restaurant.id, dish.id) do %>
-        <div>
-            <div><%= dish.name %></div>
-            <div><%= dish.description %></div>
-            
-            <% if dish.calories.present? %>
-                <p><%= dish.calories %> kcal</p>
-            <% end %>
-            
+<div id="<%=dom_id(dish)%>-card" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <div class="p-4">
+        <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-gray-900"><%= dish.name %></h3>
+            <div class="flex items-center space-x-2">
+                <% if current_user == @restaurant.owner %>
+                    <%= link_to 'Editar', 
+                        edit_restaurant_dish_path(@restaurant, dish), 
+                        class: "px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200" %>
+                <% end %>
+                <span class="px-2 py-1 <%= dish.status == 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %> rounded-full text-sm">
+                    <%= I18n.translate(dish.status) %>
+                </span>
+            </div>
+        </div>
+        <%= link_to restaurant_dish_path(@restaurant.id, dish.id), class: "block", id: "#{dom_id(dish)}-details" do %>
             <% if dish.image.attached? %>
-                <p><%= image_tag url_for(dish.image), size: "100x100" %></p>
+                <div class="mb-4 overflow-hidden rounded-lg">
+                    <%= image_tag url_for(dish.image), 
+                        class: "w-full h-48 object-cover",
+                        style: "min-height: 200px" %>
+                </div>
             <% end %>
 
-            <div>
-                <% dish.tags.each do |tag| %>
-                    <p><%= I18n.t(tag.name) %></p>
-                <% end %>
+            <div class="space-y-4">
+                <p class="text-gray-600"><%= dish.description %></p> 
+                <div class="flex flex-wrap items-center gap-2">
+                    <% dish.tags.each do |tag| %>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                            <%= I18n.t(tag.name, default: tag.name) %>
+                        </span>
+                    <% end %>  
+                
+                    <% if dish.calories.present? %>
+                      <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                            <%= dish.calories %> kcal
+                      </span>  
+                    <% end %>
+                </div>
             </div>
-            
-            <p>Status: <%= I18n.translate(dish.status) %></p>
-        </div>
-    <% end %>
+        <% end %>
+    </div>
 </div>

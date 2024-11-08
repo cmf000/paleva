@@ -36,7 +36,7 @@ describe 'Usuário cria uma nova tag' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       click_on 'Editar'
     end
     click_on 'Nova Marcação'
@@ -83,7 +83,7 @@ describe 'Usuário cria uma nova tag' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     click_on 'Nova Marcação'
@@ -108,7 +108,7 @@ describe 'Usuário cria uma nova tag' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     click_on 'Nova Marcação'
@@ -130,7 +130,7 @@ describe 'Usuário cria uma nova tag' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     click_on 'Nova Marcação'

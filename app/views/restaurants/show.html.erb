@@ -1,59 +1,67 @@
-<h1><%= @restaurant.trade_name %></h1>
-
-<div id="<%=dom_id @restaurant%>">
-    <div>
-        <%= link_to 'Gestão de Funcionários', manage_employees_restaurant_path(@restaurant.id)%>
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div id="<%=dom_id(@restaurant)%>-options" class="mb-8 flex items-center justify-between">
+        <h1 class="text-3xl font-bold text-gray-900"><%= @restaurant.trade_name %></h1>
+        <div class="flex items-center space-x-4">
+            <%= link_to 'Gestão de Funcionários', manage_employees_restaurant_path(@restaurant.id), class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm" %>
+            <% if current_user == @restaurant.owner %>
+                <%= link_to 'Editar', edit_restaurant_path(@restaurant.id), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm" %>
+            <% end %>
+        </div>
     </div>
-    <% if current_user == @restaurant.owner %>
-        <%= link_to 'Editar', edit_restaurant_path(@restaurant.id)%>
-    <% end %>
-    <ul>
-        <li><%= @restaurant.street_address %></li>
-        <li><%= @restaurant.city %> - <%= @restaurant.state %></li>
-    </ul>
+        <div class="bg-white rounded-lg shadow-md p-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Endereço</h2>
+                <div class="space-y-2 text-gray-600">
+                    <p><%= @restaurant.street_address %></p>
+                    <p><%= @restaurant.city %> - <%= @restaurant.state %></p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Horário de funcionamento</h2>
+                <ul class="space-y-2">
+                    <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
+                        <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
+                        <li class="py-1 border-b last:border-0">
+                            <%= render 'shared/weekday', weekday: weekday, shift: shift %>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+   <% if !current_user.employee? %>
+        <div class="mb-12">  
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Bebidas</h2>
+                <% if @restaurant == current_user.owned_restaurant %>
+                    <%= link_to 'Cadastrar nova bebida', new_restaurant_beverage_path(@restaurant.id), class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm" %>
+                <% end %>
+            </div>
 
-    <ul>
-        <h2>Horário de funcionamento:</h2>
-        <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
-            <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
-            <li>
-                <%= render 'shared/weekday', weekday: weekday, shift: shift%>
-            </li>
-        <% end %>
-    </ul>
-</div>
-
-<div>
-    <% if !current_user.employee? %>
-        <h2>Bebidas 
-            <% if @restaurant == current_user.owned_restaurant %>
-                <%= link_to 'Cadastrar nova bebida', new_restaurant_beverage_path(@restaurant.id) %>
+            <% if @beverages.empty? %>
+                <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há bebidas cadastradas</p>
+            <% else %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage %>
+                </div>
             <% end %>
-        </h2>
-        <% if @beverages.empty? %>
-            <p>Não há bebidas cadastradas</p>
-        <% else %>
-            <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage %>
-        <% end %>
-    <% end %>
-</div>
+        </div>
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Pratos</h2>
+                <% if @restaurant == current_user.owned_restaurant %>
+                    <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id), class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm" %>
+                <% end %>  
+            </div>
 
-
-<div>
-    <% if !current_user.employee? %>
-        <h2>Pratos 
-            <% if @restaurant == current_user.owned_restaurant %>
-                <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id) %>
+            <% if @dishes.empty? %> 
+                <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há pratos cadastrados</p>
+            <% else %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <%= render partial: 'shared/dish', collection: @dishes, as: :dish %>
+                </div>
             <% end %>
-        </h2>
-        
-        <% if @dishes.empty? %>
-            <p>Não há pratos cadastrados</p>
-        <% else %>
-            <ul>
-                <%= render partial: 'shared/dish', collection: @dishes, as: :dish %>
-        <% end %>
+        </div>
     <% end %>
 </div>
-
-

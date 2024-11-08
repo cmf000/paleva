@@ -14,7 +14,7 @@ describe "Usuário edita um restaurante" do
     login_as(user)
     visit root_path
     click_on('Quitutes Picantes')
-    within("##{dom_id restaurant}") do 
+    within("##{dom_id restaurant}-options") do 
       click_on 'Editar'
     end
     fill_in 'Nome fantasia', with: 'Canapés Picantes'
@@ -92,7 +92,7 @@ describe "Usuário edita um restaurante" do
     login_as(user)
     visit root_path
     click_on('Quitutes Picantes')
-    within("##{dom_id restaurant}") do 
+    within("##{dom_id restaurant}-options") do 
       click_on 'Editar'
     end
     fill_in 'Nome fantasia', with: ''
@@ -130,7 +130,7 @@ describe "Usuário edita um restaurante" do
     login_as(user)
     visit root_path
     click_on('Quitutes Picantes')
-    within("##{dom_id restaurant}") do 
+    within("##{dom_id restaurant}-options") do 
       click_on 'Editar'
     end
     click_on 'Quitutes Picantes'

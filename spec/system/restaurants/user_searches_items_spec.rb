@@ -55,13 +55,13 @@ describe 'Usuário busca pratos e bebidas' do
 
     expect(page).to have_content 'Resultados da busca por: Hamburguer'
     expect(page).to have_content '2 iten(s) encontrado(s)'
-    within("##{dom_id(dish)}")do
+    within("##{dom_id(dish)}-card")do
       expect(page).to have_content ('Hamburguer')
       expect(page).to have_content ('carne, queijo, mostarda')
       expect(page).to have_content ('1200 kcal')
     end
 
-    within("##{dom_id(beverage)}") do
+    within("##{dom_id(beverage)}-card") do
       expect(page).to have_content ('Coca-cola')
       expect(page).to have_content ('2L')
       expect(page).to have_content ('1200 kcal')

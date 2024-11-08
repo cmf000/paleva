@@ -18,7 +18,7 @@ describe 'Usuário vê detalhes de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'extra-grande'
 
     within('.price_history') do 
@@ -44,7 +44,7 @@ describe 'Usuário vê detalhes de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'extra-grande'
     click_on 'Paleva'
 
@@ -64,7 +64,7 @@ describe 'Usuário vê detalhes de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'extra-grande'
     click_on 'Quitutes Picantes'
 
@@ -84,7 +84,7 @@ describe 'Usuário vê detalhes de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'extra-grande'
     click_on 'Hamburguer'
 
@@ -110,7 +110,7 @@ describe 'Usuário vê detalhes de uma porção' do
     login_as(other_user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     
     expect(page).not_to have_content 'Nova Porção'
   end

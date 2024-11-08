@@ -1,28 +1,49 @@
-<div id=<%=dom_id beverage%>>
-    <% if current_user == @restaurant.owner %>
-        <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, beverage) %>
-    <% end %>
-
-    <%= link_to restaurant_beverage_path(@restaurant.id, beverage.id) do %>
-        <div><%= beverage.name %></div>
-        <div><%= beverage.description %></div>
-        
-        <% if beverage.calories.present? %>
-            <div><%= beverage.calories %> kcal</div>
-        <% end %>
-        
-        <div>Tipo: <%= beverage.yes? ? 'Alcoólica' : 'Não-alcoólica' %></div>
-
-        <% if beverage.image.attached? %>
-            <p><%= image_tag url_for(beverage.image), size: "100x100" %></p>
-        <% end %>
-
-        <div>
-            <% beverage.tags.each do |tag| %>
-                <p><%= I18n.t(tag.name) %></p>
-            <% end %>
+<div id="<%=dom_id(beverage)%>-card" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <div class="p-4">
+        <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-gray-900"><%= beverage.name %></h3>
+            <div class="flex items-center space-x-2">
+                <% if current_user == @restaurant.owner %>
+                    <%= link_to 'Editar', 
+                        edit_restaurant_beverage_path(@restaurant, beverage), 
+                        class: "px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200" %>
+                <% end %>
+                <span class="px-2 py-1 <%= beverage.status == 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %> rounded-full text-sm">
+                    <%= I18n.translate(beverage.status) %>
+                </span>
+            </div>
         </div>
-        
-        <div>Status: <%= I18n.translate(beverage.status) %></div>
-    <% end %>
+        <%= link_to restaurant_beverage_path(@restaurant.id, beverage.id), class: "block", id: "#{dom_id(beverage)}-details" do %>
+            <% if beverage.image.attached? %>
+                <div class="mb-4 overflow-hidden rounded-lg">
+                    <%= image_tag url_for(beverage.image), 
+                        class: "w-full h-48 object-cover",
+                        style: "min-height: 200px" %>
+                </div>
+            <% end %>
+
+            <div class="space-y-4">
+                <p class="text-gray-600"><%= beverage.description %></p> 
+                <div class="flex flex-wrap items-center gap-2">
+                    <% beverage.tags.each do |tag| %>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                            <%= I18n.t(tag.name, default: tag.name) %>
+                        </span>
+                    <% end %>  
+                
+                    <% if beverage.calories.present? %>
+                      <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                            <%= beverage.calories %> kcal
+                      </span>  
+                    <% end %>
+                </div>
+                <div class="mt-4 inline-block">
+                    <span class="px-2 py-1 bg-gray-100 text-black-800 rounded-full text-sm">
+                        <%= beverage.yes? ? 'Alcoólica' : 'Não-alcoólica' %>
+                    </span>
+                </div>
+            </div>
+        <% end %>
+    </div>
 </div>
+

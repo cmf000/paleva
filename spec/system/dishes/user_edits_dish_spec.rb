@@ -13,7 +13,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
 
@@ -36,7 +36,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     click_on "Paleva"
@@ -57,7 +57,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     click_on "Quitutes Picantes"
@@ -78,7 +78,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -101,7 +101,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -123,7 +123,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -183,7 +183,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'
@@ -214,7 +214,7 @@ describe 'Usuário edita um prato' do
     login_as(user)
     visit root_path
     click_on "Quitutes Picantes"
-    within("##{dom_id(dish)}") do
+    within("##{dom_id(dish)}-card") do
       click_on 'Editar'
     end
     fill_in 'Nome', with: 'Hamburguer Grande'

@@ -17,7 +17,7 @@ describe 'Usuário visita a página de um prato' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     
     expect(page).to have_content 'Hamburguer'
     expect(page).to have_content 'pão, carne, queijo'
@@ -43,7 +43,7 @@ describe 'Usuário visita a página de um prato' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'Quitutes Picantes'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
@@ -61,7 +61,7 @@ describe 'Usuário visita a página de um prato' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
     click_on 'Paleva'
 
     expect(current_path).to eq restaurants_path
@@ -79,7 +79,7 @@ describe 'Usuário visita a página de um prato' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
 
     expect(page).to have_content 'Não há porções cadastradas'
   end
@@ -102,7 +102,7 @@ describe 'Usuário visita a página de um prato' do
     login_as(other_user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on 'Hamburguer'
+    click_on "#{dom_id(dish)}-details"
 
     expect(current_path).to eq restaurants_path
   end
