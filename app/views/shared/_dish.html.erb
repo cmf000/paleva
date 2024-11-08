@@ -3,17 +3,17 @@
         <div class="flex justify-between items-start mb-4">
             <h3 class="text-xl font-semibold text-gray-900"><%= dish.name %></h3>
             <div class="flex items-center space-x-2">
-                <% if current_user == @restaurant.owner %>
+                <% if current_user == restaurant.owner %>
                     <%= link_to 'Editar', 
-                        edit_restaurant_dish_path(@restaurant, dish), 
+                        edit_restaurant_dish_path(restaurant, dish), 
                         class: "px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200" %>
                 <% end %>
-                <span class="px-2 py-1 <%= dish.status == 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %> rounded-full text-sm">
+                <span class="px-2 py-1 <%= dish.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %> rounded-full text-sm">
                     <%= I18n.translate(dish.status) %>
                 </span>
             </div>
         </div>
-        <%= link_to restaurant_dish_path(@restaurant.id, dish.id), class: "block", id: "#{dom_id(dish)}-details" do %>
+        <%= link_to restaurant_dish_path(restaurant.id, dish.id), class: "block", id: "#{dom_id(dish)}-details" do %>
             <% if dish.image.attached? %>
                 <div class="mb-4 overflow-hidden rounded-lg">
                     <%= image_tag url_for(dish.image), 

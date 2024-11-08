@@ -326,7 +326,6 @@ describe 'Usuário funcionário visita página de restaurante' do
     beverage_2.tags << tag
     beverage_3 = Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: 'Bebida fermentada de cerais maltados', calories: 1200, alcoholic: :yes, status: :inactive)
 
-
     login_as(employee)
     visit root_path
 
@@ -347,7 +346,6 @@ describe 'Usuário funcionário visita página de restaurante' do
     cpf = CPF.generate
     new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
     employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
-    time = Time.zone.local(1000, 1, 1, 17, 0, 0)
     
     login_as(employee)
     visit root_path
@@ -355,5 +353,43 @@ describe 'Usuário funcionário visita página de restaurante' do
     expect(current_path).to eq restaurant_path(restaurant.id)
     expect(page).not_to have_content 'Cadastrar nova bebida'
     expect(page).not_to have_content 'Cadastrar novo prato'
+  end
+
+  it 'e não consegue editar o restaurante' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    cpf = CPF.generate
+    new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+    employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
+    
+    login_as(employee)
+    visit root_path
+
+    within("##{dom_id(restaurant)}-options") do
+      expect(page).not_to have_content 'Editar'
+    end
+  end
+
+  it 'e não consegue gerenciar funcionários' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    cpf = CPF.generate
+    new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+    employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
+    
+    login_as(employee)
+    visit root_path
+
+    within("##{dom_id(restaurant)}-options") do
+      expect(page).not_to have_content 'Gestão de funcionários'
+    end
   end
 end
