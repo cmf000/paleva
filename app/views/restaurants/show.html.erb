@@ -57,9 +57,13 @@
                 <% if @menus.empty? %>
                     <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há cardápios cadastrados</p>
                 <% else %>
-                    <div class="grid grid-cols-1  gap-6">
-                        <%= render partial: 'shared/menu', collection: @menus, as: :menu, locals: {restaurant: @restaurant} %>
-                    </div>
+                    <% @menus.each do |menu| %>
+                        <%= link_to restaurant_menu_path(@restaurant, menu), class: "block", id: "#{dom_id(menu)}-details" do %>
+                            <div class="grid grid-cols-1  gap-6">
+                                <%= render 'shared/menu', menu: menu, restaurant: @restaurant %>
+                            </div>
+                        <% end %>
+                    <% end %>
                 <% end %>
             </div>
         <% end %>
@@ -76,7 +80,13 @@
                     <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há bebidas cadastradas</p>
                 <% else %>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage, locals: {restaurant: @restaurant} %>
+                        <% @beverages.each do |beverage| %>
+                            <div class="h-full"> 
+                            <%= link_to restaurant_beverage_path(@restaurant, beverage) do %>
+                                <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant %>
+                            <% end %>
+                            </div>
+                        <% end %>  
                     </div>
                 <% end %>
             </div>
@@ -91,7 +101,13 @@
                     <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há pratos cadastrados</p>
                 <% else %>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <%= render partial: 'shared/dish', collection: @dishes, as: :dish, locals: { restaurant: @restaurant } %>
+                        <% @dishes.each do |dish| %>
+                            <div class="h-full"> 
+                                <%= link_to  restaurant_dish_path(@restaurant, dish) do %>
+                                    <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
+                                <% end %>
+                            </div>
+                        <% end %>
                     </div>
                 <% end %>
             </div>

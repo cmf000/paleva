@@ -14,7 +14,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on '350 ml'
     click_on 'Alterar Preço'
 
@@ -34,7 +34,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on '350 ml'
     click_on 'Alterar Preço'
     click_on 'Paleva'
@@ -55,7 +55,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on '350 ml'
     click_on 'Alterar Preço'
     click_on 'Coca-cola'
@@ -76,7 +76,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on '350 ml'
     click_on 'Alterar Preço'
     fill_in 'Preço', with: 50
@@ -99,7 +99,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on '350 ml'
     click_on 'Alterar Preço'
     fill_in 'Preço', with: ""
@@ -123,7 +123,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on '350 ml'
     click_on 'Alterar Preço'
     fill_in 'Preço', with: -10
@@ -146,7 +146,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(dish)}-details"
+    click_on "Hamburguer"
     click_on 'médio'
     click_on 'Alterar Preço'
     click_on 'Hamburguer'
@@ -167,7 +167,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(dish)}-details"
+    click_on "Hamburguer"
     click_on 'médio'
     click_on 'Alterar Preço'
     fill_in 'Preço', with: 50
@@ -190,7 +190,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(dish)}-details"
+    click_on "Hamburguer"
     click_on 'médio'
     click_on 'Alterar Preço'
     fill_in 'Preço', with: ""
@@ -214,7 +214,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(dish)}-details"
+    click_on "Hamburguer"
     click_on 'médio'
     click_on 'Alterar Preço'
     fill_in 'Preço', with: -10

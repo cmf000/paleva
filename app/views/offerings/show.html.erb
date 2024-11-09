@@ -23,8 +23,7 @@
                     <p class="text-gray-900"><%= I18n.localize(@offering.effective_at) %></p>
                 </div>
                 <div class="pt-4">
-                    <%= link_to 'Alterar Preço', 
-                        edit_polymorphic_path([@restaurant, @offerable, @offering]),
+                    <%= link_to 'Alterar Preço', edit_polymorphic_path([@restaurant, @offerable, @offering]),
                         class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200" %>
                 </div>
             </div>

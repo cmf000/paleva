@@ -3,7 +3,6 @@
         <div class="flex justify-between items-start mb-4">
             <h3 class="text-xl font-semibold text-gray-900"><%= menu.name %></h3>
         </div>
-        <%= link_to restaurant_menus_path(restaurant, menu), class: "block", id: "#{dom_id(menu)}-details" do %>
             <div class="space-y-4">
                 <div class="flex flex-wrap items-center gap-2">
                     <% if current_user == restaurant.owner %>
@@ -12,8 +11,8 @@
                         <% if dishes.empty? && beverages.empty? %>
                             <p>Não há itens cadastrados</p>
                         <% else %>
-                            <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant }%>
-                            <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant }%>
+                            <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant, card_link: ->(dish) { restaurant_dish_path(restaurant, dish) } }%>
+                            <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant, card_link: ->(beverage) { restaurant_beverage_path(restaurant, beverage) } }%>
                         <% end %>
                     <% else %>
                         <% dishes = menu.dishes.where(status: :active) %>
@@ -21,12 +20,11 @@
                         <% if dishes.empty? && beverages.empty? %>
                             <p>Não há itens cadastrados</p>
                         <% else %>
-                            <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant }%>
-                            <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant }%>
+                            <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant, card_link: ->(dish) { restaurant_dish_path(restaurant, dish) } }%>
+                            <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant, card_link: ->(beverage) { restaurant_beverage_path(restaurant, beverage) } }%>
                         <% end %>
                     <% end %>
                 </div>
             </div>
-        <% end %>
     </div>
 </div>

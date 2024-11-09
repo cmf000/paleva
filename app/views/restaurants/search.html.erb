@@ -4,14 +4,14 @@
 <div>
     <% if @beverages.any? %>
         <h2>Bebidas</h2>
-        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage, locals: { restaurant: @restaurant } %>
+        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage, locals: { restaurant: @restaurant, card_link: ->(beverage) { restaurant_beverage_path(@restaurant, beverage)} } %>
     <% end %>
 </div>
 
 <div>
     <% if @dishes.any? %>
         <h2>Pratos</h2>
-        <%= render partial: 'shared/dish', collection: @dishes, as: :dish, locals: { restaurant: @restaurant } %>
+        <%= render partial: 'shared/dish', collection: @dishes, as: :dish, locals: { restaurant: @restaurant, card_link: ->(dish) { restaurant_dish_path(@restaurant, dish)} } %>
     <% end %>
 </div>
 

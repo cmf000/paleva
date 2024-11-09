@@ -11,13 +11,13 @@
                 <% end %>
             </div>
         </div>
-        <%= link_to restaurant_dish_path(restaurant.id, dish.id), class: "block", id: "#{dom_id(dish)}-details" do %>
+        <div id="<%=dom_id(dish)%>-details" class="block">
+            <div class="p-4 flex-1">
             <% if dish.image.attached? %>
                 <div class="mb-4 overflow-hidden rounded-lg">
                     <%= image_tag url_for(dish.image), class: "w-full h-48 object-cover", style: "min-height: 200px" %>
                 </div>
             <% end %>
-
             <div class="space-y-4">
                 <p class="text-gray-600"><%= dish.description %></p> 
                 <div class="flex flex-wrap items-center gap-2">
@@ -34,6 +34,7 @@
                     <% end %>
                 </div>
             </div>
-        <% end %>
+            </div>
+        </div>
     </div>
 </div>

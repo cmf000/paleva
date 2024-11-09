@@ -16,7 +16,7 @@ describe 'Usuário visita a página de uma bebida' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     
     expect(page).to have_content 'Coca-cola'
     expect(page).to have_content 'Delicioso tônico'
@@ -49,7 +49,7 @@ describe 'Usuário visita a página de uma bebida' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on 'Quitutes Picantes'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
@@ -73,7 +73,7 @@ describe 'Usuário visita a página de uma bebida' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     click_on 'Paleva'
 
     expect(current_path).to eq restaurants_path
@@ -91,7 +91,7 @@ describe 'Usuário visita a página de uma bebida' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
     
     expect(page).to have_content 'Não há porções cadastradas'
   end
@@ -114,7 +114,7 @@ describe 'Usuário visita a página de uma bebida' do
     login_as(other_user)
     visit root_path
     click_on 'Quitutes Picantes'
-    click_on "#{dom_id(beverage)}-details"
+    click_on "Coca-cola"
 
     expect(current_path).to eq restaurants_path
   end

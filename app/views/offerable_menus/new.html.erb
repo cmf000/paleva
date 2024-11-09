@@ -1,0 +1,32 @@
+<div class="container mx-auto px-4 py-8">
+    <div class="space-y-12">
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Pratos</h2>
+            <% if @dishes.present? %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% @dishes.each do |dish |%>
+                        <%= button_to restaurant_menu_offerable_menus_path(@restaurant, @menu, params: { offerable_menu: { offerable_id: dish.id, offerable_type: "Dish" } } ) do %>
+                            <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
+                        <% end %>
+                    <% end %>
+                </div>
+            <% else %>
+                <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Nenhum prato cadastrado</p>
+            <% end %>
+        </section>
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Bebidas</h2>
+            <% if @beverages.present? %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% @beverages.each do |beverage|%>
+                        <%= button_to restaurant_menu_offerable_menus_path(@restaurant, @menu,  params: { offerable_menu: { offerable_id: beverage.id, offerable_type: 'Beverage' } } ) do %>
+                            <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant %>
+                        <% end %>
+                    <% end %>
+                </div>
+            <% else %>
+                <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Nenhuma bebida cadastrada</p>
+            <% end %>
+        </section>
+    </div>
+</div>

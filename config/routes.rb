@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
     resources :new_employees, only: [:new, :create]
     resources :tags, only: [:new, :create]
-    resources :menus, only: [:new, :create, :show]
+    resources :menus, only: [:new, :create, :show] do
+      resources :offerable_menus, only: [:new, :create, :destroy]
+    end
   end
 end

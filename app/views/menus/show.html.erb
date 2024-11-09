@@ -1,0 +1,44 @@
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-12">
+        <% if current_user == @restaurant.owner %>
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-3xl font-bold text-gray-900"><%= @menu.name %></h1>
+                <%= link_to 'Adicionar Item', new_restaurant_menu_offerable_menu_path(@restaurant, @menu), class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm" %>
+            </div>
+        <% end %>
+    </div>
+    <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Bebidas</h2>
+        </div>
+        <% if @beverages.empty? %>
+            <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há bebidas cadastradas</p>
+        <% else %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <% @beverages.each do |beverage| %>
+                    <div class="h-full">
+                        <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant, card_link: restaurant_beverage_path(@restaurant, beverage) %>
+                        <%= render 'shared/offerable/list', offerable: beverage, restaurant: @restaurant%>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+    <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Pratos</h2>
+        </div>
+        <% if @dishes.empty? %>
+            <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há pratos cadastrados</p>
+        <% else %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <% @dishes.each do |dish| %>
+                    <div class="h-full">
+                        <%= render 'shared/dish', dish: dish, restaurant: @restaurant, card_link: restaurant_dish_path(@restaurant, dish) %>
+                        <%= render 'shared/offerable/list', offerable: dish, restaurant: @restaurant%>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,16 +1,28 @@
-<% if current_user == restaurant.owner %>
-  <%= link_to 'Nova Porção', new_polymorphic_path([restaurant, offerable, :offering])%>
-<% end %>
-
-<% if offerable.offerings.present? %>
-  <% offerable.offerings.each do |offering| %>
-    <div id="<%= dom_id(offering) %>">
-      <%= link_to [restaurant, offerable, offering] do %>
-        <p><%= offering.description %></p>
-        <p><%= number_to_currency(offering.current_price) %></p>
-      <% end %>
-    </div>
-  <% end %>
-<% else %>
-  <p>Não há porções cadastradas</p>
-<% end %>
+<div class="space-y-6">
+  <% if current_user == restaurant.owner %>
+      <div class="mb-6">
+        <%= link_to 'Nova Porção', new_polymorphic_path([restaurant, offerable, :offering]), class: "inline-flex px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm transition-colors duration-200" %>
+        </div>
+    <% end %>
+    <% if offerable.offerings.present? %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <% offerable.offerings.each do |offering| %>
+                <div id="<%= dom_id(offering) %>" 
+                     class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <%= link_to [restaurant, offerable, offering], class: "block p-4" do %>
+                        <div class="space-y-2">
+                            <p class="text-gray-700"><%= offering.description %></p>
+                            <p class="text-lg font-semibold text-gray-900">
+                                <%= number_to_currency(offering.current_price) %>
+                            </p>
+                        </div>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <div class="bg-gray-50 rounded-lg p-6 text-center">
+            <p class="text-gray-500">Não há porções cadastradas</p>
+        </div>
+    <% end %>
+</div>

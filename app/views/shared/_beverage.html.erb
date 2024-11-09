@@ -4,14 +4,15 @@
             <h3 class="text-xl font-semibold text-gray-900"><%= beverage.name %></h3>
             <div class="flex items-center space-x-2">
                 <% if current_user == restaurant.owner %>
-                    <%= link_to 'Editar', edit_restaurant_beverage_path(restaurant, beverage), class: "px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200" %>
+                    <%= link_to 'Editar', edit_restaurant_beverage_path(restaurant, beverage), id: "#{dom_id(beverage)}_edit", class: "px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200" %>
                     <span class="px-2 py-1 <%= beverage.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %> rounded-full text-sm">
                         <%= I18n.translate(beverage.status) %>
                     </span>
                 <% end %>
             </div>
         </div>
-        <%= link_to restaurant_beverage_path(restaurant, beverage), class: "block", id: "#{dom_id(beverage)}-details" do %>
+        <div id="<%=dom_id(beverage)%>-details" class="block">
+            <div class="p-4 flex-1">
             <% if beverage.image.attached? %>
                 <div class="mb-4 overflow-hidden rounded-lg">
                     <%= image_tag url_for(beverage.image), class: "w-full h-48 object-cover", style: "min-height: 200px" %>
@@ -39,7 +40,8 @@
                     </span>
                 </div>
             </div>
-        <% end %>
+            </div>
+        </div>
     </div>
 </div>
 
