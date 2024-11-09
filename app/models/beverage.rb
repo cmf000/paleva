@@ -1,10 +1,10 @@
 class Beverage < ApplicationRecord
   belongs_to :restaurant
-  has_many :offerings, as: :offerable,
-                       dependent: :destroy
-  has_many :offerable_tags, as: :offerable,
-                                dependent: :destroy
-  has_many :tags, as: :offerable, through: :offerable_tags
+  has_many :offerings,       as: :offerable, dependent: :destroy
+  has_many :offerable_tags,  as: :offerable, dependent: :destroy
+  has_many :offerable_menus, as: :offerable, dependent: :destroy
+  has_many :tags,            as: :offerable, through: :offerable_tags
+  has_many :menus,           as: :offerable, through: :offerable_menus
   has_one_attached :image
   attr_accessor :remove_image
   validates :name, :description, presence: true

@@ -134,9 +134,46 @@ describe 'Usuário dono visita página do seu restaurante' do
       expect(page).to have_content 'Editar'
     end
   end
+
+  it 'e vê os menus cadastrados' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    dish_1 = Dish.create!(restaurant: restaurant, name: 'Pão de queijo', description: 'quitute de polvilho com queijo', calories: 1200)
+    dish_2 = Dish.create!(restaurant: restaurant, name: 'Misto quente', description: 'pão de forma, presunto, queijo', calories: 1200)
+    beverage_1 = Beverage.create!(restaurant: restaurant, name: 'Café expresso', description: 'Extraído de grãos 100% arábica', calories: 1200, alcoholic: :no, status: :inactive)
+    beverage_2 = Beverage.create!(restaurant: restaurant, name: 'Capuccino', description: 'Café, chocolate, leite', calories: 1200, alcoholic: :no, status: :inactive)
+    tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
+    dish_1.tags << tag
+    beverage_1.tags << tag
+    beverage_2.tags << tag
+    menu_1 = Menu.create!(restaurant: restaurant, name: 'Café da Manhã')
+    menu_1.dishes << dish_1
+    menu_1.beverages << beverage_1
+    beverage_2.menus << menu_1
+    menu_2 = Menu.create!(restaurant: restaurant, name: 'Jantar')
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    save_page
+
+    within("##{dom_id(menu_1)}-details") do 
+      expect(page).to have_content 'Pão de queijo'
+      expect(page).to have_content 'Café expresso'
+      expect(page).to have_content 'Capuccino'
+    end
+
+    within("##{dom_id(menu_2)}-details") do 
+      expect(page).to have_content 'Não há itens cadastrados'
+    end
+  end
 end
 
-describe 'Usuário visita página do restaurante de outro usuário' do 
+describe 'Usuário dono visita página do restaurante de outro usuário' do 
   it 'a vê os horários de funcionamento' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
@@ -276,6 +313,8 @@ describe 'Usuário visita página do restaurante de outro usuário' do
     expect(page).not_to have_content 'Coca-cola'
     expect(page).not_to have_content 'Hamburguer'
   end
+
+  
 end
 
 describe 'Usuário funcionário visita página de restaurante' do
@@ -391,5 +430,44 @@ describe 'Usuário funcionário visita página de restaurante' do
     within("##{dom_id(restaurant)}-options") do
       expect(page).not_to have_content 'Gestão de funcionários'
     end
+  end
+  it 'e não vê pratos e bebidas inativos' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    dish_1 = Dish.create!(restaurant: restaurant, name: 'Pão de queijo', description: 'quitute de polvilho com queijo', calories: 1200)
+    dish_2 = Dish.create!(restaurant: restaurant, name: 'Misto quente', description: 'pão de forma, presunto, queijo', calories: 1200)
+    beverage_1 = Beverage.create!(restaurant: restaurant, name: 'Café expresso', description: 'Extraído de grãos 100% arábica', calories: 1200, alcoholic: :no)
+    beverage_2 = Beverage.create!(restaurant: restaurant, name: 'Capuccino', description: 'Café, chocolate, leite', calories: 1200, alcoholic: :no)
+    cpf = CPF.generate
+    new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+    employee = User.create!(cpf: cpf, email: 'gertrudes@email.com', name: 'Gertrudes', password: 'asdfqwerasdf')
+    tag = Tag.create!(restaurant: restaurant, name: :gluten_free)
+
+    dish_1.tags << tag
+    dish_2.tags << tag
+    beverage_1.tags << tag
+    beverage_2.tags << tag
+    menu_1 = Menu.create!(restaurant: restaurant, name: 'Café da Manhã')
+    menu_1.dishes << dish_1
+    menu_1.dishes << dish_2
+    menu_1.beverages << beverage_1
+    menu_1.beverages << beverage_2
+    dish_1.inactive!
+    beverage_1.inactive!
+
+    login_as(employee)
+    visit root_path
+
+    within("##{dom_id(menu_1)}-details") do 
+      expect(page).not_to have_content 'Pão de queijo'
+      expect(page).not_to have_content 'Café expresso'
+      expect(page).to have_content 'Misto quente'
+      expect(page).to have_content 'Capuccino'
+    end
+
   end
 end

@@ -1,42 +1,24 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   enum user_type: [:owner, :employee]
-  
-  has_one :owned_restaurant, class_name: 'Restaurant', dependent: :destroy
+
+  has_one :owned_restaurant,       class_name: 'Restaurant', dependent: :destroy
   belongs_to :works_at_restaurant, class_name: 'Restaurant', foreign_key: :restaurant_id, optional: true
+  validate :owner_cannot_work_at_restaurant
+  validate :employee_cannot_own_restaurant
 
   validates :name, :cpf, :email, presence: true
   validates :cpf, uniqueness: true
   validate :validate_cpf
-  validate :owner_cannot_work_at_restaurant
-  validate :employee_cannot_own_restaurant
   validate :check_registered_new_employees, on: :create
 
   before_create :determine_user_type
   after_create :destroy_new_employee
-  
-  def owns_restaurant?(restaurant)
-    owner? && owned_restaurant == restaurant
-  end
-
-  def works_at_restaurant?(restaurant)
-    employee? && works_at_restaurant == restaurant
-  end
-
-  def owns_or_works_at_restaurant?(restaurant)
-    owns_restaurant(restaurant) || works_at_restaurant(restaurant)
-  end
 
   private
-  def validate_cpf
-    return if CPF.valid?(self.cpf, strict: true)
-    errors.add(:cpf, :invalid)
-  end
-
   def owner_cannot_work_at_restaurant
     if owner? && self.works_at_restaurant.present?
       errors.add(:restaurant_id, :invalid)
@@ -47,6 +29,11 @@ class User < ApplicationRecord
     if employee? && self.owned_restaurant.present?
       errors.add(:user_type, "não pode ser dono de restaurante")
     end
+  end
+  
+  def validate_cpf
+    return if CPF.valid?(self.cpf, strict: true)
+    errors.add(:cpf, :invalid)
   end
 
   def check_registered_new_employees

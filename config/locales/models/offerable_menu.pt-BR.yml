@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    attributes:
+      offerable_menu:
+        menu: "Cardápio"
+        menu_id: "Cardápio"
+        offerable: "Item"
+        offerable_id: "Item"
+        offerable_type:
+          dish: 'Prato'
+          beverage: 'Bebida'

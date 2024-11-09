@@ -1,0 +1,32 @@
+<div id="<%=dom_id(menu)%>-card" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <div class="p-4">
+        <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-gray-900"><%= menu.name %></h3>
+        </div>
+        <%= link_to restaurant_menus_path(restaurant, menu), class: "block", id: "#{dom_id(menu)}-details" do %>
+            <div class="space-y-4">
+                <div class="flex flex-wrap items-center gap-2">
+                    <% if current_user == restaurant.owner %>
+                        <% dishes = menu.dishes %>
+                        <% beverages = menu.beverages %>
+                        <% if dishes.empty? && beverages.empty? %>
+                            <p>Não há itens cadastrados</p>
+                        <% else %>
+                            <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant }%>
+                            <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant }%>
+                        <% end %>
+                    <% else %>
+                        <% dishes = menu.dishes.where(status: :active) %>
+                        <% beverages = menu.beverages.where(status: :active) %>
+                        <% if dishes.empty? && beverages.empty? %>
+                            <p>Não há itens cadastrados</p>
+                        <% else %>
+                            <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant }%>
+                            <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant }%>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

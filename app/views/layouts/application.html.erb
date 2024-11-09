@@ -32,9 +32,9 @@
           </div>
         <% end %>
         <% if user_signed_in? %>
-          <div class="flex items-center space-x-4">
+          <div class="ml-auto flex items-center space-x-4">
             <span class="text-gray-700"><%= I18n.t(:greeting)%>, <%= current_user.name %></span>
-            <%= button_to I18n.translate('devise.sessions.sign_out'), destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
+              <%= button_to I18n.translate('devise.sessions.sign_out'), destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
           </div>
         <% end %>
     </nav>
