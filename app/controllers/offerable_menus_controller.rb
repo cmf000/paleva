@@ -19,6 +19,15 @@ class OfferableMenusController < ApplicationController
     end
   end
 
+  def destroy
+    item = OfferableMenu.find(params[:id])
+    if item.destroy!
+      redirect_to [@restaurant, @menu], status: :see_other, notice: 'Item removido com sucesso'
+    else
+      redirect_to [@restaurant, @menu], status: :see_other, notice: 'Item não foi removido'
+    end
+  end
+
 
   private
   def set_restaurant_and_menu_and_check_user_is_owner

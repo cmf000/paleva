@@ -17,6 +17,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @beverages.each do |beverage| %>
                     <div class="h-full">
+                        <%= button_to 'Remover', [@restaurant, @menu, @menu.offerable_menus.find_by(offerable: beverage)], method: :delete%>
                         <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant, card_link: restaurant_beverage_path(@restaurant, beverage) %>
                         <%= render 'shared/offerable/list', offerable: beverage, restaurant: @restaurant%>
                     </div>
@@ -34,6 +35,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @dishes.each do |dish| %>
                     <div class="h-full">
+                        <%= button_to 'Remover', [@restaurant, @menu, @menu.offerable_menus.find_by(offerable: dish)], method: :delete%>
                         <%= render 'shared/dish', dish: dish, restaurant: @restaurant, card_link: restaurant_dish_path(@restaurant, dish) %>
                         <%= render 'shared/offerable/list', offerable: dish, restaurant: @restaurant%>
                     </div>
