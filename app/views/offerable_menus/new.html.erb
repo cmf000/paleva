@@ -1,3 +1,9 @@
+<div class="mb-8">
+    <nav class="text-sm mb-4">
+        <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>/
+        <%= link_to @menu.name, restaurant_menu_path(@restaurant.id, @menu.id), class: "text-blue-600 hover:text-blue-800" %>
+    </nav>
+</div>
 <div class="container mx-auto px-4 py-8">
     <div class="space-y-12">
         <section>

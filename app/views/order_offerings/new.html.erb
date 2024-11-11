@@ -1,0 +1,35 @@
+<div class="max-w-md mx-auto p-6">
+    <% if @order_offering.errors.present? %>
+        <% @order_offering.errors.full_messages.each do |msg| %>
+            <p><%= msg %></p>
+        <% end %>
+    <% end %>
+
+    <h2 class="text-2xl font-bold mb-6">Adicionar ao Pedido</h2>
+ 
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+        <h3 class="font-semibold"><%= @offerable.name %></h3>
+        <p class="text-gray-600"><%= @offering.description %></p>
+        <p class="text-lg font-semibold mt-2"><%= number_to_currency(@offering.current_price) %></p>
+    </div>
+
+    <%= form_with(model: [@restaurant, @offerable, @offering, @order_offering], class: "space-y-4") do |f| %>
+        <%= f.hidden_field :offering_id, value: @offering.id %> 
+
+        <div>
+            <%= f.label :order_id, "Selecione o Pedido", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.collection_select :order_id, @orders, :id, :customer_name, prompt: "Escolha um pedido", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        </div>
+        <div>
+            <%= f.label :quantity, "Quantidade", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.number_field :quantity, value: 1, min: 1, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        </div>
+
+        <div>
+            <%= f.label :comment, "Observação", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.text_area :comment, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        </div>
+
+        <%= f.submit "Adicionar ao Pedido", class: "w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+    <% end %>
+</div>

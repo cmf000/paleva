@@ -4,6 +4,9 @@
             <h3 class="text-xl font-semibold text-gray-900"><%= beverage.name %></h3>
             <div class="flex items-center space-x-2">
                 <% if current_user == restaurant.owner %>
+                    <% if action_name == 'show' && controller_path == 'menus' %>
+                        <%= button_to 'Remover', [@restaurant, @menu, @menu.offerable_menus.find_by(offerable: beverage)], method: :delete, class: "px-3 py-1 bg-gray-100 text-red-600 rounded-md text-sm hover:bg-gray-200"%>
+                    <% end %>
                     <%= link_to 'Editar', edit_restaurant_beverage_path(restaurant, beverage), id: "#{dom_id(beverage)}_edit", class: "px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200" %>
                     <span class="px-2 py-1 <%= beverage.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %> rounded-full text-sm">
                         <%= I18n.translate(beverage.status) %>

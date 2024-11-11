@@ -1,0 +1,20 @@
+pt-BR:
+  activerecord:
+    models:
+      order: 'Pedido'
+    attributes:
+      order:
+        customer_name: 'Nome do cliente'
+        cpf: 'CPF'
+        email: 'E-mail'
+        phone_number: 'Telefone'
+    enums:
+      draft: 'Aguardando finalização'
+      pending_kitchen: 'Aguardando confirmação da cozinha'
+      preparing: 'Em preparação'
+      cancelled: 'Cancelado'
+      ready: 'Pronto'
+      delivered: 'Entregue'
+
+
+

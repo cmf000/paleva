@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_08_161506) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_11_012704) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -110,6 +110,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_161506) do
     t.index ["offerable_type", "offerable_id"], name: "index_offerings_on_offerable"
   end
 
+  create_table "order_offerings", force: :cascade do |t|
+    t.integer "offering_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity", default: 1, null: false
+    t.string "comment"
+    t.index ["offering_id"], name: "index_order_offerings_on_offering_id"
+    t.index ["order_id"], name: "index_order_offerings_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "cpf"
+    t.integer "status"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "restaurant_id", null: false
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+  end
+
   create_table "price_histories", force: :cascade do |t|
     t.decimal "price", null: false
     t.datetime "effective_at", null: false
@@ -180,6 +204,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_161506) do
   add_foreign_key "new_employees", "restaurants"
   add_foreign_key "offerable_menus", "menus"
   add_foreign_key "offerable_tags", "tags"
+  add_foreign_key "order_offerings", "offerings"
+  add_foreign_key "order_offerings", "orders"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "price_histories", "offerings"
   add_foreign_key "restaurants", "users"
   add_foreign_key "shifts", "restaurants"
