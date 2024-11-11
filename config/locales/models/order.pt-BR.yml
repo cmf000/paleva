@@ -8,13 +8,14 @@ pt-BR:
         cpf: 'CPF'
         email: 'E-mail'
         phone_number: 'Telefone'
+        status: 'Status'
+        total_price: 'Total'
     enums:
-      draft: 'Aguardando finalização'
-      pending_kitchen: 'Aguardando confirmação da cozinha'
-      preparing: 'Em preparação'
-      cancelled: 'Cancelado'
-      ready: 'Pronto'
-      delivered: 'Entregue'
-
-
-
+      order:
+        status:
+          draft: 'Aguardando finalização'
+          pending_kitchen: 'Aguardando confirmação da cozinha'
+          preparing: 'Em preparação'
+          cancelled: 'Cancelado'
+          ready: 'Pronto'
+          delivered: 'Entregue'

@@ -1,5 +1,15 @@
 class OrdersController < ApplicationController
   before_action :set_restaurant_and_check_user
+
+  def index
+    @orders = @restaurant.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    @order_offerings = @order.order_offerings
+  end
+
   def new
     @order = Order.new
   end
@@ -13,6 +23,12 @@ class OrdersController < ApplicationController
       flash.now[:notice] = 'Pedido não criado'
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def send_to_kitchen
+    @order = Order.find(params[:id])
+    @order.pending_kitchen!
+    redirect_to root_path, notice: 'Pedido enviado à cozinha'
   end
 
   private

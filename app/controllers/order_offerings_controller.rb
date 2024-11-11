@@ -4,6 +4,9 @@ class OrderOfferingsController < ApplicationController
     @order_offering = OrderOffering.new
     @offerable = @offering.offerable
     @orders = @restaurant.orders.where(status: :draft)
+    if @orders.empty?
+      redirect_to new_restaurant_order_path(@restaurant)
+    end
   end
 
   def create

@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   enum :status, [:draft, :pending_kitchen, :preparing, :cancelled, :ready, :delivered]
   has_many :order_offerings
+  has_many :offerings, through: :order_offerings
   belongs_to :restaurant
 
   validates :customer_name, presence: true
@@ -10,7 +11,11 @@ class Order < ApplicationRecord
   validate :is_phone_number_numeric, if: -> {self.phone_number.present? }
 
   before_validation :set_initial_status_to_draft, on: :create
-  before_validation :set_code, on: :create
+  before_save :set_code, if: :going_to_kitchen?
+
+  def total_price
+    self.order_offerings.sum(&:total_price)
+  end
 
   private
   def email_or_phone_number_must_be_informed
@@ -38,5 +43,11 @@ class Order < ApplicationRecord
     end
   end
 
-  def set_code; end
+  def set_code
+    self.code = SecureRandom.alphanumeric(8).upcase
+  end
+
+  def going_to_kitchen?
+    status_changed? && status == 'pending_kitchen'
+  end
 end

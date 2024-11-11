@@ -28,7 +28,9 @@ Rails.application.routes.draw do
     resources :menus, only: [:new, :create, :show] do
       resources :offerable_menus, only: [:new, :create, :destroy]
     end
-    resources :orders, only: [:new, :create]
+    resources :orders, only: [:new, :create, :index, :show] do
+      patch :send_to_kitchen, on: :member
+    end
     resources :order_offerings, only: [:new, :create]
   end
 end

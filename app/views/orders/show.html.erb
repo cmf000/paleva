@@ -1,0 +1,52 @@
+<div class="container mx-auto px-4 py-6">
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="p-6 border-b">
+            <h1 class="text-2xl font-bold mb-2">Pedido #<%= @order.id %></h1>
+        <div class="text-gray-600">
+            <p>Cliente: <%= @order.customer_name %></p>
+            <p>Status: <%= I18n.t("activerecord.enums.order.status.#{@order.status}") %></p>
+        </div>
+    </div>
+
+    <div class="p-6">
+        <h2 class="text-xl font-semibold mb-4">Itens do Pedido</h2>
+        <div class="space-y-4">
+            <% @order_offerings.each do |order_offering| %>
+        <div class="flex justify-between items-start border-b pb-4">
+        <div class="flex-1">
+            <h3 class="font-medium"><%= order_offering.offering.offerable.name %></h3>
+            <p class="text-gray-600 text-sm mt-1"><%= order_offering.offering.description %></p>
+            <% if order_offering.comment.present? %>
+                <p class="text-gray-500 text-sm mt-2 italic">
+                    <span class="font-medium">Observação:</span> <%= order_offering.comment %>
+                </p>
+            <% end %>
+        </div>
+            <div class="text-right ml-4 flex flex-col items-end">
+                <p class="font-medium"><%= number_to_currency(order_offering.total_price) %></p>
+                <p class="text-gray-600 text-sm">Qtd: <%= order_offering.quantity %></p>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+
+    <div class="bg-gray-50 p-6">
+        <div class="flex justify-between items-center">
+            <span class="text-xl font-bold">Total</span>
+            <span class="text-xl font-bold"><%= number_to_currency(@order.total_price) %></span>
+        </div>
+    </div>
+
+    <div class="p-6 bg-gray-50 border-t">
+        <div class="flex justify-end space-x-4">
+            <% if @order.draft? %>
+            <%= button_to send_to_kitchen_restaurant_order_path(@order.restaurant, @order), method: :patch, class: "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150" do %>
+                Enviar para Cozinha
+            <% end %>
+            <% end %>
+            <%= link_to "Voltar", restaurant_orders_path(@order.restaurant), class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-150" %>
+        </div>
+        </div>
+    </div>
+</div>
