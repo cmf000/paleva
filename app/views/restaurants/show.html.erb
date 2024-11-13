@@ -60,11 +60,11 @@
                     <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há cardápios cadastrados</p>
                 <% else %>
                     <% @menus.each do |menu| %>
-                        <%= link_to restaurant_menu_path(@restaurant, menu), class: "block", id: "#{dom_id(menu)}-details" do %>
-                            <div class="grid grid-cols-1  gap-6">
+                        <div class="mb-8">
+                            <div class="grid grid-cols-1">
                                 <%= render 'shared/menu', menu: menu, restaurant: @restaurant %>
                             </div>
-                        <% end %>
+                        </div>
                     <% end %>
                 <% end %>
             </div>
@@ -99,20 +99,20 @@
                         <%= link_to 'Cadastrar novo prato', new_restaurant_dish_path(@restaurant.id), class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm" %>
                     <% end %>  
                 </div>
-                <% if @dishes.empty? %> 
-                    <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há pratos cadastrados</p>
-                <% else %>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <% @dishes.each do |dish| %>
-                            <div class="h-full"> 
-                                <%= link_to  restaurant_dish_path(@restaurant, dish) do %>
-                                    <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
-                                <% end %>
-                            </div>
-                        <% end %>
-                    </div>
-                <% end %>
-            </div>
+                    <% if @dishes.empty? %> 
+                        <p class="text-gray-500 bg-gray-50 rounded-lg p-6 text-center">Não há pratos cadastrados</p>
+                    <% else %>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <% @dishes.each do |dish| %>
+                                <div class="v-full"> 
+                                    <%= link_to  restaurant_dish_path(@restaurant, dish) do %>
+                                        <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                        </div>
+                    <% end %>        
+                </div>
         <% end %>
     </div>
 </div>
@@ -132,48 +132,3 @@ function toggleRestaurantDetails(id) {
     }
 }
 </script>
-
-
-<% if false %>
-<div class="restaurant-view-container p-6 bg-gray-100">
-  <h1 class="text-2xl font-bold mb-4">Restaurant Menus</h1>
-
-  <% @menus.each do |menu| %>
-    <div class="menu-card p-4 bg-white shadow-md rounded-lg mb-6">
-      <h2 class="text-xl font-semibold text-gray-800">
-        <%= link_to menu.name, restaurant_menu_path(menu), class: "hover:underline" %>
-      </h2>
-
-      <div class="menu-items grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        <% menu.offerable_menus.each do |offerable_menu| %>
-          <% item = offerable_menu.offerable%>
-
-          <div class="item-card p-4 border rounded-lg 
-                      <%= item.active? ? 'border-green-500' : 'border-gray-300 opacity-50' %>">
-            <h3 class="text-lg font-semibold">
-              <%= link_to item.name, polymorphic_path([@restaurant, item]), class: "hover:underline" %>
-            </h3>
-            <p class="text-sm text-gray-600"><%= item.description %></p>
-
-            <% if item.image.attached? %>
-              <%= image_tag item.image, class: "w-full h-32 object-cover rounded mt-2" %>
-            <% end %>
-
-            <div class="tags flex space-x-2 mt-2">
-              <% item.tags.each do |tag| %>
-                <span class="tag bg-blue-100 text-blue-800 text-xs font-medium rounded-full px-2 py-1">
-                  <%= tag.name %>
-                </span>
-              <% end %>
-            </div>
-
-            <span class="status-tag <%= item.active? ? 'text-green-600' : 'text-red-600' %> text-xs font-medium">
-              <%= item.active? ? 'Active' : 'Inactive' %>
-            </span>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-<% end %>

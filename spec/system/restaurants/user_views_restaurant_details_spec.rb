@@ -161,13 +161,13 @@ describe 'Usuário dono visita página do seu restaurante' do
     click_on 'Quitutes Picantes'
     save_page
 
-    within("##{dom_id(menu_1)}-details") do 
+    within("##{dom_id(menu_1)}-card") do 
       expect(page).to have_content 'Pão de queijo'
       expect(page).to have_content 'Café expresso'
       expect(page).to have_content 'Capuccino'
     end
 
-    within("##{dom_id(menu_2)}-details") do 
+    within("##{dom_id(menu_2)}-card") do 
       expect(page).to have_content 'Não há itens cadastrados'
     end
   end
@@ -462,7 +462,7 @@ describe 'Usuário funcionário visita página de restaurante' do
     login_as(employee)
     visit root_path
 
-    within("##{dom_id(menu_1)}-details") do 
+    within("##{dom_id(menu_1)}-card") do 
       expect(page).not_to have_content 'Pão de queijo'
       expect(page).not_to have_content 'Café expresso'
       expect(page).to have_content 'Misto quente'

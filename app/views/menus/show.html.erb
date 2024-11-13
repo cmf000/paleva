@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 max-w-6xl">
     <div class="mb-8">
         <nav class="text-sm mb-4">
             <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
@@ -12,6 +12,7 @@
             </div>
         <% end %>
     </div>
+
     <div class="mb-12">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-gray-900">Bebidas</h2>
@@ -21,8 +22,10 @@
         <% else %>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @beverages.each do |beverage| %>
-                    <div class="h-full">
-                        <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant %>
+                    <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col justify-between">
+                        <div class="flex-1 overflow-hidden">
+                            <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant %>
+                        </div>
                         <%= render 'shared/offerable/list', offerable: beverage, restaurant: @restaurant%>
                     </div>
                 <% end %>
@@ -38,9 +41,11 @@
         <% else %>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @dishes.each do |dish| %>
-                    <div class="h-full">
-                        <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
-                        <%= render 'shared/offerable/list', offerable: dish, restaurant: @restaurant%>
+                    <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col justify-between">
+                        <div class="flex-1 overflow-hidden">
+                            <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
+                        </div>
+                <%= render 'shared/offerable/list', offerable: dish, restaurant: @restaurant%>
                     </div>
                 <% end %>
             </div>
