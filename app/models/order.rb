@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   validate :email_or_phone_number_must_be_informed
   validate :is_cpf_valid, if: -> { self.cpf.present? }
   validate :is_phone_number_numeric, if: -> {self.phone_number.present? }
+  validate :check_status_change, if: :status_changed?, unless: :new_record?
 
   before_validation :set_initial_status_to_draft, on: :create
   before_save :set_code, if: :going_to_kitchen?
@@ -48,6 +49,16 @@ class Order < ApplicationRecord
   end
 
   def going_to_kitchen?
-    status_changed? && status == 'pending_kitchen'
+    status_changed? && status_was == 'draft' && self.status == 'pending_kitchen'
+  end
+
+  def check_status_change
+    if status_changed?
+      if !(status_was == 'pending_kitchen' && self.status == 'preparing') &&
+          !(status_was == 'preparing' && self.status == 'ready') &&
+          !(status_was == 'draft' && self.status == 'pending_kitchen')
+          errors.add(:status, "não pode mudar de #{status_was} para #{self.status}")
+      end
+    end
   end
 end

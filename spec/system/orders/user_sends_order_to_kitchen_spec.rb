@@ -16,7 +16,7 @@ describe 'Usuário finaliza pedido' do
     order.offerings << offering
     order_1 = Order.create!(restaurant: restaurant, customer_name: 'Derpina', email: 'derpina@email.com')
     order_1.offerings << offering
-    order_1.delivered!
+    order_1.pending_kitchen!
 
     login_as(user)
     visit root_path

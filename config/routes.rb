@@ -37,7 +37,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :restaurants, param: :code, only: [] do
-        resources :orders, only: [:index, :show], param: :code
+        resources :orders, only: [:index, :show], param: :code do
+          patch :preparing, on: :member
+          patch :ready, on: :member
+        end
       end
     end
   end

@@ -15,7 +15,7 @@ describe 'Usuário vê pedidos' do
     order = Order.create!(restaurant: restaurant, customer_name: 'Derp', email: 'derp@email.com')
     order_1 = Order.create!(restaurant: restaurant, customer_name: 'Derpina', email: 'derpina@email.com')
     order_1.offerings << offering
-    order_1.delivered!
+    order_1.pending_kitchen!
 
     login_as(user)
     visit root_path
@@ -25,6 +25,6 @@ describe 'Usuário vê pedidos' do
     expect(page).to have_content 'Derp'
     expect(page).to have_content 'Aguardando finalização'
     expect(page).to have_content 'Derpina'
-    expect(page).to have_content 'Entregue'
+    expect(page).to have_content 'Aguardando confirmação da cozinha'
   end
 end
