@@ -10,12 +10,6 @@
     <div class="p-4">
         <div class="flex justify-between items-start mb-6">
             <h3 class="text-xl font-semibold text-gray-900"><%= link_to menu.name, restaurant_menu_path(restaurant, menu), id: "#{dom_id(menu)}-details"%></h3>
-            <% dishes.each do |dish| %>
-                <p><%=dish.name%></p>
-            <% end %>
-            <% if dishes.empty? && beverages.empty? %>
-                <span class="text-sm text-gray-500">Não há pratos ou bebidas cadastradas</span>
-            <% end %>
         </div>
         <div class="space-y-4">
             <div class="flex items-center justify-between mb-6">
@@ -23,8 +17,8 @@
                     <p>Não há itens cadastrados</p>
                 <% else %>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant, card_link: ->(dish) { restaurant_dish_path(restaurant, dish) } } %>
-                        <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant, card_link: ->(beverage) { restaurant_beverage_path(restaurant, beverage) } } %>
+                        <%= render partial: 'shared/dish', collection: dishes, as: :dish, locals: { restaurant: restaurant } %>
+                        <%= render partial: 'shared/beverage', collection: beverages, as: :beverage, locals: { restaurant: restaurant } %>
                     </div>
                 <% end %>
             </div>

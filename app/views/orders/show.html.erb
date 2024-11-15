@@ -1,7 +1,11 @@
 <div class="container mx-auto px-4 py-6">
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="p-6 border-b">
-            <h1 class="text-2xl font-bold mb-2">Pedido #<%= @order.id %></h1>
+            <% if !@order.draft? %>
+                <h1 class="text-2xl font-bold mb-2">Pedido #<%= @order.code %></h1>
+            <% else %>
+                <h1 class="text-2xl font-bold mb-2">Pedido</h1>
+            <% end %>
         <div class="text-gray-600">
             <p>Cliente: <%= @order.customer_name %></p>
             <p>Status: <%= I18n.t("activerecord.enums.order.status.#{@order.status}") %></p>

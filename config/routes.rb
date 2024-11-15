@@ -33,4 +33,12 @@ Rails.application.routes.draw do
     end
     resources :order_offerings, only: [:new, :create]
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :restaurants, param: :code, only: [] do
+        resources :orders, only: [:index, :show], param: :code
+      end
+    end
+  end
 end

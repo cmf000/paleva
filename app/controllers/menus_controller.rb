@@ -1,5 +1,6 @@
 class MenusController < ApplicationController
-  before_action :set_restaurant_and_check_user_is_owner
+  before_action :set_restaurant_and_check_user_is_owner, only: [:new, :create]
+  before_action :set_restaurant_and_check_user_is_owner_or_works_at_restaurant, only: [:show]
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menu = Menu.new
@@ -29,9 +30,20 @@ class MenusController < ApplicationController
     params.require(:menu).permit(:name)
   end
 
-  def set_restaurant_and_check_user_is_owner
+  def set_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  def set_restaurant_and_check_user_is_owner
+    set_restaurant
     if current_user != @restaurant.owner
+      redirect_to root_path
+    end
+  end
+
+  def set_restaurant_and_check_user_is_owner_or_works_at_restaurant
+    set_restaurant
+    if current_user != @restaurant.owner && current_user.works_at_restaurant != @restaurant
       redirect_to root_path
     end
   end
