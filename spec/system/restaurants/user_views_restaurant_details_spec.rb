@@ -20,6 +20,15 @@ describe 'Usuário dono visita página do seu restaurante' do
     visit root_path
     click_on 'Quitutes Picantes'
 
+    within("##{dom_id restaurant}-address") do
+      expect(page).to have_content 'Avenida Quente, 456'
+      expect(page).to have_content 'Pimentas'
+      expect(page).to have_content 'Ferraz de Vasconcelos - SP'
+      expect(page).to have_content '11111-111'
+    end
+    within("##{dom_id restaurant}-contact") do
+      expect(page).to have_content '11933301030'
+    end
     expect(current_path).to eq restaurant_path(restaurant.id)
     within('#weekday-sunday') do
       expect(page).to have_content('17:00 às 20:00')

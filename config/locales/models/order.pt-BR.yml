@@ -10,6 +10,8 @@ pt-BR:
         phone_number: 'Telefone'
         status: 'Status'
         total_price: 'Total'
+        placed_at: 'Horário'
+        order_offerings: 'Itens do pedido' 
     enums:
       order:
         status:

@@ -4,7 +4,7 @@
     <ul class="space-y-4">
         <% @orders.each do |order| %>
             <%= link_to [@restaurant, order] do %>
-            <li id="<%=dom_id order%>" class="w-full bg-white shadow rounded-lg p-4">
+            <li id="<%=dom_id order%>" class="w-full bg-white shadow rounded-lg p-4 mt-3">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                     <div class="flex flex-col">
                         <span class="text-gray-500 text-sm">
@@ -14,6 +14,16 @@
                         <%= order.customer_name %>
                         </span>
                     </div>
+                        <% if order.placed_at.present? %>
+                    <div class="flex flex-col">
+                        <span class="text-gray-500 text-sm">
+                        <%= Order.human_attribute_name(:placed_at) %>
+                        </span>
+                        <span class="font-medium">
+                        <%= order.placed_at.strftime('%H:%M') %>
+                        </span>
+                    </div>
+                        <% end %>
                     <div class="flex flex-col">
                         <span class="text-gray-500 text-sm">
                             <%= Order.human_attribute_name(:total_price) %>

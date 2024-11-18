@@ -22,12 +22,14 @@
         <% else %>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @beverages.each do |beverage| %>
+                    <% if current_user == @restaurant.owner || current_user != @restaurant.owner && beverage.active? && beverage.offerings.present? %>
                     <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col justify-between">
                         <div class="flex-1 overflow-hidden">
                             <%= render 'shared/beverage', beverage: beverage, restaurant: @restaurant %>
                         </div>
                         <%= render 'shared/offerable/list', offerable: beverage, restaurant: @restaurant%>
                     </div>
+                    <% end %>
                 <% end %>
             </div>
         <% end %>
@@ -41,12 +43,14 @@
         <% else %>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% @dishes.each do |dish| %>
+                    <% if current_user == @restaurant.owner || current_user != @restaurant.owner && dish.active? && dish.offerings.present? %>
                     <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col justify-between">
                         <div class="flex-1 overflow-hidden">
                             <%= render 'shared/dish', dish: dish, restaurant: @restaurant %>
                         </div>
                 <%= render 'shared/offerable/list', offerable: dish, restaurant: @restaurant%>
                     </div>
+                    <% end %>
                 <% end %>
             </div>
         <% end %>

@@ -79,7 +79,24 @@ RSpec.describe Order, type: :model do
       new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
       employee = User.create!(email: 'gertrudes@email.com', name: 'Gertrudes', cpf: cpf, password: 'asdflakjsdbnçfqbwkejb')
 
-      order = Order.new(cpf: CPF.generate, customer_name: 'Eustaquio', phone_number: 'laskdjfh', email: 'eustaquio@email.com')
+      order = Order.new(restaurant: restaurant, cpf: CPF.generate, customer_name: 'Eustaquio', phone_number: 'laskdjfh', email: 'eustaquio@email.com')
+
+      expect(order).not_to be_valid
+    end
+
+    it 'Pedido não pode ser finalizado se estiver vazio' do
+      user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+      restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+      cpf = CPF.generate
+      new_employee = NewEmployee.create!(restaurant: restaurant, cpf: cpf, email: 'gertrudes@email.com')
+      employee = User.create!(email: 'gertrudes@email.com', name: 'Gertrudes', cpf: cpf, password: 'asdflakjsdbnçfqbwkejb')
+
+      order = Order.create!(restaurant: restaurant, cpf: CPF.generate, customer_name: 'Eustaquio', phone_number: '11933301020', email: 'eustaquio@email.com')
+      order.status = "pending_kitchen"
 
       expect(order).not_to be_valid
     end

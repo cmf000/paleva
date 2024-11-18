@@ -1,4 +1,9 @@
 <div class="container mx-auto px-4 py-6">
+    <% if @order.errors.any? %>
+        <% @order.errors.full_messages.each do |msg| %>
+            <p><%=msg%></p>
+        <% end %>
+    <% end %>
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="p-6 border-b">
             <% if !@order.draft? %>
@@ -45,9 +50,9 @@
     <div class="p-6 bg-gray-50 border-t">
         <div class="flex justify-end space-x-4">
             <% if @order.draft? %>
-            <%= button_to send_to_kitchen_restaurant_order_path(@order.restaurant, @order), method: :patch, class: "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150" do %>
-                Enviar para Cozinha
-            <% end %>
+                <%= button_to send_to_kitchen_restaurant_order_path(@order.restaurant, @order), method: :patch, data: { turbo: false }, class: "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150" do %>
+                    Enviar para Cozinha
+                <% end %>
             <% end %>
             <%= link_to "Voltar", restaurant_orders_path(@order.restaurant), class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-150" %>
         </div>

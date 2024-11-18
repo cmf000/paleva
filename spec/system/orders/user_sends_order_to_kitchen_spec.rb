@@ -46,10 +46,34 @@ describe 'Usuário finaliza pedido' do
     click_on 'Quitutes Picantes'
     click_on 'Ver Pedidos'
     click_on "Aguardando finalização"
+    time = Time.current
+    allow(Time).to receive(:current).and_return(time)
     click_on "Enviar para Cozinha"
 
     expect(page).to have_content 'Pedido enviado à cozinha'
     expect(restaurant.orders.last.status).to eq "pending_kitchen"
     expect(restaurant.orders.last.code).to eq 'ABC12345'
+    expect(restaurant.orders.last.placed_at.change(usec: 0)).to eq time.change(usec: 0)
+  end
+
+  it 'e pedido não pode estar vazio' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Derp', email: 'derp@email.com')
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Ver Pedidos'
+    click_on 'Derp'
+    click_on 'Enviar para Cozinha'
+
+    expect(page).to have_content 'Não foi possível finalizar o pedido'
+    expect(page).to have_content 'pedido precisa ter pelo menos um item para ser enviado à cozinha'
+    
   end
 end

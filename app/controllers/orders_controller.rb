@@ -27,8 +27,14 @@ class OrdersController < ApplicationController
 
   def send_to_kitchen
     @order = Order.find(params[:id])
-    @order.pending_kitchen!
-    redirect_to root_path, notice: 'Pedido enviado à cozinha'
+    @order.status = 'pending_kitchen'
+    if @order.save
+      redirect_to root_path, notice: 'Pedido enviado à cozinha'
+    else
+      flash.now[:notice] = 'Não foi possível finalizar o pedido'
+      @order_offerings = @order.order_offerings
+      render :show, status: :unprocessable_entity
+    end
   end
 
   private

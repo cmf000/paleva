@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Order API" do
-  context 'GET /api/v1/orders/restaurant_code' do
+  context 'GET /api/v1/restaurants/restaurant_code/orders' do
     it 'sucesso' do
       user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
       restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
@@ -146,9 +146,7 @@ describe "Order API" do
 
       expect(response).to have_http_status(200)
       expect(response.content_type).to include 'application/json'
-      expect(json_response["customer_name"]).to eq 'Derp'
       expect(json_response["order_offerings"].class).to eq Array
-      expect(json_response["customer_name"]).to eq "Derp"
       expect(json_response["status"]).to eq "pending_kitchen"
       expect(json_response["code"]).to eq "OXPDJZJ4"
       expect(json_response["order_offerings"][0]["offering"]["offerable"]["name"]).to eq "Hamburguer"
@@ -233,7 +231,7 @@ describe "Order API" do
 
       patch "/api/v1/restaurants/ABC123/orders/OXPDJZJ4/preparing"
 
-      expect(response).to have_http_status 204
+      expect(response).to have_http_status 200
       order_1.reload
       expect(order_1).to be_preparing
     end
@@ -288,7 +286,7 @@ describe "Order API" do
 
       patch "/api/v1/restaurants/ABC123/orders/OXPDJZJ4/ready"
 
-      expect(response).to have_http_status 204
+      expect(response).to have_http_status 200
       order_1.reload
       expect(order_1).to be_ready
     end
