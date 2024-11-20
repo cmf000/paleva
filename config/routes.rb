@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'home#index'
   resources :restaurants do 
+    get :test, on: :member
     resources :dishes, only: [:new, :create, :edit, :update, :show] do
       member do
         post :toggle_status

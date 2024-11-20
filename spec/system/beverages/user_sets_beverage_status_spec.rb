@@ -18,7 +18,7 @@ describe 'Usuário acessa a página de detalhes da bebida' do
     expect(page).to have_content "Coca-cola"
     expect(page).to have_content '1200 kcal'
     expect(page).to have_content 'Tipo: Não-alcoólica'
-    expect(page).to have_content 'Status: Inativo'
+    expect(page).to have_content 'Inativo'
     expect(page).to have_button 'Ativar'
 
   end

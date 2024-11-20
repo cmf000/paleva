@@ -46,7 +46,7 @@
                         <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
                             <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
                             <li class="py-1 border-b last:border-0">
-                                <%= render 'shared/weekday', weekday: weekday, shift: shift %>
+                                <%= render 'shared/weekday', weekday: weekday, shift: shift, restaurant: @restaurant %>
                             </li>
                         <% end %>
                     </ul>

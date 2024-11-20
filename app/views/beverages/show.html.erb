@@ -1,45 +1,38 @@
-<h1><%=@beverage.name%></h1>
-<div>
-    <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%><br>
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+   <nav class="mb-8">
+       <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+   </nav>
+   <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+       <h1 class="text-2xl font-bold text-gray-900 mb-6"><%= @beverage.name %></h1>
+       
+       <div class="space-y-4">
+           <p class="text-gray-700"><%= @beverage.description %></p>
+            
+           <% if @beverage.calories.present? %>
+               <p class="text-gray-600"><%= @beverage.calories %> kcal</p>
+           <% end %>
+           
+           <p class="text-gray-600">
+               Tipo: <%= @beverage.yes? ? 'Alcoólica' : 'Não-alcoólica' %>
+           </p>
+           
+           <% if @beverage.image.attached? %>
+               <%= image_tag url_for(@beverage.image), size: "100x100", class: "rounded-md" %>
+           <% end %>
+           
+           <div class="flex items-center gap-4">
+               <span class="px-2 py-1 rounded-full <%= @beverage.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                   <%= I18n.translate(@beverage.status) %>
+               </span>
+               
+               <% if current_user == @restaurant.owner %>
+                   <%= button_to @beverage.active? ? "Desativar" : "Ativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage), class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+               <% end %>
+           </div>
+       </div>
+   </div>
+   <div class="bg-white rounded-lg shadow-md p-6">
+       <h2 class="text-xl font-bold text-gray-900 mb-4">Porções</h2>
+       <%= render 'shared/offerable/list', offerable: @beverage, restaurant: @restaurant %>
+   </div>
 </div>
-    <div>
-        <ul>
-            <li><%= @beverage.name %></li><br>
-            <li><%= @beverage.description %></li><br>
-            <li>
-                <% if @beverage.calories.present? %>
-                    <p><%= @beverage.calories %> kcal</p><br>
-                <% end %>
-            </li>
-            <li>
-                <% if @beverage.yes? %>
-                    <p>Tipo: Alcoólica</p>
-                <% else %>
-                    <p>Tipo: Não-alcoólica</p>
-                <% end %>
-            </li><br>
-            <li>
-                <% if @beverage.image.attached? %>
-                    <p><%= image_tag url_for(@beverage.image), size: "100x100" %></p><br>
-                <% end %>
-            </li>
-                <p>Status: <%=I18n.translate(@beverage.status)%></p><br>
-            <li>
-            <li>
-                <% if current_user == @restaurant.owner %>
-                    <%if @beverage.active? %>
-                        <%=button_to "Desativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
-                    <% else %>
-                        <%=button_to "Ativar", toggle_status_restaurant_beverage_path(@restaurant, @beverage)%>
-                    <% end %>
-                <% end %>
-            </li>
-            <li>
-                <div >
-                    <h1><%= @beverage.name %></h1>
-                    <h2>Porções</h2>
-                    <%= render 'shared/offerable/list', offerable: @beverage, restaurant: @restaurant%>
-                </div>
-            </li>
-        </ul>
-    </div>

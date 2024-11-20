@@ -51,7 +51,6 @@ class RestaurantsController < ApplicationController
       redirect_to restaurant_path(@restaurant), notice: 'Restaurante editado com sucesso'
     else
       flash.now[:alert] = 'Restaurante não editado'
-      build_remaining_shifts
       render :edit, status: :unprocessable_entity
     end
   end
@@ -64,6 +63,10 @@ class RestaurantsController < ApplicationController
 
   def manage_employees
     @new_employees = @restaurant.new_employees
+  end
+
+  def test
+    @restaurant = Restaurant.find(params[:id])
   end
   
 

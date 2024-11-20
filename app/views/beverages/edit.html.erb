@@ -1,10 +1,18 @@
-<h2><%=link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%></h2>
-<h1>Editar:</h1>
+<div class="container mx-auto px-4 py-8 max-w-md">
 
-<% if @beverage.errors.any? %>
-    <% @beverage.errors.full_messages.each do |msg| %>
-        <p><%= msg %></p>
+    <nav class="mb-8">
+        <%=link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800"%>
+        <h1 class="text-2xl font-bold text-gray-900 mt-4">Editar:</h1>
+    </nav>
+
+    <% if @beverage.errors.any? %>
+        <div class="mb-6 p-4 bg-red-100 rounded-md">
+            <% @beverage.errors.full_messages.each do |msg| %>
+                <p class="text-red-700"><%= msg %></p>
+            <% end %>
+        </div>
     <% end %>
-<% end %>
 
-<%= render 'form', beverage: @beverage, restaurant: @restaurant, tags: @tags, url: restaurant_beverage_path(@restaurant, @beverage) %>
+    <%= render 'form', beverage: @beverage, restaurant: @restaurant, tags: @tags, url: restaurant_beverage_path(@restaurant, @beverage) %>
+
+</div>

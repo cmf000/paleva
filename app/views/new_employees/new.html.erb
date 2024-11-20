@@ -1,25 +1,32 @@
-<%= I18n.translate('activerecord.models.new_employee', default: :new_employee) %> para <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
-<p><%= link_to 'Gestão de funcionários', manage_employees_restaurant_path(@restaurant.id)%></p>
+<div class="container mx-auto px-4 py-8 max-w-md">
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">
+            <%= I18n.translate('activerecord.models.new_employee', default: :new_employee) %> 
+            para 
+            <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+        </h1>
+        <%= link_to 'Gestão de funcionários', manage_employees_restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+    </div>
 
-<% if @new_employee.errors.any? %>
-    <% @new_employee.errors.full_messages.each do |msg| %>
-        <p><%= msg %></p>
-    <%end %>
-<% end %>
+    <% if @new_employee.errors.any? %>
+        <div class="mb-6 p-4 bg-red-100 rounded-md">
+            <% @new_employee.errors.full_messages.each do |msg| %>
+                <p class="text-red-700"><%= msg %></p>
+            <% end %>
+        </div>
+    <% end %>
 
-<%= form_with(model: [@restaurant, @new_employee], data: { turbo: false }) do |f| %>
-
-  <div class="field">
-    <%= f.label :cpf %>
-    <%= f.text_field :cpf %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit 'Criar Novo Funcionário' %>
-  </div>
-<% end %>
+    <%= form_with(model: [@restaurant, @new_employee], data: { turbo: false }, class: "space-y-6") do |f| %>
+        <div class="field">
+            <%= f.label :cpf, class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_field :cpf, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+        </div>  
+        <div class="field">
+            <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.email_field :email, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+        <div class="actions">
+            <%= f.submit 'Criar Novo Funcionário', class: "w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+        </div>
+    <% end %>
+</div>

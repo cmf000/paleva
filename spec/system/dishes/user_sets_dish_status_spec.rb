@@ -16,7 +16,7 @@ describe 'Usuário muda o status do prato' do
 
     expect(page).to have_content "Hamburguer"
     expect(page).to have_content '1200 kcal'
-    expect(page).to have_content 'Status: Inativo'
+    expect(page).to have_content 'Inativo'
     expect(page).to have_button 'Ativar'
   end
 

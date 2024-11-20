@@ -1,66 +1,90 @@
-<%= form_with(model: @restaurant) do |r|%>
-    <div>
-        <%= r.label :registered_name %>
-        <%= r.text_field :registered_name %>
-    </div>
-    <div>
-        <%= r.label :trade_name %>
-        <%= r.text_field :trade_name %>
-    </div>
-    <div>
-        <%= r.label :cnpj %>
-        <%= r.text_field :cnpj %>
-    </div>
-    <div>
-        <%= r.label :email %>
-        <%= r.email_field :email %>
-    </div>
-    <div>
-        <%= r.label :phone_number %>
-        <%= r.text_field :phone_number %>
-    </div>
-    <div>
-        <%= r.label :street_address %>
-        <%= r.text_field :street_address %>
-    </div>
-    <div>
-        <%= r.label :district %>
-        <%= r.text_field :district %>
-    </div>
-     <div>
-        <%= r.label :zip_code %>
-        <%= r.text_field :zip_code %>
-    </div>
-    <div>
-        <%= r.label :city %>
-        <%= r.text_field :city %>
-    </div>
-    <div>
-        <%= r.label :state %>
-        <%= r.text_field :state %>
-    </div>
-    <div>
-        <h2>Horário de funcionamento</h2>
-        <ul>
-            <%= r.fields_for :shifts do |s| %>
-                <li id=<%= s.object.weekday%> >
-                    <%= I18n.translate("activerecord.attributes.shift.weekdays.#{s.object.weekday}") %>
-                    <%= s.hidden_field :weekday %>
-                    <div>
-                        <%= s.label :opening_time %>
-                        <%= s.time_select :opening_time, include_blank: true %>
-                    </div>
-                    <div>
-                        <%= s.label :closing_time %>
-                        <%= s.time_select :closing_time, include_blank: true %>
-                    </div>
-                    <div>
-                        <%= s.label :_destroy, 'Fechado' %>
-                        <%= s.check_box :_destroy %>
-                    </div>
-                </li>
-            <% end %>
-        </ul>
-    </div>
-    <%= r.submit %>
-<% end %>
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+    <%= form_with(model: @restaurant, class: "space-y-6") do |r| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <div>
+                    <%= r.label :registered_name, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :registered_name, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+                <div>  
+                    <%= r.label :trade_name, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :trade_name, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+                <div> 
+                    <%= r.label :cnpj, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :cnpj, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <%= r.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.email_field :email, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+  
+                <div>
+                    <%= r.label :phone_number, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                   <%= r.text_field :phone_number, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 space-y-4">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Endereço</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <%= r.label :street_address, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :street_address, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+                <div>
+                    <%= r.label :district, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :district, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+                <div>
+                    <%= r.label :zip_code, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :zip_code, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+                <div>
+                    <%= r.label :city, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :city, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+                <div>
+                    <%= r.label :state, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                    <%= r.text_field :state, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Horário de funcionamento</h2>
+            
+            <ul class="space-y-6">
+                <%= r.fields_for :shifts do |s| %>
+                    <li id=<%= s.object.weekday %> class="border-b pb-4 last:border-0">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium">
+                                <%= I18n.translate("activerecord.attributes.shift.weekdays.#{s.object.weekday}") %>
+                            </span>
+                            <%= s.hidden_field :weekday %>
+                            <div class="flex items-center">
+                                <%= s.label :_destroy, 'Fechado', class: "mr-2" %>
+                                <%= s.check_box :_destroy, class: "rounded" %>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <%= s.label :opening_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                                <%= s.time_select :opening_time, include_blank: true, class: "px-2 py-1 border border-gray-300 rounded-md" %>
+                            </div>
+                            <div>
+                                <%= s.label :closing_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
+                                <%= s.time_select :closing_time, include_blank: true, class: "px-2 py-1 border border-gray-300 rounded-md" %>
+                            </div>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+
+        <%= r.submit class: "w-full mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+    <% end %>
+</div>

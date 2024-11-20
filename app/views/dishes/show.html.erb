@@ -1,37 +1,34 @@
-<h1><%= @dish.name %></h1>
-<div>
-    <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id) %><br>
-</div>
-<div>
-    <ul>
-        <li><%= @dish.name %></li><br>
-        <li><%= @dish.description %></li><br>
-        <li>
-            <% if @dish.calories.present? %>
-                <p><%= @dish.calories %> kcal</p><br>
-            <% end %>
-        </li>
-        <li>
-            <% if @dish.image.attached? %>
-                <p><%= image_tag url_for(@dish.image), size: "100x100" %></p><br>
-            <% end %>
-        </li>
-        <p>Status: <%= I18n.translate(@dish.status) %></p><br>
-        <li>
-            <% if current_user == @restaurant.owner %>
-                <% if @dish.active?%>
-                    <%= button_to "Desativar", toggle_status_restaurant_dish_path(@restaurant, @dish) %>
-                <% else %>
-                    <%= button_to "Ativar", toggle_status_restaurant_dish_path(@restaurant, @dish) %>
-                <% end %>
-            <% end %>
-        </li>
-        <li>
-            <div>
-                <h1><%= @dish.name %></h1>
-                <h2>Porções</h2>
-                <%= render 'shared/offerable/list', offerable: @dish, restaurant: @restaurant %>
-            </div>
-        </li>
-    </ul>
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+   <nav class="mb-8"> 
+       <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+   </nav>
+   <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+       <h1 class="text-2xl font-bold text-gray-900 mb-6"><%= @dish.name %></h1>
+       
+       <div class="space-y-4">
+           <p class="text-gray-700"><%= @dish.description %></p>
+           
+           <% if @dish.calories.present? %>
+               <p class="text-gray-600"><%= @dish.calories %> kcal</p>
+           <% end %>
+           
+           <% if @dish.image.attached? %>
+               <%= image_tag url_for(@dish.image), size: "100x100", class: "rounded-md" %>
+           <% end %>
+           
+           <div class="flex items-center gap-4">
+               <span class="px-2 py-1 rounded-full <%= @dish.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                   <%= I18n.translate(@dish.status) %>
+               </span>
+               
+               <% if current_user == @restaurant.owner %>
+                   <%= button_to @dish.active? ? "Desativar" : "Ativar", toggle_status_restaurant_dish_path(@restaurant, @dish), class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+               <% end %>
+           </div>
+       </div>
+   </div>
+   <div class="bg-white rounded-lg shadow-md p-6">
+       <h2 class="text-xl font-bold text-gray-900 mb-4">Porções</h2>
+       <%= render 'shared/offerable/list', offerable: @dish, restaurant: @restaurant %>
+   </div>
 </div>

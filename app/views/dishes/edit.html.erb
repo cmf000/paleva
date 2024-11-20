@@ -1,12 +1,17 @@
-<h2><%=link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%></h2>
-<h1>Editar prato:</h1>
+<div class="container mx-auto px-4 py-8 max-w-md">
+   <nav class="mb-8">
+       <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+       <h1 class="text-2xl font-bold text-gray-900 mt-4">Editar prato</h1>
+   </nav>
 
-<% if @dish.errors.any? %>
-    <%@dish.errors.full_messages.each do |msg| %>
-        <p><%=msg%></p>
-    <% end %>
-<% end %>
+   <% if @dish.errors.any? %> 
+       <div class="mb-6 p-4 bg-red-100 rounded-md">
+           <% @dish.errors.full_messages.each do |msg| %>
+              <p class="text-red-700"><%= msg %></p>
+           <% end %>
+       </div>
+   <% end %>
 
-<div id="edit_<%=dom_id @dish%>">
-    <%= render 'form', restaurant: @restaurant, dish: @dish, tags: @tags, url: restaurant_dish_path(@restaurant, @dish)%>
+<%= render 'form', restaurant: @restaurant, dish: @dish, tags: @tags, url: restaurant_dish_path(@restaurant, @dish)%>
+
 </div>

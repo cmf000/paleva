@@ -23,12 +23,12 @@ describe 'Usuário vê detalhes de uma porção' do
 
     within('.price_history') do 
       expect(page).to have_content 'R$ 40,00'
-      expect(page).to have_content I18n.localize(offering_3.price_histories[0].effective_at)
+      expect(page).to have_content I18n.localize(offering_3.price_histories[0].effective_at, format: :long)
       expect(page).to have_content 'R$ 50,00'
-      expect(page).to have_content I18n.localize(offering_3.price_histories[1].effective_at)
+      expect(page).to have_content I18n.localize(offering_3.price_histories[1].effective_at, format: :long)
     end
     expect(page).to have_content 'extra-grande'
-    expect(page).to have_content I18n.localize(offering_3.effective_at)
+    expect(page).to have_content I18n.localize(offering_3.effective_at, format: :long)
   end
 
   it 'e volta á página inicial' do 

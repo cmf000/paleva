@@ -1,0 +1,13 @@
+<ul class="space-y-2">
+    <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
+        <% shift = @restaurant.shifts.find_by(weekday: weekday) %>
+        <li class="py-1 border-b last:border-0">
+            <%= I18n.translate("activerecord.attributes.shift.weekdays.#{weekday}") %>:
+            <% if shift.present? %>
+                <%= format_time_range(shift.opening_time, shift.closing_time) %>
+            <% else %>
+                fechado
+            <% end %>
+        </li>
+    <% end %>
+</ul>
