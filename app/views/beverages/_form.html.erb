@@ -27,7 +27,6 @@
     <div>
         <h2><%= I18n.translate('activerecord.models.tag.other') %>:</h2>
         <%= link_to "Nova Marcação", new_restaurant_tag_path(return_to: request.fullpath)%>
-        <%= hidden_field_tag 'beverage[tag_ids][]', nil%>
         <% tags.each do |tag| %>
             <%= f.label tag.id, I18n.t(tag.name, default: tag.name).capitalize %>   
             <%= check_box_tag "beverage[tag_ids][]", tag.id, beverage.tag_ids.include?(tag.id), id: "#{dom_id(tag)}" %><br>

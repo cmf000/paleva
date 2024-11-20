@@ -4,7 +4,7 @@ class BeveragesController < ApplicationController
 
   def new
     @beverage = @restaurant.beverages.build
-    @tags = Tag.all
+    @tags = @restaurant.tags
   end
 
   def create
@@ -20,7 +20,7 @@ class BeveragesController < ApplicationController
 
   def edit 
     @beverage = @restaurant.beverages.find(params[:id])
-    @tags = Tag.all
+    @tags = @restaurant.tags
   end
 
   def update

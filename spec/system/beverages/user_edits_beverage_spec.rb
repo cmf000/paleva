@@ -195,5 +195,32 @@ describe 'Usuário edita uma bebida' do
     expect(beverage.alcoholic).to eq "yes"
     expect(beverage.tags.first.name).to eq 'gluten_free'
   end
+
+  it 'e não vê marcações de outros restaurantes' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: '2L', calories: 1200, alcoholic: :no)
+    tag = Tag.create!(restaurant: restaurant, name: :vegan)
+    other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
+                                          cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
+                                          city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
+                                          email: 'saboresdobrasil@email.com', phone_number: '11933301020')
+    other_restaurant_tag = Tag.create!(restaurant: other_restaurant, name: :gluten_free)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    within("##{dom_id(beverage)}-card") do
+      click_on 'Editar'
+    end
+
+    expect(page).to have_field(dom_id(tag))
+    expect(page).not_to have_field(dom_id(other_restaurant_tag))
+  end
   
 end

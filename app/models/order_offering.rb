@@ -8,6 +8,14 @@ class OrderOffering < ApplicationRecord
     self.offering.current_price * self.quantity
   end
 
+  def offering_description
+    self.offering.description
+  end
+
+  def item_name
+    self.offering.offerable.name
+  end
+
   private
   def offering_belongs_to_active_offerable
     if self.offering.offerable.inactive?

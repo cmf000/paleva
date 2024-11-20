@@ -47,7 +47,7 @@ RSpec.describe Beverage, type: :model do
     end
   end
 
-  it 'status ao ser criada é ativo' do
+  it 'e recebe status ativo depois de criado' do
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                     cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",

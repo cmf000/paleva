@@ -2,6 +2,7 @@ class Offering < ApplicationRecord
   belongs_to :offerable, polymorphic: true
   has_many :price_histories, dependent: :destroy
   has_many :order_offerings, dependent: :destroy
+  has_many :orders, through: :order_offerings
   validates :offerable_id, :description, :current_price, :effective_at, presence: true
   validates :current_price, numericality: { greater_than: 0 }
   before_validation :set_effective_at

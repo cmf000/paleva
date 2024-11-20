@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     end
     resources :orders, only: [:new, :create, :index, :show] do
       patch :send_to_kitchen, on: :member
+      get :cancel, on: :member
+      patch :update_status_to_cancelled, on: :member
     end
     resources :order_offerings, only: [:new, :create]
   end
@@ -40,6 +42,7 @@ Rails.application.routes.draw do
         resources :orders, only: [:index, :show], param: :code do
           patch :preparing, on: :member
           patch :ready, on: :member
+          patch :cancelled, on: :member
         end
       end
     end

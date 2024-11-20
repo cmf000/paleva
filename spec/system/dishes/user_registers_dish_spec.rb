@@ -143,4 +143,29 @@ describe 'Usuário cadastra um novo prato' do
 
     expect(current_path).to eq restaurants_path
   end
+
+  it 'e não vê tags de outro restaurante' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    dish = Dish.create!(restaurant: restaurant, name: 'Hamburguer', description: 'carne, queijo, mostarda', calories: 1200)
+    tag = Tag.create!(restaurant:restaurant, name: :vegan)
+    other_user = User.create!(name: 'Zoroastro', email: 'zoroastro@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    other_restaurant = Restaurant.create!(registered_name: "Sabores do Brasil LTDA", trade_name: "Sabores do Brasil",
+                                          cnpj: CNPJ.generate, street_address: "Rua das Palmeiras, 123", district: 'Santana',
+                                          city: "São Paulo", state: "SP", zip_code: "01000-000", owner: other_user,
+                                          email: 'saboresdobrasil@email.com', phone_number: '11933301020')
+    other_restaurant_tag = Tag.create!(restaurant: other_restaurant, name: :gluten_free)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Cadastrar novo prato'
+
+    expect(page).to have_field(dom_id(tag), type: :checkbox)
+    expect(page).not_to have_field(dom_id(other_restaurant_tag), type: :checkbox)
+  end
 end

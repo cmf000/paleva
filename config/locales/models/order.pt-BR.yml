@@ -12,6 +12,7 @@ pt-BR:
         total_price: 'Total'
         placed_at: 'Horário'
         order_offerings: 'Itens do pedido' 
+        cancellation_note: 'Motivo'
     enums:
       order:
         status:

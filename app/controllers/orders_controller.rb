@@ -27,13 +27,28 @@ class OrdersController < ApplicationController
 
   def send_to_kitchen
     @order = Order.find(params[:id])
-    @order.status = 'pending_kitchen'
-    if @order.save
+    if @order.update(status: 'pending_kitchen')
       redirect_to root_path, notice: 'Pedido enviado à cozinha'
     else
       flash.now[:notice] = 'Não foi possível finalizar o pedido'
       @order_offerings = @order.order_offerings
       render :show, status: :unprocessable_entity
+    end
+  end
+
+  def cancel
+    @order = Order.find(params[:id])
+  end
+
+  def update_status_to_cancelled
+    order_params = params.require(:order).permit(:status, :cancellation_note)
+    @order = Order.find(params[:id])
+
+    if @order.update(order_params)
+      redirect_to @restaurant, notice: 'Pedido cancelado com sucesso'
+    else
+      flash.now[:notice] = 'Pedido não foi cancelado'
+      render :cancel, status: :unprocessable_entity
     end
   end
 

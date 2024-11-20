@@ -54,6 +54,11 @@
                     Enviar para Cozinha
                 <% end %>
             <% end %>
+            <% if !@order.ready? && !@order.cancelled? %>
+                <%= button_to cancel_restaurant_order_path(@order.restaurant, @order), method: :get, data: { turbo: false }, class: "bg-red-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-150" do %>
+                    Cancelar
+                <% end %>
+            <% end %>
             <%= link_to "Voltar", restaurant_orders_path(@order.restaurant), class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-150" %>
         </div>
         </div>

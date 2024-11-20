@@ -10,8 +10,11 @@ class Order < ApplicationRecord
   validate :email_or_phone_number_must_be_informed
   validate :is_phone_number_numeric, if: -> {self.phone_number.present? }
   validate :check_status_change, if: :status_changed?, unless: :new_record?
+  validate :cancellation_note_cannot_change, if: :cancellation_note_changed?
   validates :order_offerings, presence: { message:" - pedido precisa ter pelo menos um item para ser enviado à cozinha" }, 
                               if: :going_to_kitchen?
+  validates :cancellation_note, presence: true, if: -> { self.cancelled? }
+  validates :cancellation_note, absence: true, unless: -> { self.cancelled? }
 
   before_validation :set_initial_status_to_draft, on: :create
   before_save :set_code, if: :going_to_kitchen?
@@ -62,7 +65,8 @@ class Order < ApplicationRecord
       if !(status_was == 'pending_kitchen' && self.status == 'preparing') &&
           !(status_was == 'preparing' && self.status == 'ready') &&
           !(status_was == 'draft' && self.status == 'pending_kitchen') &&
-          !(status_was == 'ready' && self.status == 'delivered')
+          !(status_was == 'ready' && self.status == 'delivered') &&
+          !(!(status_was == 'delivered') && self.status == 'cancelled')
 
           errors.add(:status, "não pode mudar de #{current_status} para #{new_status}")
       end
@@ -71,5 +75,11 @@ class Order < ApplicationRecord
 
   def set_placed_at
     self.placed_at = Time.zone.now
+  end
+
+  def cancellation_note_cannot_change
+    if cancellation_note_was.present?
+      errors.add(:cancellation_note, " já foi informada")
+    end
   end
 end
