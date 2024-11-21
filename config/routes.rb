@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'home#index'
   resources :restaurants do 
+    resources :shifts, only: [:index, :create, :destroy]
+    
     get :test, on: :member
     resources :dishes, only: [:new, :create, :edit, :update, :show] do
       member do

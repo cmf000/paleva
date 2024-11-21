@@ -5,8 +5,8 @@ pt-BR:
     attributes:
       shift:
         weekday: 'Dia da semana'
-        opening_time: "Horário de início"
-        closing_time: "Horário de encerramento"
+        opening_time: "Início"
+        closing_time: "Encerramento"
         restaurant: "Restaurante"
         weekdays:
           sunday: "Domingo"

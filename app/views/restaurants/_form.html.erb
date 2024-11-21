@@ -53,38 +53,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-lg font-medium text-gray-900 mb-4">Horário de funcionamento</h2>
-            
-            <ul class="space-y-6">
-                <%= r.fields_for :shifts do |s| %>
-                    <li id=<%= s.object.weekday %> class="border-b pb-4 last:border-0">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="font-medium">
-                                <%= I18n.translate("activerecord.attributes.shift.weekdays.#{s.object.weekday}") %>
-                            </span>
-                            <%= s.hidden_field :weekday %>
-                            <div class="flex items-center">
-                                <%= s.label :_destroy, 'Fechado', class: "mr-2" %>
-                                <%= s.check_box :_destroy, class: "rounded" %>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <%= s.label :opening_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
-                                <%= s.time_select :opening_time, include_blank: true, class: "px-2 py-1 border border-gray-300 rounded-md" %>
-                            </div>
-                            <div>
-                                <%= s.label :closing_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
-                                <%= s.time_select :closing_time, include_blank: true, class: "px-2 py-1 border border-gray-300 rounded-md" %>
-                            </div>
-                        </div>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
-
         <%= r.submit class: "w-full mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
     <% end %>
 </div>

@@ -27,55 +27,10 @@ describe "Usuário edita um restaurante" do
     fill_in 'Telefone', with: '11933301030'
     fill_in 'CEP', with: '33333-333'
 
-    within('#sunday') do
-        check 'Fechado'
-    end
-    within('#monday') do
-      select '17', from: 'restaurant_shifts_attributes_1_opening_time_4i'
-      select '00', from: 'restaurant_shifts_attributes_1_opening_time_5i'
-      select '23', from: 'restaurant_shifts_attributes_1_closing_time_4i'
-      select '00', from: 'restaurant_shifts_attributes_1_closing_time_5i'
-    end
-    within('#tuesday') do
-      check 'Fechado'
-    end
-    within('#wednesday') do
-      check 'Fechado'
-    end
-    within('#thursday') do
-      check 'Fechado'
-    end
-    within('#friday') do
-      check 'Fechado'
-    end
-    within('#saturday') do
-      check 'Fechado'
-    end
     click_on 'Atualizar Restaurante'
 
     expect(current_path).to eq restaurant_path(restaurant.id)
     expect(page).to have_content('Restaurante editado com sucesso')
-    within('#weekday-sunday') do
-      expect(page).to have_content 'Domingo: fechado'
-    end
-    within('#weekday-monday') do
-      expect(page).to have_content('Segunda-feira: 17:00 às 23:00')
-    end
-    within('#weekday-tuesday') do
-      expect(page).to have_content 'Terça-feira: fechado'
-    end
-    within('#weekday-wednesday') do
-      expect(page).to have_content 'Quarta-feira: fechado'
-    end
-    within('#weekday-thursday') do
-      expect(page).to have_content 'Quinta-feira: fechado'
-    end
-    within('#weekday-friday') do
-      expect(page).to have_content 'Sexta-feira: fechado'
-    end
-    within('#weekday-saturday') do
-      expect(page).to have_content 'Sábado: fechado'
-    end
     expect(page).to have_content 'Avenida dos Canapés, 789'
     expect(page).to have_content 'Guarulhos - MG'
   end
@@ -117,8 +72,6 @@ describe "Usuário edita um restaurante" do
     expect(page).to have_content 'CEP não pode ficar em branco'
     expect(page).to have_content 'Email não pode ficar em branco'
     expect(page).to have_content 'Telefone é muito curto (mínimo: 10 caracteres)'
-    expect(page).to have_content 'Horário de encerramento deve ser depois do horário de início do turno'
-
   end
 
   it 'e restorna à página de seu restaurante' do 

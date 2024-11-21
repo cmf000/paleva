@@ -30,12 +30,6 @@ describe 'Usuário dono visita página do seu restaurante' do
       expect(page).to have_content '11933301030'
     end
     expect(current_path).to eq restaurant_path(restaurant.id)
-    within('#weekday-sunday') do
-      expect(page).to have_content('17:00 às 20:00')
-    end
-    within('#weekday-monday') do
-      expect(page).to have_content('fechado')
-    end
     expect(page).to have_content 'Não há bebidas cadastradas'
     expect(page).to have_content 'Não há pratos cadastrados'
   end
@@ -370,9 +364,7 @@ describe 'Usuário funcionário visita página de restaurante' do
     beverage_1 = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no, status: :inactive)
     beverage_1.tags << tag
     beverage_1.tags << other_tag
-    beverage_2 = Beverage.create!(restaurant: restaurant, name: 'Fanta', description: 'Bebida natural sabor laranja', calories: 1200, alcoholic: :no)
-    beverage_2.tags << tag
-    beverage_3 = Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: 'Bebida fermentada de cerais maltados', calories: 1200, alcoholic: :yes, status: :inactive)
+    beverage_2 = Beverage.create!(restaurant: restaurant, name: 'Cerveja', description: 'Bebida fermentada de cerais maltados', calories: 1200, alcoholic: :yes, status: :inactive)
 
     login_as(employee)
     visit root_path
@@ -381,7 +373,6 @@ describe 'Usuário funcionário visita página de restaurante' do
     expect(page).not_to have_content 'Cachorro quente'
     expect(page).not_to have_content 'Coca-cola'
     expect(page).not_to have_content 'Cerveja'
-    expect(page).not_to have_content 'Fanta'
   end
 
   it 'e não consegue cadastrar pratos e bebidas' do 

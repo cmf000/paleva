@@ -8,7 +8,6 @@ class Restaurant < ApplicationRecord
   has_many :new_employees, dependent: :destroy
   has_many :menus, dependent: :destroy
   has_many :orders, dependent: :destroy
-  accepts_nested_attributes_for :shifts, allow_destroy: true
 
   validates :registered_name, :trade_name, :street_address, :district, :cnpj, 
             :city, :state, :zip_code, :code, :user_id, :email, :phone_number, presence: true

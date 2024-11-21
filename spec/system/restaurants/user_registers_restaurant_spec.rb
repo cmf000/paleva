@@ -17,62 +17,16 @@ describe 'Usuário acessa a página de cadastrar restaurante' do
       fill_in 'Estado', with: 'SP'
       fill_in 'Telefone', with: '11933301020'
       fill_in 'CEP', with: '11111-111'
-      within('#sunday') do
-        check 'Fechado'
-      end
-      within('#monday') do
-        select '17', from: 'restaurant_shifts_attributes_1_opening_time_4i'
-        select '00', from: 'restaurant_shifts_attributes_1_opening_time_5i'
-        select '23', from: 'restaurant_shifts_attributes_1_closing_time_4i'
-        select '00', from: 'restaurant_shifts_attributes_1_closing_time_5i'
-      end
-      within('#tuesday') do
-        check 'Fechado'
-      end
-      within('#wednesday') do
-        check 'Fechado'
-      end
-      within('#thursday') do
-        check 'Fechado'
-      end
-      within('#friday') do
-        check 'Fechado'
-      end
-      within('#saturday') do
-        check 'Fechado'
-      end
       click_on 'Criar Restaurante'
 
       expect(page).to have_content 'Restaurante cadastrado com sucesso.'
-
     end
 
     it 'e cadastra um restaurante com dados incompletos' do
       user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'asdfqewrasdf', cpf: CPF.generate)
-      login_as(user)
 
+      login_as(user)
       visit root_path
-      within('#sunday') do
-        check 'Fechado'
-      end
-      within('#monday') do
-        check('Fechado')
-      end
-      within('#tuesday') do
-        check 'Fechado'
-      end
-      within('#wednesday') do
-        check 'Fechado'
-      end
-      within('#thursday') do
-        check 'Fechado'
-      end
-      within('#friday') do
-        check 'Fechado'
-      end
-      within('#saturday') do
-        check 'Fechado'
-      end
       click_on 'Criar Restaurante'
 
       expect(page).to have_content 'Restaurante não cadastrado.'
@@ -106,7 +60,6 @@ describe 'Usuário acessa a página de cadastrar restaurante' do
       fill_in 'CNPJ', with: '1234'
       click_on 'Criar Restaurante'
 
-      expect(page).to have_content('Horário de encerramento deve ser depois do horário de início do turno.')
       expect(page).to have_content('Email não é válido')
       expect(page).to have_content 'Telefone é muito curto (mínimo: 10 caracteres)'
       expect(page).to have_content('CNPJ não é válido')

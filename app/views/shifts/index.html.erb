@@ -1,0 +1,62 @@
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+    <% if @shift.errors.any? %>
+    <p>Verifique os erros abaixo:</p>
+    <ul>
+        <% @shift.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+    <div class="bg-white rounded-lg shadow p-6">
+        <nav class="mb-8">
+       <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+       <h1 class="text-2xl font-bold text-gray-900 mt-4">Editar prato</h1>
+   </nav>
+        <h2 class="text-lg font-medium text-gray-900 mb-4">Horário de funcionamento</h2>
+                <div class="mb-6">
+            <%= form_with model: [@restaurant, @shift], local: true, class: "space-y-4" do |f| %>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <%= f.label :weekday, class: "block text-sm font-medium text-gray-700" %>
+                        <%= f.collection_select :weekday, Shift.weekdays.keys, :to_s, ->(weekday){I18n.t("activerecord.attributes.shift.weekdays.#{weekday}")}, {}, class: "w-full mt-1 px-3 py-2 border border-gray-300 rounded-md" %>
+                    </div>
+                    <div>
+                        <%= f.label :opening_time, class: "block text-sm font-medium text-gray-700" %>
+                        <%= f.time_field :opening_time, include_seconds: false, class: "w-full mt-1 px-3 py-2 border border-gray-300 rounded-md"  %>
+                    </div>
+                    <div>
+                        <%= f.label :closing_time, class: "block text-sm font-medium text-gray-700" %>
+                        <%= f.time_field :closing_time, include_seconds: false, class: "w-full mt-1 px-3 py-2 border border-gray-300 rounded-md" %>
+                    </div>
+                    <div>
+                        <%= f.submit class: "w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        <ul class="space-y-4">
+            <% [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday].each do |weekday| %>
+                <li id="<%=weekday%>" class="p-4 bg-gray-50 rounded-lg">
+                    <h3 class="font-medium mb-2">
+                        <%= I18n.translate("activerecord.attributes.shift.weekdays.#{weekday}") %>
+                    </h3> 
+                    <% shifts = @restaurant.shifts.where(weekday: weekday) %>
+                    <% if shifts.any? %>
+                        <ul class="space-y-2">
+                            <% shifts.each do |shift| %>
+                                <li class="flex items-center justify-between p-2 bg-white rounded-md">
+                                    <span class="text-gray-700">
+                                        <%= format_time_range(shift.opening_time, shift.closing_time) %>
+                                    </span>
+                                    <%= button_to "Remover", [@restaurant, shift], method: :delete, class: "px-3 py-1 bg-red-600 text-white text-sm rounded-md hover:bg-red-700" %>
+                                </li>
+                            <% end %>
+                        </ul>
+                    <% else %>
+                        <p class="text-sm text-gray-500">Fechado</p>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</div>
