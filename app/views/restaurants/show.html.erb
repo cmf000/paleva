@@ -11,8 +11,10 @@
 
         </div>
         <div class="flex items-center space-x-4">
+            <% if current_user == @restaurant.owner || current_user.works_at_restaurant == @restaurant%>
             <%= link_to 'Ver Pedidos', restaurant_orders_path(@restaurant), class:"px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm"%>
             <%= link_to 'Novo pedido', new_restaurant_order_path(@restaurant), class:"px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm"%>
+            <% end %>
             <% if current_user == @restaurant.owner %>
                 <%= link_to 'Gestão de Funcionários',  manage_employees_restaurant_path(@restaurant.id), class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm" %>
             <% end %>
@@ -154,7 +156,7 @@
                             <% end %>
                         </div>
                     <% end %>        
-                </div>
+            </div>
         <% end %>
     </div>
 </div>

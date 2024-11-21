@@ -1,13 +1,21 @@
-<h1>Editar restaurante</h1>
-<%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id)%>
+<div class="container mx-auto px-4 py-8 max-w-md">
+
+   <nav class="mb-8">
+       <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+       <h1 class="text-2xl font-bold text-gray-900 mt-4">Editar restaurante</h1>
+   </nav>
 
 <% if @restaurant.errors.any? %>
     <p>Verifique os erros abaixo:</p>
-    <ul>
+    <div class="mb-6 p-4 bg-red-100 rounded-md">
         <% @restaurant.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
+            <ul>
+                <li><%= msg %></li>
+            </ul>
         <% end %>
-    </ul>
+    </div>
 <% end %>
 
 <%= render 'form', restaurant: @restaurant%>
+
+</div>

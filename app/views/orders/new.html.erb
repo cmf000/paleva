@@ -1,33 +1,43 @@
-<div class="max-w-2xl mx-auto px-4 py-8">
-  <h1 class="text-2xl font-bold mb-6">Novo Pedido</h1>
-  <% if @order.errors.any? %>
-        <% @order.errors.full_messages.each do |msg| %>
-            <p><%= msg %></p>
-        <%end %>
-    <% end %>
+<div class="container mx-auto px-4 py-8 max-w-md">
+   <div class="mb-2">
+       <nav class="text-sm mb-4">
+           <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
+       </nav>
+       <h1 class="text-2xl font-bold text-gray-900">Novo Pedido</h1>
+   </div>
 
-  <%= form_with(model: [@restaurant, @order], class: "space-y-6") do |f| %>
-    <div class="space-y-4">
-      <div>
-        <%= f.label :customer_name, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.text_field :customer_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-      </div>
+   <div class="bg-white rounded-lg shadow-md p-6">
+       <% if @order.errors.any? %>
+           <div class="mb-6 p-4 bg-red-100 rounded-md">
+               <% @order.errors.full_messages.each do |msg| %>
+                   <p class="text-red-700"><%= msg %></p>
+               <% end %>
+           </div>
+       <% end %>
 
-      <div>
-        <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.email_field :email, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-      </div>
+       <%= form_with(model: [@restaurant, @order], class: "space-y-6") do |f| %>
+           <div class="space-y-4">
+               <div>
+                   <%= f.label :customer_name, class: "block text-sm font-medium text-gray-700" %>
+                   <%= f.text_field :customer_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+               </div>
 
-      <div>
-        <%= f.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.telephone_field :phone_number, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-      </div>
+               <div>
+                   <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+                   <%= f.email_field :email, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+               </div>
 
-      <div>
-        <%= f.label :cpf, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.text_field :cpf, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-      </div>
-    </div>
-    <%= f.submit class: "w-full mt-6 px-4 py-2 bg-blue-600 text-white rounded-md" %>
-  <% end %>
+               <div>
+                   <%= f.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
+                   <%= f.telephone_field :phone_number, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+               </div>
+
+               <div>
+                   <%= f.label :cpf, class: "block text-sm font-medium text-gray-700" %>
+                   <%= f.text_field :cpf, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+               </div>
+           </div>
+           <%= f.submit class: "w-full mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+       <% end %>
+   </div>
 </div>

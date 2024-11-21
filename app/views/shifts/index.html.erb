@@ -10,9 +10,8 @@
     <div class="bg-white rounded-lg shadow p-6">
         <nav class="mb-8">
        <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>
-       <h1 class="text-2xl font-bold text-gray-900 mt-4">Editar prato</h1>
    </nav>
-        <h2 class="text-lg font-medium text-gray-900 mb-4">Horário de funcionamento</h2>
+        <h2 class="text-lg font-medium text-gray-900 mb-4"><%= Shift.model_name.human(count: :other)%></h2>
                 <div class="mb-6">
             <%= form_with model: [@restaurant, @shift], local: true, class: "space-y-4" do |f| %>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">

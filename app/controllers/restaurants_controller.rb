@@ -53,6 +53,7 @@ class RestaurantsController < ApplicationController
   end
 
   def search
+    @source_url = params[:source_path]
     @query = params[:query]
     @dishes = @restaurant.dishes.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")
     @beverages = @restaurant.beverages.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")

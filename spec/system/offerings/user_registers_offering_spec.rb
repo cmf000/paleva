@@ -152,4 +152,24 @@ describe 'Usuário cadastra uma nova porção' do
     expect(page).to have_content 'Preço não pode ficar em branco'
     expect(page).to have_content 'Preço não é um número'
   end
+
+  it 'e volta à página do item' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on "Coca-cola"
+    click_on 'Nova Porção'
+    click_on 'Criar Porção'
+    click_on 'Coca-cola'
+
+    expect(current_path).to eq restaurant_beverage_path(restaurant, beverage)
+  end
 end

@@ -5,6 +5,7 @@ class OfferableMenusController < ApplicationController
     @offerable_menu = OfferableMenu.new
     @dishes = @restaurant.dishes.where.not(id: @menu.dishes.pluck(:id))
     @beverages = @restaurant.beverages.where.not(id: @menu.beverages.pluck(:id))
+    @menu = Menu.find(params[:menu_id])
   end
 
   def create

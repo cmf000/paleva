@@ -42,6 +42,27 @@ describe 'Usuário edita o preço de uma porção' do
     expect(current_path).to eq restaurants_path
   end
 
+  it 'e volta à tela do restaurante' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
+    offering = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on "Coca-cola"
+    click_on '350 ml'
+    click_on 'Alterar Preço'
+    click_on 'Quitutes Picantes'
+
+    expect(current_path).to eq restaurant_path(restaurant)
+  end
+
   it 'e volta à tela da bebida' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
@@ -61,6 +82,27 @@ describe 'Usuário edita o preço de uma porção' do
     click_on 'Coca-cola'
 
     expect(current_path).to eq restaurant_beverage_path(restaurant.id, beverage.id)
+  end
+
+  it 'e volta à tela da porção' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+    beverage = Beverage.create!(restaurant: restaurant, name: 'Coca-cola', description: 'Delicioso tônico', calories: 1200, alcoholic: :no)
+    offering = Offering.create!(offerable: beverage, description: '350 ml', current_price: 8.00)
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on "Coca-cola"
+    click_on '350 ml'
+    click_on 'Alterar Preço'
+    click_on '350 ml'
+
+    expect(current_path).to eq restaurant_beverage_offering_path(restaurant.id, beverage.id, offering.id)
   end
 
   it 'de uma bebida com sucesso' do 

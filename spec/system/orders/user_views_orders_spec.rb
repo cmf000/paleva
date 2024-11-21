@@ -68,4 +68,37 @@ describe 'Usuário vê pedidos' do
       expect(page).to have_content 'Entregue'
     end
   end
+
+  it 'e volta à página do restaurante' do 
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Ver Pedidos'
+    click_on 'Quitutes Picantes'
+
+    expect(current_path).to eq restaurant_path(restaurant)
+  end
+
+  it 'e não há pedidos cadastrados' do
+    user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
+    restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
+                                    cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",
+                                    city: "Ferraz de Vasconcelos", state: "SP",
+                                    zip_code: "11111-111", owner: user,
+                                    district: "Pimentas", email: 'picante@email.com', phone_number: '11933301030')
+
+    login_as(user)
+    visit root_path
+    click_on 'Quitutes Picantes'
+    click_on 'Ver Pedidos'
+
+    expect(page).to have_content 'Não há pedidos cadastrados'
+  end
 end

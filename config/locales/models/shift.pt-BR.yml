@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      shift: 'Turno'
+      shift:
+        one: 'Turno'
+        other: 'Turnos'
     attributes:
       shift:
         weekday: 'Dia da semana'

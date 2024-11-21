@@ -26,6 +26,7 @@
         <% if user_signed_in? && current_user.owned_restaurant.present? %>
           <div class="flex-1 flex justify-center">
             <%= form_with(url: search_restaurant_path(current_user.owned_restaurant), method: :get, class: "flex items-center space-x-2") do |f| %>
+              <%= hidden_field_tag "source_path", request.fullpath %>
               <%= f.text_field :query, placeholder: "buscar em #{current_user.owned_restaurant.trade_name}", class: "px-3 py-2 border rounded-md text-sm w-64" %>
               <%= f.submit "Buscar", class: "px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 whitespace-nowrap" %>
             <% end %>

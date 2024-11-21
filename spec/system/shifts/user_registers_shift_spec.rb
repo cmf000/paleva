@@ -122,7 +122,7 @@ describe 'Usuário cadastrar um novo horário de funcionamento' do
     expect(page).to have_content 'Encerramento deve ser depois do horário de início do turno.'
   end
 
-  it 'e volta à página inicial' do 
+  it 'e volta à página do restaurante' do 
     user = User.create!(name: 'Amarildo', email: 'amarildo@email.com', password: 'alqpw-od#k82', cpf: CPF.generate)
     restaurant = Restaurant.create!(registered_name: "Picante LTDA", trade_name: "Quitutes Picantes",
                                   cnpj: CNPJ.generate, street_address: "Avenida Quente, 456",

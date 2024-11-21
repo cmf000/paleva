@@ -1,8 +1,9 @@
 <div class="container mx-auto px-4 py-8 max-w-md">
    <nav class="mb-8">
        <div class="flex flex-wrap items-center gap-2 text-lg">
-          <%= link_to @offerable.name, [@restaurant, @offerable], class: "text-blue-600 hover:text-blue-800" %> - 
-           <%= link_to @restaurant.trade_name, restaurant_path(@restaurant), class: "text-blue-600 hover:text-blue-800" %>
+           <%= link_to @restaurant.trade_name, restaurant_path(@restaurant), class: "text-blue-600 hover:text-blue-800" %>/
+          <%= link_to @offerable.name, [@restaurant, @offerable], class: "text-blue-600 hover:text-blue-800" %>/
+           <%= link_to @offering.description, [@restaurant, @offerable, @offering], class: "text-blue-600 hover:text-blue-800" %>
        </div>
    </nav>
    <% if @offering.errors.any? %>

@@ -4,16 +4,23 @@
             <p><%=msg%></p>
         <% end %>
     <% end %>
+
+    <div class="mb-8">
+        <nav class="text-sm mb-4">
+            <%= link_to @restaurant.trade_name, restaurant_path(@restaurant.id), class: "text-blue-600 hover:text-blue-800" %>/
+            <%= link_to Order.model_name.human(count: :other), restaurant_orders_path(@restaurant), class: "text-blue-600 hover:text-blue-800" %>
+        </nav>
+    </div>
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="p-6 border-b">
             <% if !@order.draft? %>
-                <h1 class="text-2xl font-bold mb-2">Pedido #<%= @order.code %></h1>
+                <h1 class="text-2xl font-bold mb-2"><%= Order.model_name.human %> #<%= @order.code %></h1>
             <% else %>
-                <h1 class="text-2xl font-bold mb-2">Pedido</h1>
+                <h1 class="text-2xl font-bold mb-2"><%= Order.model_name.human %></h1>
             <% end %>
         <div class="text-gray-600">
-            <p>Cliente: <%= @order.customer_name %></p>
-            <p>Status: <%= I18n.t("activerecord.enums.order.status.#{@order.status}") %></p>
+            <p><%= Order.human_attribute_name(:customer_name)%>: <%= @order.customer_name %></p>
+            <p><%= Order.human_attribute_name(:status)%>: <%= I18n.t("activerecord.enums.order.status.#{@order.status}") %></p>
         </div>
     </div>
 
@@ -27,7 +34,7 @@
             <p class="text-gray-600 text-sm mt-1"><%= order_offering.offering.description %></p>
             <% if order_offering.comment.present? %>
                 <p class="text-gray-500 text-sm mt-2 italic">
-                    <span class="font-medium">Observação:</span> <%= order_offering.comment %>
+                    <span class="font-medium"><%= OrderOffering.human_attribute_name(:comment)%>:</span> <%= order_offering.comment %>
                 </p>
             <% end %>
         </div>

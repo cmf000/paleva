@@ -1,17 +1,31 @@
-<h1>Resultados da busca por: <%=@query%> </h1>
-<p><%=@dishes.length + @beverages.length%> iten(s) encontrado(s)</p>
+<div class="max-w-4xl mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <div class="mb-6">
+        <%= link_to "Voltar", @source_path, class: "text-indigo-600 hover:text-blue-400 mb-4 inline-block" %>
+        <h1 class="text-3xl font-bold text-gray-800">
+            Resultados da busca por: 
+            <span class="text-indigo-600"><%= @query %></span>
+        </h1>
+    </div>
 
-<div>
+
+    <p class="text-gray-600 text-lg mb-6">
+        <%= @dishes.length + @beverages.length %> iten(s) encontrado(s)
+    </p>  
     <% if @beverages.any? %>
-        <h2>Bebidas</h2>
-        <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage, locals: { restaurant: @restaurant, card_link: ->(beverage) { restaurant_beverage_path(@restaurant, beverage)} } %>
-    <% end %>
-</div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 border-b border-gray-300 pb-2 mb-4">Bebidas</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <%= render partial: 'shared/beverage', collection: @beverages, as: :beverage, locals: { restaurant: @restaurant, card_link: ->(beverage) { restaurant_beverage_path(@restaurant, beverage) } } %>
+            </div>
+        </div>
+  <% end %>
 
-<div>
     <% if @dishes.any? %>
-        <h2>Pratos</h2>
-        <%= render partial: 'shared/dish', collection: @dishes, as: :dish, locals: { restaurant: @restaurant, card_link: ->(dish) { restaurant_dish_path(@restaurant, dish)} } %>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 border-b border-gray-300 pb-2 mb-4">Pratos</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <%= render partial: 'shared/dish', collection: @dishes, as: :dish, locals: {restaurant: @restaurant, card_link: ->(dish) { restaurant_dish_path(@restaurant, dish) } } %>
+            </div>
+        </div>
     <% end %>
 </div>
-
