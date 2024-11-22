@@ -106,10 +106,8 @@ Este aplicativo fornece uma API para um aplicativo complementar, que recupera da
 ]
 ```
 
-## **JSON**
-
-### **Top-Level Fields**
-| Field       | Type   | Description                                                             |
+### **Chaves**
+| Chave       | Tipo   | Descrição                                                               |
 |-------------|--------|-------------------------------------------------------------------------|
 | `status`    | string | Status do pedido (e.g., `pending_kitchen`, `preparing`, `ready`).       |
 | `code`      | string | Código alfanumérico único do pedido.                                    |
@@ -117,10 +115,122 @@ Este aplicativo fornece uma API para um aplicativo complementar, que recupera da
 
 
 ### **Outros retornos**
-A requisição é respondida com status 204 caso não exista pedidos para serem retornados e 400 em caso de dados inválidos
+A requisição é respondida com status 204 caso não exista pedidos para serem retornados e 400 em caso de parâmetro inválido
 
-### **Endpoint** : pedidos de um restaurante
-`GET /api/v1/restaurants/{restaurant_code}/orders`
+### **Endpoint**
+`GET /api/v1/restaurants/{restaurant_code}/orders/{order_code}`
+
+---
+#### **Descrição** : acessa os detalhes de um pedido
+
+---
+
+#### **Código HTTP**
+`200 OK`
+
+### **Parâmetros**
+| Parâmetro         | Tipo   | Descrição                                    |
+|-------------------|--------|----------------------------------------------|
+| `restaurant_code` | string | Código alfanumérico único do restaurante     |
+| `order_code`      | string | Código alfanumérico único do pedido          |
+
+---
+
+#### **JSON**
+```json
+[
+  {
+  "status": "pending_kitchen",
+  "code": "EJRHSSH4",
+  "placed_at": "2024-11-21T22:54:37.955Z",
+   "items":
+            [
+               {
+                  quantity: 2,
+                  comment: "",
+                  item_name: 'Coca-cola',
+                  offering_description: '2L'
+               },
+               {
+                  quantity: 1,
+                  comment: "Sem cebola",
+                  item_name: 'Hamburguer',
+                  offering_description: 'Grande'
+               },
+               ...
+            ]
+  },
+  ...
+]
+```
+### **Chaves**
+| Field       | Type   | Description                                                             |
+|-------------|--------|-------------------------------------------------------------------------|
+| `status`    | string | Status do pedido (e.g., `pending_kitchen`, `preparing`, `ready`).       |
+| `code`      | string | Código alfanumérico único do pedido.                                    |
+| `placed_at` | string | Horário de criação do pedido.                                           | 
+| `quantity`  | integer| Quantidade do item                                                      |  
+| `comment  ` | string | Observação                                                              |  
+| `item_name` | string | Nome do item                                                            |  
+| `offering_description` | string | Descrição do item                                            |
+
+### **Outros retornos**
+A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 403 caso o pedido não tenha sido finalizado.
+
+## **Cancel Order**
+
+### **Endpoint**
+`POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/cancel`
+
+---
+
+### **Description**
+Cancela um pedido. Uma requisição válida deve incluir um `comment`  explicando o motivo do concelamento. Se `comment` não estiver incluso no corpo da requisição, um erro é retornado.
+
+---
+
+### **Parâmetros**
+| Parâmetro         | Tipo   | Descrição                                    |
+|-------------------|--------|----------------------------------------------|
+| `restaurant_code` | string | Código alfanumérico único do restaurante     |
+| `order_code`      | string | Código alfanumérico único do pedido          |
+
+### **Body**
+| Key      | Tipo   | Obrigatório | Descrição                                              |
+|----------|--------|-------------|--------------------------------------------------------|
+| `comment`| string | Yes         | Motivo do cancelamento                                 |
+
+### **Retornos**
+A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 400 caso o a mensagem não tenha sido informada.
+Em caso de sucesso os detalhes do pedido com status alterado são retornado com status 200.
+
+### **Demais endpoint**
+ 1. `POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
+ 2. `POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/ready`
+
+---
+
+### **Description**
+ 1. A cozinha aceita um pedido.
+ 2. A cozinha infoma um pedido como pronto.
+
+---
+
+### **Parâmetros**
+| Parâmetro         | Tipo   | Descrição                                    |
+|-------------------|--------|----------------------------------------------|
+| `restaurant_code` | string | Código alfanumérico único do restaurante     |
+| `order_code`      | string | Código alfanumérico único do pedido          |
+
+
+### **Retornos**
+A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 400 caso a transição de status de pedido seja inválida.
+Em caso de sucesso os detalhes do pedido com status alterado são retornado com status 200.
+
+### **Demais endpoints**
+`POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
+`POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
+
 
 ## Licença
   Este projeto está licenciado sob a [Licença MIT](https://mit-license.org/).
