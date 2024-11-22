@@ -163,6 +163,7 @@ A requisição é respondida com status 204 caso não exista pedidos para serem 
   ...
 ]
 ```
+
 ### **Chaves**
 | Field       | Type   | Description                                                             |
 |-------------|--------|-------------------------------------------------------------------------|
@@ -185,7 +186,7 @@ A requisição é respondida com status 404 caso os parâmetros sejam inválidos
 ---
 
 ### **Description**
-Cancela um pedido. Uma requisição válida deve incluir um `comment`  explicando o motivo do concelamento. Se `comment` não estiver incluso no corpo da requisição, um erro é retornado.
+Cancela um pedido. Uma requisição válida deve incluir um `cancellation_note`  explicando o motivo do concelamento. Se `cancellation_note` não estiver incluso no corpo da requisição, um erro é retornado.
 
 ---
 
@@ -196,9 +197,13 @@ Cancela um pedido. Uma requisição válida deve incluir um `comment`  explicand
 | `order_code`      | string | Código alfanumérico único do pedido          |
 
 ### **Body**
-| Key      | Tipo   | Obrigatório | Descrição                                              |
-|----------|--------|-------------|--------------------------------------------------------|
-| `comment`| string | Yes         | Motivo do cancelamento                                 |
+```json
+{
+  "order": {
+    "cancellation_note": "string"  // Obrigatório
+  }
+}
+``` 
 
 ### **Retornos**
 A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 400 caso o a mensagem não tenha sido informada.
