@@ -3,12 +3,7 @@ class Api::V1::OrdersController < ActionController::API
   before_action :set_order_and_check_order_belongs_to_restaurant, only: [:show, :preparing, :ready, :cancelled]
 
   def index
-    status = params[:status]
-    if status.present? && status != 'draft' && status != 'delivered'
-      orders = @restaurant.orders.where(status: status)
-    else
-      orders = @restaurant.orders.where.not(status: :draft)
-    end
+    orders = @restaurant.orders.where.not(status: [:draft, :cancelled, :delivered])
     if orders.empty?
       return head :no_content
     else

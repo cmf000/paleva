@@ -2,6 +2,7 @@ class RestaurantsController < ApplicationController
   before_action :redirect_user_from_index, only: [:index]
   before_action :redirect_user_from_show, only: [:show]
   before_action :set_restaurant_and_check_user_is_owner, only: [:edit, :update, :manage_employees, :search]
+  
   def index
     @restaurant = current_user.owned_restaurant
   end
