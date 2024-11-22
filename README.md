@@ -1,6 +1,6 @@
 <h1>Palevá</h1>
 
-Aplicação Ruby on Rails para gerenciamento de um restaurante que vende na modalidade <i>takeout</i>. O sistema oferece recursos para integração com um app disponível para a cozinha do restaurante por uma API e gerenciar produtos, cardápios, pedidos, e o acesso de funcionários.
+Aplicação Ruby on Rails para gerenciamento de um restaurante que vende na modalidade <i>takeout</i>. O sistema oferece recursos para integração com um [app disponível para a cozinha do restaurante](https://github.com/cmf000/paleva-client) por uma API e gerenciar produtos, cardápios, pedidos, e o acesso de funcionários.
 
 Este projeto foi desenvolvido durante o programa Treinadev 13, oferecido pela Campus Code.
 
@@ -234,7 +234,7 @@ Configure as as origens com permissão de acordo com a necessidade em `config/in
 ```ruby
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3001'  # Adjust as needed for your companion app
+    origins 'localhost:5500' #Adicione a origem aqui
     resource '*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
