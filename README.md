@@ -88,8 +88,6 @@ rspec
 
 ---
 
-### **Response**
-
 #### **Código HTTP**
 `200 OK`
 
@@ -182,14 +180,14 @@ A requisição é respondida com status 204 caso não exista pedidos para serem 
 ### **Outros retornos**
 A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 403 caso o pedido não tenha sido finalizado.
 
-## **Cancel Order**
+## **Cancelar Pedido**
 
 ### **Endpoint**
 `PATCH /api/v1/restaurants/{restaurant_code}/orders/{order_code}/cancel`
 
 ---
 
-### **Description**
+### **Descrição**
 Cancela um pedido. Uma requisição válida deve incluir um `cancellation_note`  explicando o motivo do concelamento. Se `cancellation_note` não estiver incluso no corpo da requisição, um erro é retornado.
 
 ---
