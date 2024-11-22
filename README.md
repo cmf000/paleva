@@ -1,6 +1,6 @@
 <h1>Palevá</h1>
 
-Aplicação Ruby on Rails para gerenciamento de um restaurante que vende na modalidade <i>takeout</i>. O sistema oferece recursos para integração com um app disponível para a cozinha do restaurante por uma API e gerenciar produtos, cardápios, pedidos, o acesso de funcionários.
+Aplicação Ruby on Rails para gerenciamento de um restaurante que vende na modalidade <i>takeout</i>. O sistema oferece recursos para integração com um app disponível para a cozinha do restaurante por uma API e gerenciar produtos, cardápios, pedidos, e o acesso de funcionários.
 
 Este projeto foi desenvolvido durante o programa Treinadev 13, oferecido pela Campus Code.
 
@@ -226,6 +226,21 @@ Em caso de sucesso os detalhes do pedido com status alterado são retornado com 
 ### **Retornos**
 A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 400 caso a transição de status de pedido seja inválida.
 Em caso de sucesso os detalhes do pedido com status alterado são retornado com status 200.
+
+## Configuração
+Esta aplicação usa a gem `rack-cors` para que os recursos possam ser acessados pela aplicação da cozinha via API de pedidos.
+Configure as as origens com permissão de acordo com a necessidade em `config/initializers/cors.rb`
+
+```ruby
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'localhost:3001'  # Adjust as needed for your companion app
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+end
+```
 
 
 ## Licença
