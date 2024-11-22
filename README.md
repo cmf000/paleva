@@ -204,13 +204,13 @@ Cancela um pedido. Uma requisição válida deve incluir um `comment`  explicand
 A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 400 caso o a mensagem não tenha sido informada.
 Em caso de sucesso os detalhes do pedido com status alterado são retornado com status 200.
 
-### **Demais endpoint**
+### **Demais endpoints**
  1. `POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
  2. `POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/ready`
 
 ---
 
-### **Description**
+### **Descrição**
  1. A cozinha aceita um pedido.
  2. A cozinha infoma um pedido como pronto.
 
@@ -226,10 +226,6 @@ Em caso de sucesso os detalhes do pedido com status alterado são retornado com 
 ### **Retornos**
 A requisição é respondida com status 404 caso os parâmetros sejam inválidos e 400 caso a transição de status de pedido seja inválida.
 Em caso de sucesso os detalhes do pedido com status alterado são retornado com status 200.
-
-### **Demais endpoints**
-`POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
-`POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
 
 
 ## Licença
