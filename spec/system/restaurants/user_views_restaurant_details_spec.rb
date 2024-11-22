@@ -162,7 +162,6 @@ describe 'Usuário dono visita página do seu restaurante' do
     login_as(user)
     visit root_path
     click_on 'Quitutes Picantes'
-    save_page
 
     within("##{dom_id(menu_1)}-card") do 
       expect(page).to have_content 'Pão de queijo'

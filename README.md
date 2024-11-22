@@ -2,7 +2,7 @@
 
 Aplicação Ruby on Rails para gerenciamento de um restaurante que vende na modalidade <i>takeout</i>. O sistema oferece recursos para integração com um [app disponível para a cozinha do restaurante](https://github.com/cmf000/paleva-client) por uma API e gerenciar produtos, cardápios, pedidos, e o acesso de funcionários.
 
-Este projeto foi desenvolvido durante o programa Treinadev 13, oferecido pela Campus Code.
+Este projeto foi desenvolvido durante o programa [Treinadev 13](https://treinadev.com.br/), oferecido pela [Campus Code](https://www.campuscode.com.br/).
 
 ## Funcionalidades
 
@@ -34,9 +34,6 @@ Este projeto foi desenvolvido durante o programa Treinadev 13, oferecido pela Ca
 - **Capybara**: Testes de interação web.
 - **Rack-CORS**: Permite configurações de CORS para comunicação local com o aplicativo complementar.
 
-## Integração com API
-Este aplicativo fornece uma API para um aplicativo complementar, que recupera dados de pedidos. Certifique-se de configurar as definições de CORS necessárias em `config/initializers/cors.rb`.
-
 ### Pré-requisitos
 - Ruby >= 3.0.0
 - Rails >= 7.0
@@ -67,6 +64,13 @@ Este aplicativo fornece uma API para um aplicativo complementar, que recupera da
    ```
   Acesse a aplicação no navegador em http://localhost:3000
 
+## Suite de testes
+
+O projeto usa o framework de testes RSpec.
+
+```bash
+rspec
+```
 
 ## API de pedidos
 
@@ -181,7 +185,7 @@ A requisição é respondida com status 404 caso os parâmetros sejam inválidos
 ## **Cancel Order**
 
 ### **Endpoint**
-`POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/cancel`
+`PATCH /api/v1/restaurants/{restaurant_code}/orders/{order_code}/cancel`
 
 ---
 
@@ -210,8 +214,8 @@ A requisição é respondida com status 404 caso os parâmetros sejam inválidos
 Em caso de sucesso os detalhes do pedido com status alterado são retornado com status 200.
 
 ### **Demais endpoints**
- 1. `POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
- 2. `POST /api/v1/restaurants/{restaurant_code}/orders/{order_code}/ready`
+ 1. `PATCH /api/v1/restaurants/{restaurant_code}/orders/{order_code}/preparing`
+ 2. `PATCH /api/v1/restaurants/{restaurant_code}/orders/{order_code}/ready`
 
 ---
 
@@ -247,9 +251,31 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 ```
 
+## TODO
+
+Tarefas extras/bônus que não foram implementadas:
+
+- Cardápio sazonal
+- Usuário consulta pedido
+- Descontos
+- Busca de itens pelas tags
+
+Os enunciados também deixam abertura para que funcionalidades não-especificadas sejam implementadas. Segue uma lista incompleta:
+
+- Remover itens de um menu
+- Arquivamento de uma porção
+- Remover item de um pedido não finalizado
+...
+
+A interface da página de um restaurante merece ser repensada.
+
 
 ## Licença
   Este projeto está licenciado sob a [Licença MIT](https://mit-license.org/).
+
+## Contato
+
+César Faustino - contato@cesarmf.com.br
 
    
 
